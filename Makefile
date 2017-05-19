@@ -3,7 +3,7 @@
 BLUE=\033[0;34m
 NOCOLOR=\033[0m
 
-BOOK_URL=https://ds8.gitbooks.io/textbook/content/
+BOOK_URL=https://data-8r.gitbooks.io/textbook/content/
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of:"
