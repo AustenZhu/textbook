@@ -25,5 +25,5 @@ effective inferential techniques.
 The world has too many unanswered questions and difficult challenges to leave
 this critical reasoning to only a few specialists. All educated members of 
 society can build the capacity to reason about data. The tools, techniques, 
-and data sets are all readily available; this text aims to make them 
-accessible to everyone.
+and data sets are all readily available; this text aims to introduce you to
+them.
