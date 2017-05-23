@@ -1,0 +1,140 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://datahub.berkeley.edu/user-redirect/interact?repo=textbook&path=notebooks/Gender_in_Comic_Books.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this example, we will explore statistics about characters in comic books.  A 2014 <a href="https://fivethirtyeight.com/features/women-in-comic-books/">article</a> on FiveThirtyEight examined the representation of women in comics published by DC and Marvel, the two largest publishers of comic books.  The authors collected a dataset about characters from the publishers' <a href="http://marvel.wikia.com/Main_Page">Wikia</a> <a href="http://dc.wikia.com/wiki/Main_Page">pages</a> and made it publicly available on <a href="https://github.com/fivethirtyeight/data/tree/master/comic-characters">GitHub</a>.  Using Python, we can load the data directly from the web.</p>
+<p>This example is meant to illustrate some of the broad themes of this text. You will see code examples like this throughout this text. For now, don't worry if the details of the program don't yet make sense. In fact, important details of this program have been hidden from view. Instead, focus on interpreting the results displayed below the code. Later sections of the text will describe most of the features of the Python programming language used below.</p>
+<p>First, we read the data about each publisher. The <code>#</code> symbol below starts a comment, which is ignored by the computer but helpful for people reading the code. The <code>=</code> symbols assign a name on the left to the result of some computation described on the right. A <em>uniform resource locator</em> or <em>URL</em> is an address on the Internet for some content; in this case, a table of information about comic book characters. (In Python, a name cannot contain any spaces, and so we will often use an underscore <code>_</code> to stand in for a space.) So we name the URL for the Marvel data <code>marvel_url</code>, and we name the loaded dataset itself <code>marvel</code>.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Load datasets from FiveThirtyEight about comics:</span>
+
+<span class="n">marvel_url</span> <span class="o">=</span> <span class="s2">"https://github.com/fivethirtyeight/data/raw/master/comic-characters/marvel-wikia-data.csv"</span>
+<span class="n">dc_url</span> <span class="o">=</span> <span class="s2">"https://github.com/fivethirtyeight/data/raw/master/comic-characters/dc-wikia-data.csv"</span>
+
+<span class="n">marvel</span> <span class="o">=</span> <span class="n">load_and_clean_table</span><span class="p">(</span><span class="n">marvel_url</span><span class="p">)</span>
+<span class="n">dc</span> <span class="o">=</span> <span class="n">load_and_clean_table</span><span class="p">(</span><span class="n">dc_url</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To display one of the tables, we write its name:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">marvel</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Publisher</th> <th>Name</th> <th>Gender</th> <th>Appearances</th> <th>Year</th> <th>Month</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Marvel   </td> <td>Spider-Man (Peter Parker)          </td> <td>Male  </td> <td>4043       </td> <td>1962</td> <td>8    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Captain America (Steven Rogers)    </td> <td>Male  </td> <td>3360       </td> <td>1941</td> <td>3    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Wolverine (James \"Logan\" Howlett)</td> <td>Male  </td> <td>3061       </td> <td>1974</td> <td>10   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Iron Man (Anthony \"Tony\" Stark)  </td> <td>Male  </td> <td>2961       </td> <td>1963</td> <td>3    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Thor (Thor Odinson)                </td> <td>Male  </td> <td>2258       </td> <td>1950</td> <td>11   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Benjamin Grimm (Earth-616)         </td> <td>Male  </td> <td>2255       </td> <td>1961</td> <td>11   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Reed Richards (Earth-616)          </td> <td>Male  </td> <td>2072       </td> <td>1961</td> <td>11   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Hulk (Robert Bruce Banner)         </td> <td>Male  </td> <td>2017       </td> <td>1962</td> <td>5    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Scott Summers (Earth-616)          </td> <td>Male  </td> <td>1955       </td> <td>1963</td> <td>9    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Marvel   </td> <td>Jonathan Storm (Earth-616)         </td> <td>Male  </td> <td>1934       </td> <td>1961</td> <td>11   </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (15551 rows omitted)</p></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dc</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Publisher</th> <th>Name</th> <th>Gender</th> <th>Appearances</th> <th>Year</th> <th>Month</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>DC       </td> <td>Batman (Bruce Wayne)          </td> <td>Male  </td> <td>3093       </td> <td>1939</td> <td>5    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>Superman (Clark Kent)         </td> <td>Male  </td> <td>2496       </td> <td>1986</td> <td>10   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>Green Lantern (Hal Jordan)    </td> <td>Male  </td> <td>1565       </td> <td>1959</td> <td>10   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>James Gordon (New Earth)      </td> <td>Male  </td> <td>1316       </td> <td>1987</td> <td>2    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>Richard Grayson (New Earth)   </td> <td>Male  </td> <td>1237       </td> <td>1940</td> <td>4    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>Wonder Woman (Diana Prince)   </td> <td>Female</td> <td>1231       </td> <td>1941</td> <td>12   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>Aquaman (Arthur Curry)        </td> <td>Male  </td> <td>1121       </td> <td>1941</td> <td>11   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>Timothy Drake (New Earth)     </td> <td>Male  </td> <td>1095       </td> <td>1989</td> <td>8    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>Dinah Laurel Lance (New Earth)</td> <td>Female</td> <td>1075       </td> <td>1969</td> <td>11   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>DC       </td> <td>Flash (Barry Allen)           </td> <td>Male  </td> <td>1028       </td> <td>1956</td> <td>10   </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (6817 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each table has a record (displayed in one horizontal row) for every character in the dataset from its respective publisher.  Each vertical column contains a piece of information about each character.  We can see, for example, that Batman has appeared 3,093 times in DC comics since his appearance in May (month 5) 1939.</p></div></div></div>

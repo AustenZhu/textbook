@@ -1,0 +1,173 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://datahub.berkeley.edu/user-redirect/interact?repo=textbook&path=notebooks/Explorations.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will examine how the gender balance among characters evolved over time.  Before using a dataset to answer any complicated question, it's important to do more basic explorations to understand what's in the dataset.  Let's first look at the number of new characters overall.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"There were </span><span class="si">{:d}</span><span class="s2"> Marvel characters and </span><span class="si">{:d}</span><span class="s2"> DC characters."</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                  <span class="n">marvel</span><span class="o">.</span><span class="n">num_rows</span><span class="p">,</span>           <span class="n">dc</span><span class="o">.</span><span class="n">num_rows</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>There were 15561 Marvel characters and 6827 DC characters.
+</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Instead of printing out these numbers, we can make a bar chart:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_comics</span> <span class="o">=</span> <span class="n">marvel</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dc</span><span class="p">)</span>
+<span class="n">all_comics</span><span class="o">.</span><span class="n">group_barh</span><span class="p">(</span><span class="s2">"Publisher"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Number of comic book characters created by Marvel and DC"</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Explorations_5_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The bar chart conveys the same information in a picture rather than text.  Notice that your brain understands the ratio of DC characters to Marvel characters from the bar chart, apparently without any conscious arithmetic.</p>
+<p>Now let us check the overall balance of genders.  First, we'll look at that information in another table.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_comics</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Gender"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Gender</th> <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Agender    </td> <td>36   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Female     </td> <td>5575 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Genderfluid</td> <td>2    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Genderless </td> <td>20   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Male       </td> <td>15835</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Transgender</td> <td>1    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Unknown    </td> <td>919  </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Again, a bar chart is easier to read:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_comics</span><span class="o">.</span><span class="n">group_barh</span><span class="p">(</span><span class="s2">"Gender"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Explorations_9_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are more than twice as many male characters as female characters.</p>
+<p>Visualization becomes more critical for comprehension as information becomes richer.  To compare gender representation in DC and Marvel, we could make a table similar to the one above:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_comics</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">"Publisher"</span><span class="p">,</span> <span class="s2">"Gender"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Gender</th> <th>DC</th> <th>Marvel</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Agender    </td> <td>0   </td> <td>36    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Female     </td> <td>1947</td> <td>3628  </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Genderfluid</td> <td>0   </td> <td>2     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Genderless </td> <td>20  </td> <td>0     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Male       </td> <td>4735</td> <td>11100 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Transgender</td> <td>1   </td> <td>0     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Unknown    </td> <td>124 </td> <td>795   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>However, a bar chart is more natural for comparing the larger categories:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">all_comics</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">"Publisher"</span><span class="p">,</span> <span class="s2">"Gender"</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Gender"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Explorations_13_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Marvel has many more female characters, but DC has fewer characters overall.  If we want to know the <em>representation</em> of each gender, we should look at the numbers as a proportion of all characters from each publisher.  This is called <em>normalizing</em> the data.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">gender_by_publisher</span> <span class="o">=</span> <span class="n">all_comics</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">"Publisher"</span><span class="p">,</span> <span class="s2">"Gender"</span><span class="p">)</span>
+<span class="n">gender_by_publisher</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s2">"DC"</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="n">gender_by_publisher</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"DC"</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">gender_by_publisher</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"DC"</span><span class="p">)))</span>\
+                   <span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s2">"Marvel"</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="n">gender_by_publisher</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"Marvel"</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">gender_by_publisher</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"Marvel"</span><span class="p">)))</span>\
+                   <span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Gender"</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Percentage of genders among new characters, by publisher"</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Explorations_15_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Normalizing the data was important, and it will be important in considering our main question about change over time.  DC actually has more female characters than Marvel does, as a percentage of all its characters.  But both percentages are below 30%.</p>
+<p>Finally, the representation of people in comic books depends not just on the number of characters but also on the role and prevalence of characters.  This dataset has some coarse information about how characters are portrayed - as villains or heroes, for example - and the number of times characters appeared.  Let us count how many times characters of each gender appeared.  Again, we will normalize by the total number of appearances.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">appearances</span> <span class="o">=</span> <span class="n">all_comics</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s2">"Publisher"</span><span class="p">,</span> <span class="s2">"Gender"</span><span class="p">,</span> <span class="s2">"Appearances"</span><span class="p">,</span> <span class="nb">sum</span><span class="p">)</span>
+<span class="n">appearances</span>
+<span class="n">appearances</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s2">"DC"</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="n">appearances</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"DC"</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">appearances</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"DC"</span><span class="p">)))</span>\
+                   <span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s2">"Marvel"</span><span class="p">,</span> <span class="mi">100</span><span class="o">*</span><span class="n">appearances</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"Marvel"</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">appearances</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"Marvel"</span><span class="p">)))</span>\
+                   <span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Gender"</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Percentage of character appearances for each gender, by publisher"</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Explorations_17_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Comparing this chart to the previous one, we see that appearance rates don't seem to make much difference.  For simplicity, we will ignore them.</p>
+<p>Before we finish our exploration, we should notice an important problem with the bar chart visualizations: the rarer categories are so small that their bars appear empty.  In some ways this is accurate, since there have been vanishingly few transgender or agender characters in comic books.  But the tables show that the numbers are not 0; there are 36 agender Marvel characters and 20 genderless DC characters.  This also suggests that Marvel uses the term "agender" for characters who have no gender, while DC uses "genderless."  An analysis of representation of agender people would probably need to group those two categories together.</p></div></div></div>
