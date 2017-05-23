@@ -1,1 +1,1 @@
-beautiful-soup
+beautifulsoup4
