@@ -1,0 +1,138 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://datahub.berkeley.edu/user-redirect/interact?repo=textbook&path=notebooks/hybrid.csv&path=notebooks/Car_Efficiency.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Car-Efficiency">Car Efficiency<a class="anchor-link" href="#Car-Efficiency">¶</a></h3><p>Cars generate greenhouse gasses in a <a href="http://carboncounter.com">variety</a> of ways, but fuel burning is the largest.  The fuel efficiency of a car - the amount of fuel it burns per mile driven - is therefore an important factor in its carbon footprint.  Higher fuel efficiency also saves drivers money.  It seems reasonable to posit a <em>causal effect</em> of fuel efficiency on the price of a car: if we make a car more fuel-efficient, drivers will be willing to pay higher prices for it, so manufacturers will charge higher prices.</p>
+<p>Let us see whether the data match this story.</p>
+<p>The table <code>hybrid</code> contains data on hybrid passenger cars sold in the United States from 1997 to 2013. The data were adapted from the online data archive of <a href="http://www.stat.ufl.edu/%7Ewinner/">Prof. Larry Winner</a> of the University of Florida. The columns:</p>
+<ul>
+<li><code>vehicle</code>: model of the car</li>
+<li><code>year</code>: year of manufacture</li>
+<li><code>msrp</code>: manufacturer's suggested retail price in 2013 dollars</li>
+<li><code>acceleration</code>: acceleration rate in km per hour per second</li>
+<li><code>mpg</code>: fuel economy in miles per gallon</li>
+<li><code>class</code>: the model's class.</li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hybrid</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">'hybrid.csv'</span><span class="p">)</span>
+<span class="n">hybrid</span><span class="o">.</span><span class="n">set_format</span><span class="p">(</span><span class="s2">"msrp"</span><span class="p">,</span> <span class="n">CurrencyFormatter</span><span class="p">)</span>
+<span class="n">hybrid</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>vehicle</th> <th>year</th> <th>msrp</th> <th>acceleration</th> <th>mpg</th> <th>class</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Prius (1st Gen)</td> <td>1997</td> <td>$24,509.74</td> <td>7.46        </td> <td>41.26</td> <td>Compact   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Tino           </td> <td>2000</td> <td>$35,354.97</td> <td>8.2         </td> <td>54.1 </td> <td>Compact   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Prius (2nd Gen)</td> <td>2000</td> <td>$26,832.25</td> <td>7.97        </td> <td>45.23</td> <td>Compact   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Insight        </td> <td>2000</td> <td>$18,936.41</td> <td>9.52        </td> <td>53   </td> <td>Two Seater</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Civic (1st Gen)</td> <td>2001</td> <td>$25,833.38</td> <td>7.04        </td> <td>47.04</td> <td>Compact   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Insight        </td> <td>2001</td> <td>$19,036.71</td> <td>9.52        </td> <td>53   </td> <td>Two Seater</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Insight        </td> <td>2002</td> <td>$19,137.01</td> <td>9.71        </td> <td>53   </td> <td>Two Seater</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Alphard        </td> <td>2003</td> <td>$38,084.77</td> <td>8.33        </td> <td>40.46</td> <td>Minivan   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Insight        </td> <td>2003</td> <td>$19,137.01</td> <td>9.52        </td> <td>53   </td> <td>Two Seater</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Civic          </td> <td>2003</td> <td>$14,071.92</td> <td>8.62        </td> <td>41   </td> <td>Compact   </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (143 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The graph below is a scatter plot.  Each point represents a single car type in the <code>hybrid</code> table, like the 2000 Tino.  (That car's point is highlighted for clarity.)  The car's fuel efficiency, in miles per gallon, is plotted on the horizontal (x) axis.  Its price is plotted on the vertical (y) axis.  Find the 2000 Tino in the table and verify that it's plotted at the place you expect.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="n">vehicle</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">vehicle</span> <span class="o">==</span> <span class="s2">"Tino"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"red"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"white"</span>
+<span class="n">hybrid</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'mpg'</span><span class="p">,</span> <span class="s1">'msrp'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">hybrid</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="s1">'vehicle'</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Car_Efficiency_4_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The scatter plot allows us to examine the association between fuel efficiency and price.  At the left side, <code>mpg</code> (fuel efficiency) is lower, and <code>msrp</code> (price) is generally higher.  At the right side, the opposite is true; most of the prices are lower.  For example, the Tino has high fuel efficiency, but its price is relatively low.  It appears that higher fuel efficiency is associated with <em>lower</em> prices!</p>
+<p>Should we conclude from this that our causal story is backward, and that drivers in fact prefer lower fuel efficiency?  No!  We have found the opposite of the <em>association</em> we expected, but that is only weak evidence against the causal story.  Let us see why.</p>
+<p>The following graph is another scatter plot.  Each point still represents one car, but now the horizontal axis shows how quickly the car accelerates.  We have highlighted the 2000 Tino again for clarity.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hybrid</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'acceleration'</span><span class="p">,</span> <span class="s1">'msrp'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">hybrid</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="s1">'vehicle'</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Car_Efficiency_6_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this plot, we see that higher acceleration is associated with higher prices.  The Tino is again a useful example: it's one of the slower cars, and its price is also relatively low.</p>
+<p>Using this information, can you tell a causal story that's compatible with our earlier one?</p>
+<p>How about this:</p>
+<ol>
+<li>Drivers are willing to pay a bit more for high fuel efficiency.</li>
+<li>Drivers are willing to pay a <em>lot</em> more for high acceleration.</li>
+<li>Giving a car higher fuel efficiency generally hurts its acceleration.</li>
+</ol>
+<p>In this story, drivers like the fuel efficiency of more fuel-efficient cars, but they're turned off by their slower acceleration.</p></div></div>
+<div class="output_png output_subarea output_execute_result">
+<img src="/notebooks-images/Car_Efficiency_8_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us make one last scatter plot to check whether the data are compatible with part 3 of our story.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hybrid</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'mpg'</span><span class="p">,</span> <span class="s1">'acceleration'</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">hybrid</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="s1">'vehicle'</span><span class="p">),</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Car_Efficiency_10_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We see that higher fuel efficiency is indeed associated with lower acceleration.  Maybe our story is true.</p>
+<p>In this kind of analysis, we call acceleration a <em>confounding factor</em> in the relationship between fuel efficiency and price, because it "confounds" our attempt to study the causal relationship through observed associations.  It seems that it has created an <em>association</em> between fuel efficiency and price that is the opposite of the <em>causal</em> relationship between them.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="A-warning">A warning<a class="anchor-link" href="#A-warning">¶</a></h3><p>We should consider whether we might <em>still</em> be wrong.  We have looked at just one confounding factor: acceleration.  Perhaps there is another - or hundreds - causally connected to price and fuel efficiency.</p>
+<p>If we could examine and untangle the whole web of factors involved in car pricing, then we would be justified in making a firm conclusion about causality.  But that would be an arduous task.  In general, <em>association is not causation</em>.</p>
+<p>The web site <a href="http://tylervigen.com/spurious-correlations">Spurious Correlations</a> by Tyler Vigen catalogues thousands of assocations that are clearly not based on direct causal relationships.  One such association is between doctoral degrees awarded in Sociology departments in the US, and deaths caused by anticoagulant drugs.</p>
+<p><img alt="Assocation between Sociology doctorates and anticoagulant deaths" src="http://tylervigen.com/correlation_project/correlation_images/sociology-doctorates-awarded-us_deaths-caused-by-anticoagulants.png"/></p>
+<p>One of the authors of this text was prescribed anticoagulants after a broken leg.  Would we have reduced our risk of death by petitioning Sociology departments to suspend degree awards until the course of medication was completed?  You decide.</p></div></div></div>
