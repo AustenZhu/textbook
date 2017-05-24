@@ -36,6 +36,13 @@ section. For example, one of the questions was whether chocolate directly causes
 improvements in health, not just whether there there is a relation between
 chocolate and health.
 
+The precise meaning of causality is a difficult philosophical question, and we
+can't address it in this text, but we will need a working definition.  Suppose
+we claim that chocolate *causes* your health to improve.  Then we really mean:
+"*If* you eat chocolate, *then* your health will be better than it will be if
+you don't eat chocolate." Causal claims therefore aid in decision making, and
+that's why they're important.
+
 The establishment of causality often takes place in two stages. First, an
 association is observed. Next, a more careful analysis leads to a decision about
 causality.
