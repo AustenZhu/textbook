@@ -1,0 +1,36 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://datahub.berkeley.edu/user-redirect/interact?repo=textbook&path=notebooks/Similarity_and_Randomization.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Similarity-and-Randomization">Similarity and Randomization<a class="anchor-link" href="#Similarity-and-Randomization">¶</a></h3></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="An-experiment-in-fuel-efficiency">An experiment in fuel efficiency<a class="anchor-link" href="#An-experiment-in-fuel-efficiency">¶</a></h4><p>Here's one way to think about the difficulty in our previous analysis of fuel efficiency: the cars with high fuel efficiency were not <em>otherwise similar</em> to the cars with low fuel efficiency.  The high-efficiency cars had slower acceleration.</p>
+<p>Suppose we were free to design an <em>experiment</em> to learn about the causal effect of high fuel efficiency on price.  We would want to create many cars identical to each other in every way <em>except</em> their fuel efficiency.  Then any observed association between price and fuel efficiency would indicate that fuel efficiency causes a change in price, since nothing else could have made a difference.</p>
+<p>Car companies are in the business of building many copies of the same car, so this is a feasible (but potentially expensive) experiment.  We might artificially impede the efficiency of some cars (or simply advertise varying levels of efficiency) and observe the effect on the prices buyers are willing to pay.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Randomized-experiments">Randomized experiments<a class="anchor-link" href="#Randomized-experiments">¶</a></h4><p>In many other domains, it is difficult to create many identical units for study, varying only the treatment of interest.  For example, to study the effect of a medical treatment on humans, we would need many identical humans!</p>
+<p>Instead, the most commonly-used tactic is to <em>randomly assign</em> varying levels of the treatment.  It is simplest to think about random assignment when there are only two levels of treatment, created by performing some change or no change.  The individuals receiving the change are called the <em>treatment group</em>, and those receiving no change are called the <em>control group</em>.</p>
+<p>The key point of randomized assignment is this: <strong>By randomly assigning individuals to treatment or control, we ensure that the two groups are <em>approximately similar</em> in all ways.</strong></p>
+<p>If you are able to randomize individuals into the treatment and control groups,
+you are running a <em>randomized controlled experiment</em>, also known as a
+<em>randomized controlled trial</em> (RCT). Sometimes, people’s responses in an
+experiment are influenced by their knowing which group they are in. So if you
+are studying people, you might want to run a <em>blind</em> experiment in which
+individuals do not know whether they
+are in the treatment group or the control group. To make this work, you will
+have to give the control group a <em>placebo</em>, which is something that looks
+exactly like the treatment but in fact has no effect.</p>
+<p>Randomized controlled experiments have long been a gold standard in the medical
+field, for example in establishing whether a new drug works. They are also
+becoming more commonly used in other fields such as economics.</p></div></div></div>

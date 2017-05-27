@@ -11,8 +11,11 @@
 </script>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Car-Efficiency">Car Efficiency<a class="anchor-link" href="#Car-Efficiency">¶</a></h3><p>Cars generate greenhouse gasses in a <a href="http://carboncounter.com">variety</a> of ways, but fuel burning is the largest.  The fuel efficiency of a car - the amount of fuel it burns per mile driven - is therefore an important factor in its carbon footprint.  Higher fuel efficiency also saves drivers money.  It seems reasonable to posit a <em>causal effect</em> of fuel efficiency on the price of a car: if we make a car more fuel-efficient, drivers will be willing to pay higher prices for it, so manufacturers will charge higher prices.</p>
-<p>Let us see whether the data match this story.</p>
+<h3 id="Car-Efficiency">Car Efficiency<a class="anchor-link" href="#Car-Efficiency">¶</a></h3><p>Cars generate greenhouse gasses in a <a href="http://carboncounter.com">variety</a> of ways, but fuel burning is the largest.  The fuel efficiency of a car - the amount of fuel it burns per mile driven - is therefore an important factor in its carbon footprint.  Higher fuel efficiency also saves drivers money.  It seems reasonable to posit a <em>causal effect</em> of fuel efficiency on the price of a car:</p>
+<blockquote><p>If a car becomes more fuel-efficient, then drivers will be willing to pay higher prices for it (so manufacturers will charge higher prices).</p>
+</blockquote>
+<p>In causal analysis, the thing that (potentially) creates an effect is called the <em>treatment</em>.  So here, we imagine applying the treatment of making cars more fuel-efficient.</p>
+<p>Let us see whether the data match our story about cars.</p>
 <p>The table <code>hybrid</code> contains data on hybrid passenger cars sold in the United States from 1997 to 2013. The data were adapted from the online data archive of <a href="http://www.stat.ufl.edu/%7Ewinner/">Prof. Larry Winner</a> of the University of Florida. The columns:</p>
 <ul>
 <li><code>vehicle</code>: model of the car</li>
@@ -132,7 +135,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="A-warning">A warning<a class="anchor-link" href="#A-warning">¶</a></h3><p>We should consider whether we might <em>still</em> be wrong.  We have looked at just one confounding factor: acceleration.  Perhaps there is another - or hundreds - causally connected to price and fuel efficiency.</p>
-<p>If we could examine and untangle the whole web of factors involved in car pricing, then we would be justified in making a firm conclusion about causality.  But that would be an arduous task.  In general, <em>association is not causation</em>.</p>
+<p>If we could examine and untangle the whole web of factors involved in car pricing, then we would be justified in making a firm conclusion about causality.  But that would be an arduous task.  Many studies attempt it nonetheless, but they often fail.  In general, it is safest to assume that <em>association is not causation</em>.</p>
 <p>The web site <a href="http://tylervigen.com/spurious-correlations">Spurious Correlations</a> by Tyler Vigen catalogues thousands of assocations that are clearly not based on direct causal relationships.  One such association is between doctoral degrees awarded in Sociology departments in the US, and deaths caused by anticoagulant drugs.</p>
 <p><img alt="Assocation between Sociology doctorates and anticoagulant deaths" src="http://tylervigen.com/correlation_project/correlation_images/sociology-doctorates-awarded-us_deaths-caused-by-anticoagulants.png"/></p>
 <p>One of the authors of this text was prescribed anticoagulants after a broken leg.  Would we have reduced our risk of death by petitioning Sociology departments to suspend degree awards until the course of medication was completed?  You decide.</p></div></div></div>
