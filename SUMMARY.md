@@ -11,3 +11,9 @@
   * [Car Efficiency](chapters/02/1/car-efficiency.md)
   * [Similarity and Randomization](chapters/02/2/similarity-and-randomization.md)
   * [Welfare Subsidies in Mexico](chapters/02/3/welfare-subsidies-in-mexico.md)
+* [Programming in Python](chapters/03/programming-in-python.md)
+  * [Expressions](chapters/03/1/expressions.md)
+  * [Names](chapters/03/2/names.md)
+    * [Example: Growth Rates](chapters/03/2/1/example-growth-rates.md)
+  * [Call Expressions](chapters/03/3/call-expressions.md)
+
