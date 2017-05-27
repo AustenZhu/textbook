@@ -13,7 +13,8 @@
   * [Welfare Subsidies in Mexico](chapters/02/3/welfare-subsidies-in-mexico.md)
 * [Programming in Python](chapters/03/programming-in-python.md)
   * [Expressions](chapters/03/1/expressions.md)
-  * [Names](chapters/03/2/names.md)
-    * [Example: Growth Rates](chapters/03/2/1/example-growth-rates.md)
-  * [Call Expressions](chapters/03/3/call-expressions.md)
+  * [Numbers](chapters/03/2/numbers.md)
+  * [Names](chapters/03/3/names.md)
+    * [Example: Growth Rates](chapters/03/3/1/example-growth-rates.md)
+  * [Call Expressions](chapters/03/4/call-expressions.md)
 
