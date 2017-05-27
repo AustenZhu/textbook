@@ -9,3 +9,5 @@
     * [Gender Over Time](chapters/01/4/2/gender-over-time.md)
 * [Causality and Experiments](chapters/02/causality-and-experiments.md)
   * [Car Efficiency](chapters/02/1/car-efficiency.md)
+  * [Similarity and Randomization](chapters/02/2/similarity-and-randomization.md)
+  * [Welfare Subsidies in Mexico](chapters/02/3/welfare-subsidies-in-mexico.md)
