@@ -25,7 +25,7 @@ compensate for the children’s lost wages, and more money was given for girls
 attending school than for boys. The remaining villages did not get this
 treatment, and formed the control group.</p>
 <p>Because of the randomization, there were no confounding factors; all possible
-confounding factors are <em>approximately the same</em> the treatment and control groups.
+confounding factors are <em>approximately the same</em> for the treatment and control groups.
 The following scatter plot, for example, shows the <em>distance to the nearest city</em>
 (a potentially-important factor in education, health, and economic growth) in a
 small sample of the villages in the treatment and control groups.  There is no distinguishable pattern of differences.</p></div></div>
@@ -40,7 +40,9 @@ small sample of the villages in the treatment and control groups.  There is no d
 <img src="/notebooks-images/Welfare_Subsidies_in_Mexico_2_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Actually, this scatter plot is not so helpful for seeing the difference in the pattern of distances.  A better visualization for data like this is a <em>histogram</em>.  The plot below shows two overlapping histograms, one for the treatment group and one for the control.  Each histogram is like one of the columns of dots in the scatter plot, but flipped 90 degress onto its side, and with bars to show the concentration of dots.  Since the blue and gold bars mostly overlap, there isn't much difference in the pattern of distances.</p></div></div>
+<h3 id="Histograms:-A-better-way-to-visualize-and-compare-sets-of-numbers">Histograms: A better way to visualize and compare sets of numbers<a class="anchor-link" href="#Histograms:-A-better-way-to-visualize-and-compare-sets-of-numbers">¶</a></h3><p>Actually, this scatter plot is not so helpful for seeing the difference in the pattern of distances.  You have to read it very carefully to see where the dots are concentrated.</p>
+<p>A better visualization for data like this is a <em>histogram</em>, which directly shows the concentration of numbers.</p>
+<p>The plot below shows two overlapping histograms, one for the treatment group and one for the control.  Each histogram is like one of the columns of dots in the scatter plot, but flipped 90 degress onto its side, and with bars to show the concentration of dots.  Since the blue and gold bars mostly overlap, there isn't much difference in the pattern of distances.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">investments_full</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s2">"progresa.csv"</span><span class="p">)</span>
@@ -55,8 +57,9 @@ small sample of the villages in the treatment and control groups.  There is no d
 establish that PROGRESA caused an increase in school enrollment.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Investment-income">Investment income<a class="anchor-link" href="#Investment-income">¶</a></h3><p>PROGRESA provides an opportunity for us to study the other effects of giving money to poor families.  For example, a family receiving money for school and health care might spend some of the money on other investments, like livestock or land improvements.  A group of Harvard researchers investigated the effect of PROGRESA benefits on families' later <em>investment income</em>.</p>
-<p>Below is a scatter plot and matching histogram for investment income.  The blue bars are generally further to the right than the yellow bars.  That means villages in the treatment group tended to have higher investment income than villages in the control group.</p></div></div>
+<h3 id="An-outcome-of-the-experiment:-Investment-income">An outcome of the experiment: Investment income<a class="anchor-link" href="#An-outcome-of-the-experiment:-Investment-income">¶</a></h3><p>PROGRESA provides an opportunity for us to study the other effects of giving money to poor families.  For example, a family receiving money for school and health care might spend some of the money on other investments, like livestock or land improvements.  In later years, families would reap benefits from these investments in the form of <em>investment income</em>.</p>
+<p>A group of Harvard researchers therefore investigated the effect of PROGRESA benefits on families' later investment income.</p>
+<p>Below is a scatter plot and matching histogram for investment income.  The scatter plot is again difficult to read, but the histogram tells a clear story.  The blue bars are generally further to the right than the yellow bars.  That means villages in the treatment group tended to have higher investment income than villages in the control group.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">investments</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'Group'</span><span class="p">,</span> <span class="s2">"Average investment income (pesos/year)"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">2</span><span class="p">)</span>
@@ -74,11 +77,4 @@ establish that PROGRESA caused an increase in school enrollment.</p></div></div>
 <p>Again, since randomization ensures that confounding factors are approximately equal across the two groups, we can safely say that the higher investment income was <em>caused</em> by PROGRESA.</p>
 <p>PROGRESA was later adopted nationwide in Mexico under the name Oportunidades.</p></div></div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Why-don't-we-conduct-RCTs-to-answer-every-question?">Why don't we conduct RCTs to answer every question?<a class="anchor-link" href="#Why-don't-we-conduct-RCTs-to-answer-every-question?">¶</a></h3><p>In many situations it might not be possible to carry out a randomized controlled
-experiment, even when the aim is to investigate causality. For example, suppose
-you want to study the effects of alcohol consumption during pregnancy, and you
-randomly assign some pregnant women to your "alcohol" group. You should not
-expect cooperation from them if you present them with a drink. In such
-situations you will almost invariably be conducting an observational study, not
-an experiment. Be alert for confounding factors.</p></div></div></div>
+<div class="text_cell_render border-box-sizing rendered_html"></div></div></div>
