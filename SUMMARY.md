@@ -1,16 +1,16 @@
 # Summary
 
-* Data Science
-  * [Introduction](chapters/01/1/intro.md)
-  * [Why Data Science?](chapters/01/2/why-data-science.md)
-  * [Computational Tools](chapters/01/3/computational-tools.md)
-  * [Gender in Comic Books](chapters/01/4/gender-in-comic-books.md)
-    * [Explorations](chapters/01/4/1/explorations.md)
-    * [Gender Over Time](chapters/01/4/2/gender-over-time.md)
+* [Introduction to Data Science](chapters/01/intro.md)
+  * [Why Data Science?](chapters/01/1/why-data-science.md)
+  * [Computational Tools](chapters/01/2/computational-tools.md)
+  * [Gender in Comic Books](chapters/01/3/gender-in-comic-books.md)
+    * [Explorations](chapters/01/3/1/explorations.md)
+    * [Gender Over Time](chapters/01/3/2/gender-over-time.md)
 * [Causality and Experiments](chapters/02/causality-and-experiments.md)
   * [Car Efficiency](chapters/02/1/car-efficiency.md)
   * [Similarity and Randomization](chapters/02/2/similarity-and-randomization.md)
   * [Welfare Subsidies in Mexico](chapters/02/3/welfare-subsidies-in-mexico.md)
+  * [Endnote](chapters/02/4/endnote.md)
 * [Programming in Python](chapters/03/programming-in-python.md)
   * [Expressions](chapters/03/1/expressions.md)
   * [Numbers](chapters/03/2/numbers.md)

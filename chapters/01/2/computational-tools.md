@@ -10,12 +10,19 @@ million-person-strong community of software developers and data scientists.
 
 **Getting Started.** The easiest and recommended way to start writing programs
 in Python is to log into the companion site for this text,
-[datahub.berkeley.edu](https://datahub.berkeley.edu). If you have a @berkeley.edu
-email address, you already have full access to the programming environment hosted 
-on that site. If not, please 
-[complete this form](https://goo.gl/forms/saQpxdqzS2rKxjTc2) to request access.
+[data8r.datahub.berkeley.edu](https://data8r.datahub.berkeley.edu). If you have a
+@berkeley.edu email address, you already have full access to the programming
+environment hosted on that site. If not, you may be able to obtain access.  Try
+contacting a course instructor or, as a last resort, the textbook author.
 
-You are not at all restricted to using this web-based programming environment.
+**The `Interact` button.** Many sections of this text include a button marked
+`Interact`.  If you click this button, you will be transported to an interactive
+notebook version of that section, running on
+[data8r.datahub.berkeley.edu](https://data8r.datahub.berkeley.edu).  This will
+allow you to run and modify (in your own sandbox) any of the code in the textbook.
+It's a better way to read this textbook.
+
+You are not at all restricted to using a web-based programming environment.
 A Python program can be executed by any computer, regardless of its
 manufacturer or operating system, provided that support for the language is
 installed. If you wish to install the version of Python and its accompanying

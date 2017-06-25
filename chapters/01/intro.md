@@ -1,4 +1,7 @@
-Chapter 1: Introduction
+Chapter 1
+=====
+
+Introduction to Data Science
 =======================
 
 Data are descriptions of the world around us, collected through observation and
