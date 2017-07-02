@@ -11,17 +11,57 @@
 </script>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From an existing string, related strings can be constructed using string methods, which are functions that operate on strings. These methods are called by placing a dot after the string, then calling the function.</p>
+<p>From an existing string, related strings can be constructed using string <em>methods</em>, which are functions that operate on strings. These methods are called by placing a dot after the string, then calling the function.</p>
 <p>For example, the following method generates an uppercased version of a string.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">"loud"</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">"Loud"</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 </pre></div></div></div>
 <div class="output_text output_subarea output_execute_result">
 <pre>'LOUD'</pre></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Perhaps the most important method is <code>replace</code>, which replaces all instances of a substring within the string. The <code>replace</code> method takes two arguments, the text to be replaced and its replacement.</p></div></div>
+<p>Break this down as follows.</p>
+<ul>
+<li><code>"Loud"</code> is a string.</li>
+<li><code>"Loud".upper</code> says, "get the thing named <code>upper</code> from the string <code>"Loud"</code>.</li>
+</ul>
+<p>Adding parentheses at the end <em>calls</em> the method, just like adding parentheses (and perhaps arguments) after a function produces a function call.  In this case, the <code>upper</code> method takes no arguments, so the parentheses should be empty.  The return value of the method call is the string <code>'LOUD'</code>.</p>
+<p>A <em>method</em> and <em>the return value of a method call</em> are completely different things, and the distinction can be confusing.  Try to explain the outputs of the two cells below.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="s2">"Loud"</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>builtin_function_or_method</pre></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="s2">"Loud"</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>str</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Chaining-method-calls">Chaining method calls<a class="anchor-link" href="#Chaining-method-calls">¶</a></h3><p>Since <code>"Loud".upper()</code> is a string, it has the same methods as <code>"loud"</code>.  Those methods can be called, too.  For example, the <code>lower</code> method produces a lowercased copy of a string.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">"Loud"</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>'loud'</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When we call a method of the return value of a method call, that's called "chaining" method calls.  This isn't a special part of Python, but it appears fairly often.  Once you get used to the odd-looking syntax, chaining is nice, because you can read the operations from left to right.  For example, the cell above performs two operations in order:</p>
+<ol>
+<li>Generate an uppercase version of <code>"Loud"</code>.</li>
+<li>Generate a lowercase version of that uppercased string.</li>
+</ol></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Editing-strings-with-replace">Editing strings with <code>replace</code><a class="anchor-link" href="#Editing-strings-with-replace">¶</a></h3></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Perhaps the most important string method is <code>replace</code>, which replaces all instances of a substring within the string. The <code>replace</code> method takes two arguments, the text to be replaced and its replacement.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'hitchhiker'</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'hi'</span><span class="p">,</span> <span class="s1">'ma'</span><span class="p">)</span>
@@ -49,6 +89,22 @@
 </pre></div></div></div>
 <div class="output_text output_subarea output_execute_result">
 <pre>'train'</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We could accomplish the same thing by chaining calls to <code>replace</code>.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">"train"</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"t"</span><span class="p">,</span> <span class="s2">"ing"</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"in"</span><span class="p">,</span> <span class="s2">"de"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>'degrade'</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Again, read this as:</p>
+<ol>
+<li>Replace all instances of <code>"t"</code> in <code>"train"</code> with <code>"ing"</code>, which produces <code>"ingrain"</code></li>
+<li>Replace all instances of <code>"in"</code> in <code>"ingrain"</code> with <code>"de"</code>.</li>
+</ol></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the first time we've seen methods, but methods are not unique to strings.  As we will see shortly, other types of objects can have them.</p></div></div></div>

@@ -11,13 +11,20 @@
 </script>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Boolean values most often arise from comparison operators. Python includes a variety of operators that compare values. For example, <code>3</code> is larger than <code>1 + 1</code>.</p></div></div>
+<p>Sometimes it's helpful to have a computer check whether something is true.  Python uses a type of value called a Boolean value for the results of such checks.  A Boolean value is either <code>True</code> or <code>False</code>.</p>
+<p>Boolean values most often arise from comparison operators. Python includes a variety of operators that compare values. For example, <code>3</code> is larger than <code>1 + 1</code>, but not <code>2 + 2</code>.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div></div></div>
 <div class="output_text output_subarea output_execute_result">
 <pre>True</pre></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The value <code>True</code> indicates that the comparison is valid; Python has confirmed this simple fact about the relationship between <code>3</code> and <code>1+1</code>. The full set of common comparison operators are listed below.</p>
@@ -39,8 +46,8 @@
 <tr>
 <td>Greater than</td>
 <td>&gt;</td>
-<td>3&gt;2</td>
-<td>3&gt;3</td>
+<td>3 &gt; 2</td>
+<td>3 &gt; 3</td>
 </tr>
 <tr>
 <td>Less than or equal</td>
@@ -79,7 +86,7 @@
 <pre>True</pre></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The average of two numbers is always between the smaller number and the larger number. We express this relationship for the numbers <code>x</code> and <code>y</code> below. You can try different values of <code>x</code> and <code>y</code> to confirm this relationship.</p></div></div>
+<p>The average of two numbers is always between the smaller number and the larger number. You can prove that fact, but you can also use a computer to check whether it's true for two given numbers.  The code below does this.  You can try different values of <code>x</code> and <code>y</code> to confirm the relationship.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">12</span>
