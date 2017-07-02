@@ -19,7 +19,7 @@
   * [Call Expressions](chapters/03/4/call-expressions.md)
 * [Data Types](chapters/04/data-types.md)
   * [Strings](chapters/04/1/strings.md)
-  * [String Methods](chapters/04/1/1/string-methods.md)
+    * [String Methods](chapters/04/1/1/string-methods.md)
   * [Comparisons](chapters/04/2/comparisons.md)
   * [Sequences](chapters/04/3/sequences.md)
   * [Arrays](chapters/04/4/arrays.md)
