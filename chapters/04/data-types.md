@@ -1,3 +1,6 @@
+Chapter 4
+---------
+
 Data Types
 ----------
 
