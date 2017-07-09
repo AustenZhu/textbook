@@ -25,3 +25,11 @@
   * [Arrays](chapters/04/4/arrays.md)
   * [Ranges](chapters/04/5/ranges.md)
   * [More on Arrays](chapters/04/6/more-on-arrays.md)
+* [Visualizing Distributions](chapters/05/visualizing-distributions.md)
+  * [Interlude: Tables](chapters/05/1/interlude-tables.md)
+  * [Visualizing Categorical Distributions](chapters/05/2/visualizing-categorical-distributions.md)
+  * [Visualizing Numerical Distributions](chapters/05/3/visualizing-numerical-distributions.md)
+* Tables
+  * Sorting Rows
+  * Selecting Rows
+* Principles of Visualization
