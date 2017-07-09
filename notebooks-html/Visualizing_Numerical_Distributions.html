@@ -11,7 +11,7 @@
 </script>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Visualizing-Numerical-Distributions">Visualizing Numerical Distributions<a class="anchor-link" href="#Visualizing-Numerical-Distributions">¶</a></h3><p>Many of the variables that data scientists study are <em>quantitative</em> or <em>numerical</em>. Their values are numbers on which you can perform arithmetic. Examples that we have seen include the number of periods in chapters of a book, the amount of money made by movies, and the age of people in the United States.</p>
+<p>Many of the variables that data scientists study are <em>quantitative</em> or <em>numerical</em>. Their values are numbers on which you can perform arithmetic. Examples that we have seen include the number of periods in chapters of a book, the amount of money made by movies, and the age of people in the United States.</p>
 <p>The values of a categorical variable can be given numerical codes, but that doesn't make the variable quantitative. In the example in which we studied Census data broken down by age group, the categorial variable <code>SEX</code> had the numerical codes <code>1</code> for 'Male,' <code>2</code> for 'Female,' and <code>0</code> for the aggregate of both groups <code>1</code> and <code>2</code>. While 0, 1, and 2 are numbers, in this context it doesn't make sense to subtract 1 from 2, or take the average of 0, 1, and 2, or perform other arithmetic on the three values. <code>SEX</code> is a categorical variable even though the values have been given a numerical code.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -23,6 +23,7 @@
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">top</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">'top_movies.csv'</span><span class="p">)</span>
 <span class="c1"># Make the numbers in the Gross and Gross (Adjusted) columns look nicer:</span>
 <span class="n">top</span><span class="o">.</span><span class="n">set_format</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">NumberFormatter</span><span class="p">)</span>
+<span class="n">top</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table border="1" class="dataframe">
@@ -76,97 +77,120 @@
 <p>... (190 rows omitted)</p></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Visualizing-the-Distribution-of-the-Adjusted-Receipts">Visualizing the Distribution of the Adjusted Receipts<a class="anchor-link" href="#Visualizing-the-Distribution-of-the-Adjusted-Receipts">¶</a></h3><p>In this section we will draw graphs of the distribution of the numerical variable in the column <code>Gross (Adjusted)</code>. For simplicity, let's create a smaller table that has the information that we need. And since three-digit numbers are easier to work with than nine-digit numbers, let's measure the <code>Adjusted Gross</code> receipts in millions of dollars. Note how <code>round</code> is used to retain only two decimal places.</p></div></div>
+<h3 id="Visualizing-the-distribution-of-the-adjusted-receipts">Visualizing the distribution of the adjusted receipts<a class="anchor-link" href="#Visualizing-the-distribution-of-the-adjusted-receipts">¶</a></h3><p>In this section we will draw graphs of the distribution of the numerical variable in the column <code>Gross (Adjusted)</code>. Since three-digit numbers are easier to work with than nine-digit numbers, let's measure the <code>Adjusted Gross</code> receipts in millions of dollars. Note how <code>round</code> is used to retain only two decimal places.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> 
-                                     <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mf">1e6</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> 
+                           <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"Gross (Adjusted)"</span><span class="p">)</span><span class="o">/</span><span class="mf">1e6</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="n">millions</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table border="1" class="dataframe">
     <thead>
         <tr>
-            <th>Title</th> <th>Adjusted Gross</th>
+            <th>Title</th> <th>Studio</th> <th>Gross</th> <th>Gross (Adjusted)</th> <th>Year</th> <th>Adjusted Gross</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Star Wars: The Force Awakens             </td> <td>906.72        </td>
+            <td>Star Wars: The Force Awakens             </td> <td>Buena Vista (Disney)</td> <td>906,723,418</td> <td>906,723,400     </td> <td>2015</td> <td>906.72        </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Avatar                                   </td> <td>846.12        </td>
+            <td>Avatar                                   </td> <td>Fox                 </td> <td>760,507,625</td> <td>846,120,800     </td> <td>2009</td> <td>846.12        </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Titanic                                  </td> <td>1178.63       </td>
+            <td>Titanic                                  </td> <td>Paramount           </td> <td>658,672,302</td> <td>1,178,627,900   </td> <td>1997</td> <td>1178.63       </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Jurassic World                           </td> <td>687.73        </td>
+            <td>Jurassic World                           </td> <td>Universal           </td> <td>652,270,625</td> <td>687,728,000     </td> <td>2015</td> <td>687.73        </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Marvel's The Avengers                    </td> <td>668.87        </td>
+            <td>Marvel's The Avengers                    </td> <td>Buena Vista (Disney)</td> <td>623,357,910</td> <td>668,866,600     </td> <td>2012</td> <td>668.87        </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>The Dark Knight                          </td> <td>647.76        </td>
+            <td>The Dark Knight                          </td> <td>Warner Bros.        </td> <td>534,858,444</td> <td>647,761,600     </td> <td>2008</td> <td>647.76        </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Star Wars: Episode I - The Phantom Menace</td> <td>785.72        </td>
+            <td>Star Wars: Episode I - The Phantom Menace</td> <td>Fox                 </td> <td>474,544,677</td> <td>785,715,000     </td> <td>1999</td> <td>785.72        </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Star Wars                                </td> <td>1549.64       </td>
+            <td>Star Wars                                </td> <td>Fox                 </td> <td>460,998,007</td> <td>1,549,640,500   </td> <td>1977</td> <td>1549.64       </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Avengers: Age of Ultron                  </td> <td>465.68        </td>
+            <td>Avengers: Age of Ultron                  </td> <td>Buena Vista (Disney)</td> <td>459,005,868</td> <td>465,684,200     </td> <td>2015</td> <td>465.68        </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>The Dark Knight Rises                    </td> <td>500.96        </td>
+            <td>The Dark Knight Rises                    </td> <td>Warner Bros.        </td> <td>448,139,099</td> <td>500,961,700     </td> <td>2012</td> <td>500.96        </td>
         </tr>
     </tbody>
 </table>
 <p>... (190 rows omitted)</p></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="A-Histogram">A Histogram<a class="anchor-link" href="#A-Histogram">¶</a></h3><p>A <em>histogram</em> of a numerical dataset looks very much like a bar chart, though it has some important differences that we will examine in this section. First, let's just draw a histogram of the adjusted receipts.</p>
-<p>The <code>hist</code> method generates a histogram of the values in a column. The optional <code>unit</code> argument is used in the labels on the two axes. The histogram shows the distribution of the adjusted gross amounts, in millions of 2016 dollars.</p></div></div>
+<h4 id="A-bar-chart:-The-wrong-visualization">A bar chart: The wrong visualization<a class="anchor-link" href="#A-bar-chart:-The-wrong-visualization">¶</a></h4><p>We could use a bar chart to display the distribution of adjusted gross receipts, but it doesn't work very well.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">by_gross</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">)</span>
+<span class="n">gross_percents</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">by_gross</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'count'</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">by_gross</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'count'</span><span class="p">))</span>
+<span class="n">with_percents</span> <span class="o">=</span> <span class="n">by_gross</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s2">"Percentage"</span><span class="p">,</span> <span class="n">gross_percents</span><span class="p">)</span>
+<span class="n">with_percents</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="s1">'Percentage'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
 <img src="/notebooks-images/Visualizing_Numerical_Distributions_7_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="The-Horizontal-Axis">The Horizontal Axis<a class="anchor-link" href="#The-Horizontal-Axis">¶</a></h3><p>The amounts have been grouped into contiguous intervals called <em>bins</em>. Although in this dataset no movie grossed an amount that is exactly on the edge between two bins, <code>hist</code> does have to account for situations where there might have been values at the edges. So <code>hist</code> has an <em>endpoint convention</em>: bins include the data at their left endpoint, but not the data at their right endpoint.</p>
-<p>We will use the notation [<em>a</em>, <em>b</em>) for the bin that starts at <em>a</em> and ends at <em>b</em> but doesn't include <em>b</em>.</p>
-<p>Sometimes, adjustments have to be made in the first or last bin, to ensure that the smallest and largest values of the variable are included. You saw an example of such an adjustment in the Census data studied earlier, where an age of "100" years actually meant "100 years old or older."</p>
-<p>We can see that there are 10 bins (some bars are so low that they are hard to see), and that they all have the same width. We can also see that none of the movies grossed fewer than 300 million dollars; that is because we are considering only the top grossing movies of all time.</p>
-<p>It is a little harder to see exactly where the ends of the bins are situated. For example, it is not easy to pinpoint exactly where the value 500 lies on the horizontal axis. So it is hard to judge exactly where one bar ends and the next begins.</p>
-<p>The optional argument <code>bins</code> can be used with <code>hist</code> to specify the endpoints of the bins. It must consist of a sequence of numbers that starts with the left end of the first bin and ends with the right end of the last bin. We will start by setting the numbers in <code>bins</code> to be 300, 400, 500, and so on, ending with 2000.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_9_0.png"/></div>
+<p>There are two problems:</p>
+<ol>
+<li>Two movies made \$341.91 million, two movies made \$522.0 million, and all other movies made unique amounts of money.  So the bars don't really summarize anything for us.</li>
+<li>The bars aren't spaced in a way that shows differences in amounts.  The last bar, for Gone with the Wind, is right next to the second-to-last bar, even though they are \$200 million apart.  The first and second bars are also right next to each other, and the difference between the dollar amounts is only \$440,000.</li>
+</ol></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The horizontal axis of this figure is easier to read. The labels 200, 400, 600, and so on are centered at the corresponding values. The tallest bar is for movies that grossed between 300 and  million and 400 million dollars.</p>
+<h3 id="A-histogram">A histogram<a class="anchor-link" href="#A-histogram">¶</a></h3><p>A <em>histogram</em> of a numerical dataset looks very much like a bar chart, though it has some important differences that we will examine in this section. First, let's just draw a histogram of the adjusted receipts.</p>
+<p>The <code>hist</code> method generates a histogram of the values in a column. The optional <code>unit</code> argument is used to help label the two axes. The histogram shows the distribution of the adjusted gross amounts, in millions of 2016 dollars.  Specifically, it shows the <em>frequency</em> distribution - percentages of movies rather than counts of movies.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Visualizing_Numerical_Distributions_10_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-horizontal-axis">The horizontal axis<a class="anchor-link" href="#The-horizontal-axis">¶</a></h3><p>To solve the first problem with the bar chart, a histogram groups the numbers into contiguous intervals called <em>bins</em>. To solve the second problem, we lay the bars across the bins they cover, so that bars that are further apart represent numbers that are more dissimilar.</p>
+<p>For example, the leftmost bin corresponds to the leftmost bar and goes from roughly \$325 million to roughly \$450 million.  For this histogram, it is a little hard to see exactly where the ends of the bins are situated.</p>
+<p>We can see that there are 10 bins (some bars are so low that they are hard to see), and that they all have the same width. We can also see that none of the movies grossed fewer than 300 million dollars; that is because we are considering only the top grossing movies of all time.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Details-about-binning">Details about binning<a class="anchor-link" href="#Details-about-binning">¶</a></h4><p>Although in this dataset no movie grossed an amount that is exactly on the edge between two bins, <code>hist</code> does have to account for situations where there might have been values at the edges. So <code>hist</code> has an <em>endpoint convention</em>: bins include the data at their left endpoint, but not the data at their right endpoint.</p>
+<p>We will use the notation [<em>a</em>, <em>b</em>) for the bin that starts at <em>a</em> and ends at <em>b</em> but doesn't include <em>b</em>.</p>
+<p>Sometimes, adjustments have to be made in the first or last bin, to ensure that the smallest and largest values of the variable are included. You saw an example of such an adjustment in the Census data studied earlier, where an age of "100" years actually meant "100 years old or older."</p>
+<p>The optional named argument <code>bins</code> can be used with <code>hist</code> to specify the endpoints of the bins. It must consist of an array of numbers that starts with the left end of the first bin and ends with the right end of the last bin. We will start by setting the numbers in <code>bins</code> to be 300, 350, 400, and so on, ending with 2000.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bin_width</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2000</span><span class="o">+</span><span class="n">bin_width</span><span class="p">,</span><span class="n">bin_width</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Visualizing_Numerical_Distributions_13_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The horizontal axis of this figure is easier to read. The labels 200, 400, 600, and so on are centered at the corresponding values. The tallest bar is for movies that grossed between \$350 million and \$400 million.</p>
 <p>A very small number of movies grossed 800 million dollars or more. This results in the figure being "skewed to the right," or, less formally, having "a long right hand tail." Distributions of variables like income or rent in large populations also often have this kind of shape.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="The-Counts-in-the-Bins">The Counts in the Bins<a class="anchor-link" href="#The-Counts-in-the-Bins">¶</a></h3><p>The counts of values in the bins can be computed from a table using the <code>bin</code> method, which takes a column label or index and an optional sequence or number of bins. The result is a tabular form of a histogram. The first column lists the left endpoints of the bins (but see the note about the final value, below). The second column contains the counts of all values in the <code>Adjusted Gross</code> column that are in the corresponding bin. That is, it counts all the <code>Adjusted Gross</code> values that are greater than or equal to the value in <code>bin</code>, but less than the next value in <code>bin</code>.</p></div></div>
+<h3 id="The-counts-in-the-bins">The counts in the bins<a class="anchor-link" href="#The-counts-in-the-bins">¶</a></h3><p>The counts of values in the bins can be computed from a table using the <code>bin</code> method, which takes a column label and an optional sequence or number of bins. The result is a tabular form of a histogram. The first column lists the left endpoints of the bins (but see the note about the final value, below). The second column contains the counts of all values in the <code>Adjusted Gross</code> column that are in the corresponding bin. That is, it counts all the <code>Adjusted Gross</code> values that are greater than or equal to the value in <code>bin</code>, but less than the next value in <code>bin</code>.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bin_counts</span> <span class="o">=</span> <span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2000</span><span class="o">+</span><span class="n">bin_width</span><span class="p">,</span><span class="n">bin_width</span><span class="p">))</span>
 <span class="n">bin_counts</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea ">
@@ -178,39 +202,75 @@
     </thead>
     <tbody>
         <tr>
-            <td>300 </td> <td>81                  </td>
+            <td>300 </td> <td>32                  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>400 </td> <td>52                  </td>
+            <td>350 </td> <td>49                  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>500 </td> <td>28                  </td>
+            <td>400 </td> <td>25                  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>600 </td> <td>16                  </td>
+            <td>450 </td> <td>27                  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>700 </td> <td>7                   </td>
+            <td>500 </td> <td>16                  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>800 </td> <td>5                   </td>
+            <td>550 </td> <td>12                  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>900 </td> <td>3                   </td>
+            <td>600 </td> <td>9                   </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>1000</td> <td>1                   </td>
+            <td>650 </td> <td>7                   </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>1100</td> <td>3                   </td>
+            <td>700 </td> <td>2                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>750 </td> <td>5                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>800 </td> <td>2                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>850 </td> <td>3                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>900 </td> <td>2                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>950 </td> <td>1                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1000</td> <td>0                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1050</td> <td>1                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1100</td> <td>2                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1150</td> <td>1                   </td>
         </tr>
     </tbody>
         <tbody><tr>
@@ -218,7 +278,15 @@
         </tr>
     </tbody>
         <tbody><tr>
+            <td>1250</td> <td>0                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
             <td>1300</td> <td>0                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1350</td> <td>0                   </td>
         </tr>
     </tbody>
         <tbody><tr>
@@ -226,7 +294,15 @@
         </tr>
     </tbody>
         <tbody><tr>
+            <td>1450</td> <td>0                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
             <td>1500</td> <td>1                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1550</td> <td>0                   </td>
         </tr>
     </tbody>
         <tbody><tr>
@@ -234,7 +310,15 @@
         </tr>
     </tbody>
         <tbody><tr>
-            <td>1700</td> <td>1                   </td>
+            <td>1650</td> <td>0                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1700</td> <td>0                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1750</td> <td>1                   </td>
         </tr>
     </tbody>
         <tbody><tr>
@@ -242,7 +326,15 @@
         </tr>
     </tbody>
         <tbody><tr>
+            <td>1850</td> <td>0                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
             <td>1900</td> <td>0                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1950</td> <td>0                   </td>
         </tr>
     </tbody>
         <tbody><tr>
@@ -252,27 +344,31 @@
 </table></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Notice the <code>bin</code> value 2000 in the last row. That's not the left end-point of any bar – it's the right end point of the last bar. By the endpoint convention, the data there are not included. So the corresponding <code>count</code> is recorded as 0, and would have been recorded as 0 even if there had been movies that made more than \$2,000$ million dollars. When either <code>bin</code> or <code>hist</code> is called with a <code>bins</code> argument, the graph only considers values that are in the specified bins.</p>
+<p><strong>A detail about binning:</strong> Notice the <code>bin</code> value 2000 in the last row. That's not the left end-point of any bar – it's the right end point of the last bar. By the endpoint convention, the data there are not included. So the corresponding <code>count</code> is recorded as 0, and would have been recorded as 0 even if there had been movies that made more than \$2,000$ million dollars. When either <code>bin</code> or <code>hist</code> is called with a <code>bins</code> argument, the graph only considers values that are in the specified bins.</p>
 <p>Once values have been binned, the resulting counts can be used to generate a histogram using the <code>bin_column</code> named argument to specify which column contains the bin lower bounds.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bin_counts</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross count'</span><span class="p">,</span> <span class="n">bin_column</span><span class="o">=</span><span class="s1">'bin'</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'Million Dollars'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_14_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Numerical_Distributions_18_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="The-Vertical-Axis:-Density-Scale">The Vertical Axis: Density Scale<a class="anchor-link" href="#The-Vertical-Axis:-Density-Scale">¶</a></h3><p>The horizontal axis of a histogram is straightforward to read, once we have taken care of details like the ends of the bins. The features of the vertical axis require a little more attention. We will go over them one by one.</p>
+<h3 id="The-vertical-axis:-density-scale">The vertical axis: density scale<a class="anchor-link" href="#The-vertical-axis:-density-scale">¶</a></h3><p>The horizontal axis of a histogram is straightforward to read, once we have taken care of details like the ends of the bins. The features of the vertical axis require a little more attention. We will go over them one by one.</p>
 <p>Let's start by examining how to calculate the numbers on the vertical axis. If the calculation seems a little strange, have patience – the rest of the section will explain the reasoning.</p>
 <p><strong>Calculation.</strong> The height of each bar is the percent of elements that fall into the corresponding bin, relative to the width of the bin.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">bin_counts</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">'Adjusted Gross count'</span><span class="p">,</span> <span class="s1">'Count'</span><span class="p">)</span>
-<span class="n">percents</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">'Percent'</span><span class="p">,</span> <span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Count'</span><span class="p">)</span><span class="o">/</span><span class="mi">200</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
+<span class="n">total_count</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Count'</span><span class="p">))</span> <span class="c1"># This is 200</span>
+<span class="n">proportions</span> <span class="o">=</span> <span class="n">counts</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
+    <span class="s1">'Proportion'</span><span class="p">,</span> <span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Count'</span><span class="p">)</span><span class="o">/</span><span class="n">total_count</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="n">percents</span> <span class="o">=</span> <span class="n">proportions</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
+    <span class="s1">'Percent'</span><span class="p">,</span> <span class="n">proportions</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Proportion'</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span>
     <span class="p">)</span>
 <span class="n">heights</span> <span class="o">=</span> <span class="n">percents</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">'Height'</span><span class="p">,</span> <span class="n">percents</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Percent'</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span>
+    <span class="s1">'Height'</span><span class="p">,</span> <span class="n">percents</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Percent'</span><span class="p">)</span><span class="o">/</span><span class="n">bin_width</span> <span class="c1"># bin_width is 50</span>
     <span class="p">)</span>
 <span class="n">heights</span>
 </pre></div></div></div>
@@ -280,195 +376,103 @@
 <table border="1" class="dataframe">
     <thead>
         <tr>
-            <th>bin</th> <th>Count</th> <th>Percent</th> <th>Height</th>
+            <th>bin</th> <th>Count</th> <th>Proportion</th> <th>Percent</th> <th>Height</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>300 </td> <td>81   </td> <td>40.5   </td> <td>0.405 </td>
+            <td>300 </td> <td>32   </td> <td>0.16      </td> <td>16     </td> <td>0.32  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>400 </td> <td>52   </td> <td>26     </td> <td>0.26  </td>
+            <td>350 </td> <td>49   </td> <td>0.245     </td> <td>24.5   </td> <td>0.49  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>500 </td> <td>28   </td> <td>14     </td> <td>0.14  </td>
+            <td>400 </td> <td>25   </td> <td>0.125     </td> <td>12.5   </td> <td>0.25  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>600 </td> <td>16   </td> <td>8      </td> <td>0.08  </td>
+            <td>450 </td> <td>27   </td> <td>0.135     </td> <td>13.5   </td> <td>0.27  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>700 </td> <td>7    </td> <td>3.5    </td> <td>0.035 </td>
+            <td>500 </td> <td>16   </td> <td>0.08      </td> <td>8      </td> <td>0.16  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>800 </td> <td>5    </td> <td>2.5    </td> <td>0.025 </td>
+            <td>550 </td> <td>12   </td> <td>0.06      </td> <td>6      </td> <td>0.12  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>900 </td> <td>3    </td> <td>1.5    </td> <td>0.015 </td>
+            <td>600 </td> <td>9    </td> <td>0.045     </td> <td>4.5    </td> <td>0.09  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>1000</td> <td>1    </td> <td>0.5    </td> <td>0.005 </td>
+            <td>650 </td> <td>7    </td> <td>0.035     </td> <td>3.5    </td> <td>0.07  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>1100</td> <td>3    </td> <td>1.5    </td> <td>0.015 </td>
+            <td>700 </td> <td>2    </td> <td>0.01      </td> <td>1      </td> <td>0.02  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>1200</td> <td>2    </td> <td>1      </td> <td>0.01  </td>
+            <td>750 </td> <td>5    </td> <td>0.025     </td> <td>2.5    </td> <td>0.05  </td>
         </tr>
     </tbody>
 </table>
-<p>... (8 rows omitted)</p></div>
+<p>... (25 rows omitted)</p></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Go over the numbers on the vertical axis of the histogram above to check that the column <code>Heights</code> looks correct.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The calculations will become clear if we just examine the first row of the table.</p>
-<p>Remember that there are 200 movies in the dataset. The [300, 400) bin contains 81 movies. That's 40.5% of all the movies:
+<p>Remember that there are 200 movies in the dataset. The [300, 350) bin contains 32 movies. That's 16% of all the movies:
 $$
-\mbox{Percent} = \frac{81}{200} \cdot 100 = 40.5
+\mbox{Percent} = \frac{32}{200} \cdot 100 = 16
 $$</p>
-<p>The width of the [300, 400) bin is $ 400 - 300 = 100$. So
+<p>The width of the [300, 350) bin is $ 350 - 300 = 50$. So
 $$
-\mbox{Height} = \frac{40.5}{100} = 0.405
+\mbox{Height} = \frac{16}{50} = 0.32
 $$</p>
-<p>The code for calculating the heights used the facts that there are 200 movies in all and that the width of each bin is 100.</p></div></div>
+<p>The code for calculating the heights used the facts that there are 200 movies in all and that the width of each bin is 50.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Units.</strong> The height of the bar is 40.5% divided by 100 million dollars, and so the height is 0.405% per million dollars.</p>
-<p>This method of drawing histograms creates a vertical axis that is said to be <em>on the density scale</em>. The height of bar is <strong>not</strong> the percent of entries in the bin; it is the percent of entries in the bin relative to the amount of space in the bin. That is why the height measures crowdedness or <em>density</em>.</p>
-<p>Let's see why this matters.</p></div></div>
+<p><strong>Units.</strong> The height of the bar is 40.5% divided by 100 million dollars, and so the height is 0.405% per million dollars.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Unequal-Bins">Unequal Bins<a class="anchor-link" href="#Unequal-Bins">¶</a></h3><p>An advantage of the histogram over a bar chart is that a histogram can contain bins of unequal width. Below, the values in the <code>Millions</code> column are binned into three uneven categories.</p></div></div>
+<h3 id="The-area-principle">The area principle<a class="anchor-link" href="#The-area-principle">¶</a></h3><p>The intricate calculation of heights comes down to one requirement: The area of each bar should represent the amount of stuff in the corresponding bin in the distribution we're trying to show.  We saw in the previous section why this is an important requirement.  Since we're displaying the frequency distribution of gross receipts, the area of a bar should represent the percentage of movies in the corresponding bin.</p>
+<p>In a bar chart, we were lax about the distinction between lengths and areas because the horizontal axis had no real meaning.  The categories were arranged however we wanted to arrange them, so we could always think of the width of a bar as 1.</p>
+<p>In a histogram, the horizontal axis is a number line, so the width of a bar is an actual number.  This means we have to take the distinction between length and area seriously.  Their relationship is:</p>
+<p><img alt="Histogram bar area formula" src="/images/histogram_area.png"/></p>
+$$\text{Area of bar} = \text{Width of bar} \times \text{Length of bar}$$$$\text{Length of bar} = \frac{\text{Area of bar} } {\text{Width of bar} }$$<p>The area principle tells us we should ensure that:</p>
+$$\text{Area of bar} = \text{Percentage in corresponding bin}$$<p>Putting these together, we have:</p>
+$$\text{Length of bar} = \frac{\text{Area of bar} } {\text{Width of bar} } = \frac{\text{Percentage in corresponding bin} } {\text{Width of bar} }$$<p>Since the top is a percentage, and the bottom is in the horizontal axis units (the units of the numbers whose distribution we're plotting), the units of length are $\frac{\text{Percentage } } {\text{Horizontal axis unit} }$.  The vertical axis is said to be <em>on the density scale</em>. The height of bar is <strong>not</strong> the percent of entries in the bin; it is the percent of entries in the bin relative to the amount of space in the bin. That is why the height measures crowdedness or <em>density</em>.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Histograms-for-count-distributions">Histograms for count distributions<a class="anchor-link" href="#Histograms-for-count-distributions">¶</a></h3><p>Just as a bar chart can display either a count or a frequency distribution, it is possible to create a histogram to display a count distribution.  In that case, we would still want to satisfy the area principle, so we would have:</p>
+$$\text{Area of bar} = \text{Count in corresponding bin},$$<p>and so:</p>
+$$\text{Length of bar} = \frac{\text{Area of bar} } {\text{Width of bar} } = \frac{\text{Count in corresponding bin} } {\text{Width of bar} }.$$<p>However, such histograms are not commonly used in any case, so we will not dwell on this further.  Unfortunately, there is currently no simple way using Python or the course <code>datascience</code> package to generate a proper histogram for a count distribution.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Flat-tops-and-the-negative-consequences-of-binning">Flat tops and the negative consequences of binning<a class="anchor-link" href="#Flat-tops-and-the-negative-consequences-of-binning">¶</a></h3><p>Even though the density scale correctly represents percents using area, some detail is lost by grouping values into bins.</p>
+<p>Take a look at the [300, 400) bin in the figure below. The flat top of the bar, at the level 0.405% per million dollars, hides the fact that the movies are somewhat unevenly distributed across that bin.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uneven</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">2000</span><span class="o">+</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_21_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Numerical_Distributions_27_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Here are the counts in the three bins.</p></div></div>
+<p>To see this, let us split each bin into 10 narrower bins, each of width 10 million dollars.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>bin</th> <th>Adjusted Gross count</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>300 </td> <td>81                  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>400 </td> <td>80                  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>600 </td> <td>37                  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>1500</td> <td>0                   </td>
-        </tr>
-    </tbody>
-</table></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Although the ranges [300, 400) and [400, 600) have nearly identical counts, the bar over the former is twice as tall as the latter because it is only half as wide. The density of values in the [300, 400) is twice as much as the density in [400, 600).</p>
-<p>Histograms help us visualize where on the number line the data are most concentrated, epecially when the bins are uneven.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="The-Problem-with-Simply-Plotting-Counts">The Problem with Simply Plotting Counts<a class="anchor-link" href="#The-Problem-with-Simply-Plotting-Counts">¶</a></h3><p>It is possible to display counts directly in a chart, using the <code>normed=False</code> option of the <code>hist</code> method. The resulting chart has the same shape as a histogram when the bins all have equal widths, though the numbers on the vertical axis are different.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span><span class="mi">2001</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">2000</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'Million Dollars'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_26_0.png"/></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>While the count scale is perhaps more natural to interpret than the density scale, the chart becomes highly misleading when bins have different widths. Below, it appears (due to the count scale) that high-grossing movies are quite common, when in fact we have seen that they are relatively rare.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_28_0.png"/></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Even though the method used is called <code>hist</code>, <strong>the figure above is NOT A HISTOGRAM.</strong> It misleadingly exaggerates the proportion of movies grossing at least 600 million dollars. The height of each bar is simply plotted at the number of movies in the bin, <em>without accounting for the difference in the widths of the bins</em>.</p>
-<p>The picture becomes even more absurd if the last two bins are combined.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">very_uneven</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">very_uneven</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_30_0.png"/></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In this count-based figure, the shape of the distribution of movies is lost entirely.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="The-Histogram:-General-Principles-and-Calculation">The Histogram: General Principles and Calculation<a class="anchor-link" href="#The-Histogram:-General-Principles-and-Calculation">¶</a></h3><p>The figure above shows that what the eye perceives as "big" is area, not just height. This observation becomes particularly important when the bins have different widths.</p>
-<p>That is why a histogram has two defining properties:</p>
-<ol>
-<li>The bins are drawn to scale and are contiguous (though some might be empty), because the values on the horizontal axis are numerical.</li>
-<li>The <strong>area</strong> of each bar is proportional to the number of entries in the bin. </li>
-</ol>
-<p>Property 2 is the key to drawing a histogram, and is usually achieved as follows:</p>
-$$
-\mbox{area of bar} ~=~ \mbox{percent of entries in bin}
-$$<p>The calculation of the heights just uses the fact that the bar is a rectangle:</p>
-$$
-\mbox{area of bar} = \mbox{height of bar} \times \mbox{width of bin}
-$$<p>and so</p>
-$$
-\mbox{height of bar} ~=~ 
-\frac{\mbox{area of bar}}{\mbox{width of bin}} ~=~
-\frac{\mbox{percent of entries in bin}}{\mbox{width of bin}}
-$$<p>The units of height are "percent per unit on the horizontal axis."</p>
-<p>When drawn using this method, the histogram is said to be drawn on the density scale. On this scale:</p>
-<ul>
-<li>The area of each bar is equal to the percent of data values that are in the corresponding bin.</li>
-<li>The total area of all the bars in the histogram is 100%. Speaking in terms of proportions, we say that the areas of all the bars in a histogram "sum to 1".</li>
-</ul></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Flat-Tops-and-the-Level-of-Detail">Flat Tops and the Level of Detail<a class="anchor-link" href="#Flat-Tops-and-the-Level-of-Detail">¶</a></h3><p>Even though the density scale correctly represents percents using area, some detail is lost by grouping values into bins.</p>
-<p>Take another look at the [300, 400) bin in the figure below. The flat top of the bar, at the level 0.405% per million dollars, hides the fact that the movies are somewhat unevenly distributed across that bin.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"Million Dollars"</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_34_0.png"/></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To see this, let us split the [300, 400) bin into 10 narrower bins, each of width 10 million dollars.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">some_tiny_bins</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">310</span><span class="p">,</span> <span class="mi">320</span><span class="p">,</span> <span class="mi">330</span><span class="p">,</span> <span class="mi">340</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">370</span><span class="p">,</span> <span class="mi">380</span><span class="p">,</span> <span class="mi">390</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">some_tiny_bins</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'Million Dollars'</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_36_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Numerical_Distributions_29_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Some of the skinny bars are taller than 0.405 and others are shorter; the first two have heights of 0 because there are no data between 300 and 320. By putting a flat top at the level 0.405 across the whole bin, we are deciding to ignore the finer detail and are using the flat level as a rough approximation. Often, though not always, this is sufficient for understanding the general shape of the distribution.</p></div></div>
@@ -483,17 +487,16 @@ Look again at the [300, 400) bin in the earlier histograms. As we have seen, the
 <p>Notice that because we have the entire dataset that is being used to draw the histograms, we can draw the histograms to as fine a level of detail as the data and our patience will allow. However, if you are looking at a histogram in a book or on a website, and you don't have access to the underlying dataset, then it becomes important to have a clear understanding of the "rough approximation" created by the flat tops.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Histograms-Q&amp;A">Histograms Q&amp;A<a class="anchor-link" href="#Histograms-Q&amp;A">¶</a></h3><p>Let's draw the histogram again, this time with four bins, and check our understanding of the concepts.</p></div></div>
+<h3 id="Histograms-Q&amp;A">Histograms Q&amp;A<a class="anchor-link" href="#Histograms-Q&amp;A">¶</a></h3><p>Let's draw the histogram again, this time with bins of width 50, and check our understanding of the concepts.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">uneven_again</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">450</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-<span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven_again</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'Million Dollars'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">2000</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'Million Dollars'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Numerical_Distributions_41_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Numerical_Distributions_34_0.png"/></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">uneven_again</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">millions</span><span class="o">.</span><span class="n">bin</span><span class="p">(</span><span class="s1">'Adjusted Gross'</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">2000</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table border="1" class="dataframe">
@@ -516,25 +519,45 @@ Look again at the [300, 400) bin in the earlier histograms. As we have seen, the
         </tr>
     </tbody>
         <tbody><tr>
-            <td>450 </td> <td>92                  </td>
+            <td>450 </td> <td>27                  </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>1500</td> <td>0                   </td>
+            <td>500 </td> <td>16                  </td>
         </tr>
     </tbody>
-</table></div>
+        <tbody><tr>
+            <td>550 </td> <td>12                  </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>600 </td> <td>9                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>650 </td> <td>7                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>700 </td> <td>2                   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>750 </td> <td>5                   </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (25 rows omitted)</p></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Look again at the histogram, and compare the [400, 450) bin with the [450, 1500) bin.</p>
-<p><strong>Q</strong>: Which has more movies in it?</p>
-<p><strong>A</strong>: The [450, 1500) bin. It has 92 movies, compared with 25 movies in the [400, 450) bin.</p>
-<p><strong>Q</strong>: Then why is the [450, 1500) bar so much shorter than the [400, 450) bar?</p>
-<p><strong>A</strong>: Because height represents density per unit of space in the bin, not the number of movies in the bin. The [450, 1500) bin does have more movies than the [400, 450) bin, but it is also a whole lot wider. So it is less crowded. The density of movies in it is much lower.</p></div></div>
+<p><strong>Q</strong>: Did more movies make between \$400 and \$450 million, or between \$450 and \$500 million?</p>
+<p><strong>A</strong>: Slightly more movies (27 versus 25) made between \$450 and \$500 million.</p>
+<p><strong>Q</strong>: Did more movies make between \$450 and \$500 million, or between \$500 and \$600 million?</p>
+<p><strong>A</strong>: To find out the number of movies that made between \$500 and $\600 million, we have to add the [500, 550) and [550, 600) bins together.  That gets us 28 movies, so slightly more movies made between \$500 and \$600 million.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Differences-Between-Bar-Charts-and-Histograms">Differences Between Bar Charts and Histograms<a class="anchor-link" href="#Differences-Between-Bar-Charts-and-Histograms">¶</a></h3><ul>
-<li>Bar charts display one quantity per category. They are often used to display the distributions of categorical variables. Histograms display the distributions of quantitative variables. </li>
-<li>All the bars in a bar chart have the same width, and there is an equal amount of space between consecutive bars. The bars of a histogram can have different widths, and they are contiguous.</li>
-<li>The lengths (or heights, if the bars are drawn vertically) of the bars in a bar chart are proportional to the value for each category. The heights of bars in a histogram measure densities; the <em>areas</em> of bars in a histogram are proportional to the numbers of entries in the bins.</li>
+<li>Bar charts display one quantity per category. They are often used to display the distributions of categorical variables. Histograms display the distributions of quantitative variables (numbers). This requires the numbers to be grouped into <em>bins</em>.</li>
+<li>In a bar chart, the horizontal axis serves only to organize the bars. To satisfy the area principle, each bar should be drawn with the same width. In a histogram, the horizontal axis is a number line, and bars cover specific, nonoverlapping, contiguous intervals. The area of a bar is therefore equal to its width times its length, which imparts a special meaning and units to the length.</li>
+<li>The lengths (possibly called "heights," if the bars are drawn vertically) of the bars in a bar chart are proportional to the value for each category, since the width of each bar can be understood to be 1. The lengths (again, possible called "heights") of bars in a histogram measure densities; the <em>areas</em> of bars in a histogram are proportional to the numbers of entries in the bins.</li>
 </ul></div></div></div>

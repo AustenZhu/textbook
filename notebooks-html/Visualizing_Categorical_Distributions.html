@@ -20,82 +20,305 @@
 </ul></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><code>group_barh</code></p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Exercising control over bar sizes to display proportions</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Reusing this to create arbitrary bar charts that aren't showing distributions</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>plots.hist<span class="o">?</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(array([ 0.21428571,  0.21428571,  0.07142857]), array([0, 2, 4, 6]))</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>The table <code>icecream</code> contains data on 30 cartons of ice-cream.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">'Flavor'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'Chocolate'</span><span class="p">,</span> <span class="s1">'Strawberry'</span><span class="p">,</span> <span class="s1">'Vanilla'</span><span class="p">),</span>
-    <span class="s1">'Number of Cartons'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-<span class="p">)</span>
+    <span class="s1">'Flavor'</span><span class="p">,</span>
+    <span class="n">make_array</span><span class="p">(</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+        <span class="s1">'Strawberry'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Strawberry'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Strawberry'</span><span class="p">,</span>
+        <span class="s1">'Strawberry'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Strawberry'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Chocolate'</span><span class="p">,</span>
+        <span class="s1">'Vanilla'</span><span class="p">,</span>
+    <span class="p">))</span>
 <span class="n">icecream</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table border="1" class="dataframe">
     <thead>
         <tr>
-            <th>Flavor</th> <th>Number of Cartons</th>
+            <th>Flavor</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Chocolate </td> <td>16               </td>
+            <td>Chocolate </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Strawberry</td> <td>5                </td>
+            <td>Vanilla   </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Vanilla   </td> <td>9                </td>
+            <td>Vanilla   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Vanilla   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Strawberry</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Chocolate </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Chocolate </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Chocolate </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Vanilla   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Vanilla   </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (20 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <em>values</em> or <em>categories</em> of the categorical variable "flavor" are chocolate, strawberry, and vanilla. Each row in the table represents one carton with one of these flavors.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Bar-Charts">Bar Charts<a class="anchor-link" href="#Bar-Charts">¶</a></h3><p>The bar chart is a familiar way of visualizing count distributions of categorical variables. It counts the number of copies of each category and displays a bar for each category. The bars are equally spaced and equally wide. The length of each bar is proportional to the count of the corresponding category.</p>
+<p>In order to count the copies of each category, Python "groups" the individuals by category. (We will see how to do this ourselves later.) We will draw bar charts with horizontal bars because it's easier to label the bars that way. The Table method to create a bar chart from a table of individuals is therefore called <code>group_barh</code>.</p>
+<p><code>group_barh</code> takes one argument: the label of the column containing the categories.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span><span class="o">.</span><span class="n">group_barh</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_12_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Features-of-Categorical-Distributions">Features of Categorical Distributions<a class="anchor-link" href="#Features-of-Categorical-Distributions">¶</a></h3><p>Apart from purely visual differences, there is an important fundamental distinction between bar charts and the other two graphs that we saw earlier in this textbook. Those were the scatter plot and the line plot, both of which display two numerical variables – the variables on both axes are numerical. In contrast, the bar chart has categories on one axis and numerical counts or frequencies on the other.</p>
+<p>This has consequences for the chart.</p>
+<h4 id="The-area-principle">The area principle<a class="anchor-link" href="#The-area-principle">¶</a></h4><p>First, the width of each bar and the space between consecutive bars is entirely up to the person who is producing the graph, or to the program being used to produce it. Python made those choices for us. If you were to draw the bar graph by hand, you could make completely different choices and still have a perfectly correct bar graph, provided you drew all the bars with the same width and kept all the spaces the same.</p>
+<p>Why do the widths need to be the same?  When humans look at bar charts, we generally interpret larger <em>areas</em> as indicating larger categories.  Compare, for example, the following chart with the one above:</p>
+<p><img alt="Bar chart with Vanilla stretched" src="/images/bar_chart_stretched.png"/></p>
+<p>We have made the bar for vanilla artificially wide.  You would probably infer from this chart that there are more vanilla cartons than chocolate or strawberry, because the area of that bar is largest.</p>
+<p>There is usually no reason to vary widths of bars in a bar chart, so generally we keep all the widths the same and allow the lengths of the bars to determine their areas.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Ordering-the-bars">Ordering the bars<a class="anchor-link" href="#Ordering-the-bars">¶</a></h4><p>In addition, the bars can be drawn in any order. The categories "chocolate," "vanilla," and "strawberry" have no universal rank order, unlike for example the numbers 5, 7, and 10.</p>
+<p>This means that we can draw a bar chart that is easier to interpret, by rearranging the bars in decreasing order. To do this, we will need a few more computational tools.  We will review these tools in more detail later, so this is just a preview.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Sorting-the-rows-of-a-table">Sorting the rows of a table<a class="anchor-link" href="#Sorting-the-rows-of-a-table">¶</a></h4><p>Tables have a method called <code>sort</code>.  Given the label of a column, <code>sort</code> returns a copy of the table where the rows have been sorted in increasing order according to the values in that column.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flowers</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+    <span class="s1">'Number of petals'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">'Name'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'lotus'</span><span class="p">,</span> <span class="s1">'sunflower'</span><span class="p">,</span> <span class="s1">'rose'</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">flowers</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Number of petals</th> <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>8               </td> <td>lotus    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>34              </td> <td>sunflower</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5               </td> <td>rose     </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flowers</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">"Number of petals"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Number of petals</th> <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>5               </td> <td>rose     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>8               </td> <td>lotus    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>34              </td> <td>sunflower</td>
         </tr>
     </tbody>
 </table></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <em>values</em> of the categorical variable "flavor" are chocolate, strawberry, and vanilla. The table shows the number of cartons of each flavor. We call this a <em>distribution table</em>. A <em>distribution</em> shows all the values of a variable, along with the frequency of each one.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Bar-Chart">Bar Chart<a class="anchor-link" href="#Bar-Chart">¶</a></h3><p>The bar chart is a familiar way of visualizing categorical distributions. It displays a bar for each category. The bars are equally spaced and equally wide. The length of each bar is proportional to the frequency of the corresponding category.</p>
-<p>We will draw bar charts with horizontal bars because it's easier to label the bars that way. The Table method is therefore called <code>barh</code>. It takes two arguments: the first is the column label of the categories, and the second is the column label of the frequencies.</p></div></div>
+<p>Notice that <code>sort</code> doesn't just sort the given column; it sorts the whole table.  Since each row represents one individual (one flower, in this case), it usually wouldn't make sense to sort the elements of a column and leave other columns alone.</p>
+<p>We can pass the <em>named argument</em> <code>descending=True</code> to <code>sort</code> to reverse the sort order, which is useful for sorting bars.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'Number of Cartons'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flowers</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">"Number of petals"</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_6_0.png"/></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Number of petals</th> <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>34              </td> <td>sunflower</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>8               </td> <td>lotus    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5               </td> <td>rose     </td>
+        </tr>
+    </tbody>
+</table></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>If the table consists just of a column of categories and a column of frequencies, as in <code>icecream</code>, the method call is even simpler. You can just specify the column containing the categories, and <code>barh</code> will use the values in the other column as frequencies.</p></div></div>
+<h4 id="Counting-unique-values-of-a-column">Counting unique values of a column<a class="anchor-link" href="#Counting-unique-values-of-a-column">¶</a></h4><p>Tables have a method called <code>group</code> that allows us to count the number of copies of each value in a column.  Recall that the <code>icecream</code> table has one row for each carton, and the flavors are repeated many times.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Flavor"</span><span class="p">)</span>
 </pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_8_0.png"/></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Flavor</th> <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Chocolate </td> <td>16   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Strawberry</td> <td>5    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Vanilla   </td> <td>9    </td>
+        </tr>
+    </tbody>
+</table></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Features-of-Categorical-Distributions">Features of Categorical Distributions<a class="anchor-link" href="#Features-of-Categorical-Distributions">¶</a></h3><p>Apart from purely visual differences, there is an important fundamental distinction between bar charts and the two graphs that we saw in the previous sections. Those were the scatter plot and the line plot, both of which display two numerical variables – the variables on both axes are numerical. In contrast, the bar chart has categories on one axis and numerical frequencies on the other.</p>
-<p>This has consequences for the chart. First, the width of each bar and the space between consecutive bars is entirely up to the person who is producing the graph, or to the program being used to produce it. Python made those choices for us. If you were to draw the bar graph by hand, you could make completely different choices and still have a perfectly correct bar graph, provided you drew all the bars with the same width and kept all the spaces the same.</p>
-<p>Most importantly, the bars can be drawn in any order. The categories "chocolate," "vanilla," and "strawberry" have no universal rank order, unlike for example the numbers 5, 7, and 10.</p>
-<p>This means that we can draw a bar chart that is easier to interpret, by rearranging the bars in decreasing order. To do this, we first rearrange the rows of <code>icecream</code> in decreasing order of <code>Number of Cartons</code>, and then draw the bar chart.</p></div></div>
+<p><code>group</code> returns a new table with two columns: The given column we are "grouping by," and a column called "count" that tells us the number of copies of each unique value in the given column in the original table.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Creating-a-bar-chart-with-customized-bar-lengths">Creating a bar chart with customized bar lengths<a class="anchor-link" href="#Creating-a-bar-chart-with-customized-bar-lengths">¶</a></h4><p>The method <code>group_barh</code> allows us to make a bar chart describing the distribution of elements in one column of a table.  In principle, a chart with bars could describe other things.  When we need to, we can do a bit of extra work to directly control the lengths of the bars using the table method <code>barh</code>.</p>
+<p><code>barh</code> takes two arguments.  The first argument is the name of a column that contains the category names, and there will be one bar for each element of that column.  The second argument is the name of a column that contains numbers, and the length of each bar will be the value in that column.</p>
+<p>For example, we could use our <code>flowers</code> table to make a bar chart:</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Number of Cartons'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flowers</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">,</span> <span class="s2">"Number of petals"</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_10_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_24_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This bar chart contains exactly the same information as the previous ones, but it is a little easier to read. While this is not a huge gain in reading a chart with just three bars, it can be quite significant when the number of categories is large.</p></div></div>
+<p>Notice that this is <strong>not</strong> a bar chart that describes a distribution.  There aren't 5 copies of rose anywhere.  Rather, the lengths of the bars just tell us how many petals each flower has.</p>
+<p>If you look back at the <code>flowers</code> table, you might also notice that the bars appear in the same order as the rows in the table.  This allows us to control the order of the bars.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Grouping-Categorical-Data">Grouping Categorical Data<a class="anchor-link" href="#Grouping-Categorical-Data">¶</a></h3><p>To construct the table <code>icecream</code>, someone had to look at all 30 cartons of ice-cream and count the number of each flavor. But if our data does not already include frequencies, we have to compute the frequencies before we can draw a bar chart. Here is an example where this is necessary.</p>
-<p>The table <code>top</code> consists of U.S.A.'s top grossing movies of all time. The first column contains the title of the movie; <em>Star Wars: The Force Awakens</em> has the top rank, with a box office gross amount of more than 900 million dollars in the United States. The second column contains the name of the studio that produced the movie. The third contains the domestic box office gross in dollars, and the fourth contains the  gross amount that would have been earned from ticket sales at 2016 prices. The fifth contains the release year of the movie.</p>
-<p>There are 200 movies on the list. Here are the top ten according to unadjusted gross receipts.</p></div></div>
+<h4 id="Ordering-the-bars,-continued">Ordering the bars, continued<a class="anchor-link" href="#Ordering-the-bars,-continued">¶</a></h4><p>Now we are ready to make a bar chart with ordered bars for our ice cream data.  When tackling a problem like this, it is useful to work backwards, starting from what we want.</p>
+<ul>
+<li>We want to make a bar chart of the flavors, starting with the most common flavors on top.</li>
+<li>If we have a table telling us the count of each flavor, sorted in decreasing order by count, we can use <code>barh</code> to make a bar chart.</li>
+<li>If we have a table telling us the count of each flavor, we can sort it in decreasing order by count with <code>sort</code>.</li>
+<li>If we have a table of the individual cartons, we can use <code>group</code> to make a table telling us the count of each flavor.</li>
+<li>We have a table of the individual cartons - <code>icecream</code>.</li>
+</ul>
+<p>Now we can implement this:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_27_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This bar chart contains exactly the same information as the one we made earlier using <code>group_barh</code>, but it is a little easier to read. While this is not a huge gain in reading a chart with just three bars, it can be quite significant when the number of categories is large.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example:-Movies">Example: Movies<a class="anchor-link" href="#Example:-Movies">¶</a></h3><p>The table <code>top</code> consists of U.S.A.'s top grossing movies of all time. The first column contains the title of the movie; <em>Star Wars: The Force Awakens</em> has the top rank, with a box office gross amount of more than 900 million dollars in the United States. The second column contains the name of the studio that produced the movie. The third contains the domestic box office gross in dollars, and the fourth contains the  gross amount that would have been earned from ticket sales at 2016 prices. The fifth contains the release year of the movie.</p>
+<p>There are 200 movies in the table. Python will show the first ten, so we can sort by gross receipts to see the movies with the ten highest gross receipts.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">top</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">'top_movies.csv'</span><span class="p">)</span>
-<span class="n">top</span>
+<span class="n">top</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Gross'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table border="1" class="dataframe">
@@ -150,17 +373,20 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The Disney subsidiary Buena Vista shows up frequently in the top ten, as do Fox and Warner Brothers. Which studios will appear most frequently if we look among all 200 rows?</p>
-<p>To figure this out, first notice that all we need is a table with the movies and the studios; the other information is unnecessary.</p></div></div>
+<p>We can use <code>group_barh</code> to make a simple bar chart of the distribution of studios.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">movies_and_studios</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Title'</span><span class="p">,</span> <span class="s1">'Studio'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top</span><span class="o">.</span><span class="n">group_barh</span><span class="p">(</span><span class="s1">'Studio'</span><span class="p">)</span>
 </pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_32_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The Table method <code>group</code> allows us to count how frequently each studio appears in the table, by calling each studio a category and assigning each row to one category. The <code>group</code> method takes as its argument the label of the column that contains the categories, and returns a table of counts of rows in each category. The column of counts is always called <code>count</code>, but you can change that if you like by using <code>relabeled</code>.</p></div></div>
+<p>It is a bit hard to read this, so let's use the more complicated method to sort the bars.  We will take it one step at a time, though we could do it all in one line.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">movies_and_studios</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Studio'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">by_studio</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Studio'</span><span class="p">)</span>
+<span class="n">by_studio</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table border="1" class="dataframe">
@@ -213,44 +439,177 @@
 </table>
 <p>... (14 rows omitted)</p></div>
 <div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Thus <code>group</code> creates a distribution table that shows how the movies are distributed among the categories (studios).</p>
-<p>We can now use this table, along with the graphing skills that we acquired above, to draw a bar chart that shows which studios are most frequent among the 200 highest grossing movies.</p></div></div>
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sorted_by_count</span> <span class="o">=</span> <span class="n">by_studio</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">sorted_by_count</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Studio</th> <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Warner Bros.        </td> <td>29   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Buena Vista (Disney)</td> <td>29   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Fox                 </td> <td>26   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Paramount           </td> <td>25   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Universal           </td> <td>22   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Disney              </td> <td>11   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Columbia            </td> <td>10   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>MGM                 </td> <td>7    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>UA                  </td> <td>6    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Sony                </td> <td>6    </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (14 rows omitted)</p></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">studio_distribution</span> <span class="o">=</span> <span class="n">movies_and_studios</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Studio'</span><span class="p">)</span>
-<span class="n">studio_distribution</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Studio'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sorted_by_count</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Studio'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_19_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_36_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Warner Brothers and Buena Vista are the most common studios among the top 200 movies. Warner Brothers produces the Harry Potter movies and Buena Vista produces Star Wars.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Because total gross receipts are being measured in unadjusted dollars, it is not very surprising that the top movies are more frequently from recent years than from bygone decades. In absolute terms, movie tickets cost more now than they used to, and thus gross receipts are higher. This is borne out by a bar chart that show the distribution of the 200 movies by year of release.</p></div></div>
+<h3 id="Proportions">Proportions<a class="anchor-link" href="#Proportions">¶</a></h3><p>The Warner Brothers and Buena Vista bars look big, but there are many other studios with bars.  The chart doesn't let us easily answer questions like:</p>
+<blockquote><p>"Are most of the top 200 movies produced by Warner Brothers?  What proportion do they produce?"</p>
+</blockquote>
+<p>For this, we can make a bar chart displaying proportions rather than counts.  The proportion of movies made by a studio is:</p>
+$$\frac{\text{Number of movies made by the studio} } {\text{Total number of movies in the dataset} }$$<p>We can use array arithmetic to compute these proportions for each studio.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">movies_and_years</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Title'</span><span class="p">,</span> <span class="s1">'Year'</span><span class="p">)</span>
-<span class="n">movies_and_years</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">studio_proportions</span> <span class="o">=</span> <span class="n">sorted_by_count</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">sorted_by_count</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"count"</span><span class="p">))</span>
+<span class="n">studio_proportions</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.145,  0.145,  0.13 ,  0.125,  0.11 ,  0.055,  0.05 ,  0.035,
+        0.03 ,  0.03 ,  0.025,  0.02 ,  0.015,  0.015,  0.015,  0.01 ,
+        0.01 ,  0.005,  0.005,  0.005,  0.005,  0.005,  0.005,  0.005])</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then we can add the proportions as a new column in our table:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">with_proportions</span> <span class="o">=</span> <span class="n">sorted_by_count</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s2">"Proportion"</span><span class="p">,</span> <span class="n">studio_proportions</span><span class="p">)</span>
+<span class="n">with_proportions</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Studio</th> <th>count</th> <th>Proportion</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Warner Bros.        </td> <td>29   </td> <td>0.145     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Buena Vista (Disney)</td> <td>29   </td> <td>0.145     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Fox                 </td> <td>26   </td> <td>0.13      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Paramount           </td> <td>25   </td> <td>0.125     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Universal           </td> <td>22   </td> <td>0.11      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Disney              </td> <td>11   </td> <td>0.055     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Columbia            </td> <td>10   </td> <td>0.05      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>MGM                 </td> <td>7    </td> <td>0.035     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>UA                  </td> <td>6    </td> <td>0.03      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Sony                </td> <td>6    </td> <td>0.03      </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (14 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, we can make a bar chart with bar lengths based on these proportions.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">with_proportions</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Studio"</span><span class="p">,</span> <span class="s2">"Proportion"</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_22_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_43_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>All of the longest bars correspond to years after 2000. This is consistent with our observation that recent years should be among the most frequent.</p></div></div>
+<p>Now it is easier to see that only around .14 (14%) of the movies are produced by Warner Brothers.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Towards-numerical-variables">Towards numerical variables<a class="anchor-link" href="#Towards-numerical-variables">¶</a></h3><p>There is something unsettling about this chart. Though it does answer the question of which release years appear most frequently among the 200 top grossing movies, it doesn't list all the years in chronological order. It is treating <code>Year</code> as a categorical variable.</p>
+<h3 id="Towards-numerical-variables">Towards numerical variables<a class="anchor-link" href="#Towards-numerical-variables">¶</a></h3><p>Because total gross receipts are being measured in unadjusted dollars, it is not very surprising that the top movies are more frequently from recent years than from bygone decades. In absolute terms, movie tickets cost more now than they used to, and thus gross receipts are higher. This is borne out by a bar chart that show the distribution of the 200 movies by year of release.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_46_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All of the longest bars correspond to years after 2000. This is consistent with our prediction that recent years should be among the most frequent.</p>
+<p>There is something unsettling about this chart. Though it does answer the question of which release years appear most frequently among the 200 top grossing movies, it doesn't list all the years in chronological order. It is treating <code>Year</code> as a categorical variable.</p>
 <p>But years are fixed chronological units that do have an order. They also have fixed numerical spacings relative to each other. Let's see what happens when we try to take that into account.</p>
-<p>By default, <code>barh</code> sorts the categories (years) from lowest to highest. So we will run the code without sorting by count.</p></div></div>
+<p>By default, <code>group</code> and <code>group_barh</code> sort the categories (years) from lowest to highest. So we will run the code without sorting by count.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">movies_and_years</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">top</span><span class="o">.</span><span class="n">group_barh</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_25_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_48_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now the years are in increasing order. But there is still something disquieting about this bar chart. The bars at 1921 and 1937 are just as far apart from each other as the bars at 1937 and 1939. The bar chart doesn't show that none of the 200 movies were released in the years 1922 through 1936, nor in 1938. Such inconsistencies and omissions make the distribution in the early years hard to understand based on this visualization.</p>
+<p>Now the years are in increasing order. But there is still something disquieting about this bar chart. The bars at 1921 and 1937 are just as far apart from each other as the bars at 1937 and 1939. The bar chart doesn't include a blank space to show that none of the 200 movies were released in the years 1922 through 1936, nor in 1938. Such inconsistencies and omissions make the distribution in the early years hard to understand based on this visualization.</p>
 <p>Bar charts are intended as visualizations of categorical variables. When the variable is numerical, the numerical relations between its values have to be taken into account when we create visualizations. That is the topic of the next section.</p></div></div></div>
