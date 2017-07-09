@@ -20,29 +20,6 @@
 </ul></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>group_barh</code></p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Exercising control over bar sizes to display proportions</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Reusing this to create arbitrary bar charts that aren't showing distributions</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span>
-</pre></div></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>plots.hist<span class="o">?</span>
-</pre></div></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_text output_subarea output_execute_result">
-<pre>(array([ 0.21428571,  0.21428571,  0.07142857]), array([0, 2, 4, 6]))</pre></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>The table <code>icecream</code> contains data on 30 cartons of ice-cream.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
@@ -145,7 +122,7 @@
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span><span class="o">.</span><span class="n">group_barh</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_12_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_6_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Features-of-Categorical-Distributions">Features of Categorical Distributions<a class="anchor-link" href="#Features-of-Categorical-Distributions">¶</a></h3><p>Apart from purely visual differences, there is an important fundamental distinction between bar charts and the other two graphs that we saw earlier in this textbook. Those were the scatter plot and the line plot, both of which display two numerical variables – the variables on both axes are numerical. In contrast, the bar chart has categories on one axis and numerical counts or frequencies on the other.</p>
@@ -286,7 +263,7 @@
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">flowers</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">,</span> <span class="s2">"Number of petals"</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_24_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_18_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice that this is <strong>not</strong> a bar chart that describes a distribution.  There aren't 5 copies of rose anywhere.  Rather, the lengths of the bars just tell us how many petals each flower has.</p>
@@ -307,7 +284,7 @@
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">icecream</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Flavor'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_27_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_21_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This bar chart contains exactly the same information as the one we made earlier using <code>group_barh</code>, but it is a little easier to read. While this is not a huge gain in reading a chart with just three bars, it can be quite significant when the number of categories is large.</p></div></div>
@@ -379,7 +356,7 @@
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">top</span><span class="o">.</span><span class="n">group_barh</span><span class="p">(</span><span class="s1">'Studio'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_32_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_26_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>It is a bit hard to read this, so let's use the more complicated method to sort the bars.  We will take it one step at a time, though we could do it all in one line.</p></div></div>
@@ -498,7 +475,7 @@
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">sorted_by_count</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Studio'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_36_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_30_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Warner Brothers and Buena Vista are the most common studios among the top 200 movies. Warner Brothers produces the Harry Potter movies and Buena Vista produces Star Wars.</p></div></div>
@@ -584,7 +561,7 @@ $$\frac{\text{Number of movies made by the studio} } {\text{Total number of movi
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">with_proportions</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Studio"</span><span class="p">,</span> <span class="s2">"Proportion"</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_43_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_37_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now it is easier to see that only around .14 (14%) of the movies are produced by Warner Brothers.</p></div></div>
@@ -596,7 +573,7 @@ $$\frac{\text{Number of movies made by the studio} } {\text{Total number of movi
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">top</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_46_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_40_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>All of the longest bars correspond to years after 2000. This is consistent with our prediction that recent years should be among the most frequent.</p>
@@ -608,7 +585,7 @@ $$\frac{\text{Number of movies made by the studio} } {\text{Total number of movi
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">top</span><span class="o">.</span><span class="n">group_barh</span><span class="p">(</span><span class="s1">'Year'</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="/notebooks-images/Visualizing_Categorical_Distributions_48_0.png"/></div>
+<img src="/notebooks-images/Visualizing_Categorical_Distributions_42_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now the years are in increasing order. But there is still something disquieting about this bar chart. The bars at 1921 and 1937 are just as far apart from each other as the bars at 1937 and 1939. The bar chart doesn't include a blank space to show that none of the 200 movies were released in the years 1922 through 1936, nor in 1938. Such inconsistencies and omissions make the distribution in the early years hard to understand based on this visualization.</p>
