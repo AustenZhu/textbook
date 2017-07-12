@@ -1,5 +1,5 @@
 <div id="ipython-notebook">
-            <a class="interact-button" href="http://data8r.datahub.berkeley.edu/user-redirect/interact?account=data-8r&repo=textbook&path=notebooks/minard.csv&path=notebooks/Tables.ipynb">Interact</a>
+            <a class="interact-button" href="http://data8r.datahub.berkeley.edu/user-redirect/interact?account=data-8r&repo=textbook&path=notebooks/minard.csv&path=notebooks/minard.csv&path=notebooks/Tables.ipynb">Interact</a>
             
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -23,148 +23,57 @@
 </pre></div></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Empty tables can be created using the <code>Table</code> function. An empty table is usefuly because it can be extended to contain new rows and columns.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Table</span><span class="p">()</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            
-        </tr>
-    </thead>
-    <tbody>
-</tbody></table></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The <code>with_columns</code> method on a table constructs a new table with additional labeled columns. Each column of a table is an array. To add one new column to a table, call <code>with_columns</code> with a label and an array. (The <code>with_column</code> method can be used with the same effect.)</p>
-<p>Below, we begin each example with an empty table that has no columns.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">'Number of petals'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>Number of petals</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>8               </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>34              </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>5               </td>
-        </tr>
-    </tbody>
-</table></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To add two (or more) new columns, provide the labe and array for each column. All columns must have the same length, or an error will occur.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">'Number of petals'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="s1">'Name'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'lotus'</span><span class="p">,</span> <span class="s1">'sunflower'</span><span class="p">,</span> <span class="s1">'rose'</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>Number of petals</th> <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>8               </td> <td>lotus    </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>34              </td> <td>sunflower</td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>5               </td> <td>rose     </td>
-        </tr>
-    </tbody>
-</table></div>
+<p>We have already seen several of the basic functions and methods for working with tables.  Here is a summary:</p>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Table</code></td>
+<td>function</td>
+<td>Create an empty table</td>
+<td><code>t = Table()</code></td>
+</tr>
+<tr>
+<td><code>Table.read_table</code></td>
+<td>function</td>
+<td>Create a table from a file</td>
+<td><code>minard = Table.read_table("minard.csv")</code></td>
+</tr>
+<tr>
+<td><code>with_columns</code></td>
+<td>method</td>
+<td>Create a table with additional columns</td>
+<td><code>t.with_columns("Nums", np.array(3))</code></td>
+</tr>
+<tr>
+<td><code>column</code></td>
+<td>method</td>
+<td>Create an array containing data from one column of a table</td>
+<td><code>t.column("Nums")</code></td>
+</tr>
+<tr>
+<td><code>sort</code></td>
+<td>method</td>
+<td>Create a copy of a table that's sorted based on one column</td>
+<td><code>t.sort("Nums")</code></td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td>method</td>
+<td>Create a table containing the count distribution of one column</td>
+<td><code>t.group("Nums")</code></td>
+</tr>
+</tbody>
+</table></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can give this table a name, and then extend the table with another column.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flowers</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">'Number of petals'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-    <span class="s1">'Name'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'lotus'</span><span class="p">,</span> <span class="s1">'sunflower'</span><span class="p">,</span> <span class="s1">'rose'</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">flowers</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">'Color'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'pink'</span><span class="p">,</span> <span class="s1">'yellow'</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>Number of petals</th> <th>Name</th> <th>Color</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>8               </td> <td>lotus    </td> <td>pink  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>34              </td> <td>sunflower</td> <td>yellow</td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>5               </td> <td>rose     </td> <td>red   </td>
-        </tr>
-    </tbody>
-</table></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The <code>with_columns</code> method creates a new table each time it is called, so the original table is not affected. For example, the table <code>an_example</code> still has only the two columns that it had when it was created.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">flowers</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>Number of petals</th> <th>Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>8               </td> <td>lotus    </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>34              </td> <td>sunflower</td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>5               </td> <td>rose     </td>
-        </tr>
-    </tbody>
-</table></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Creating tables in this way involves a lot of typing. If the data have already been entered somewhere, it is usually possible to use Python to read it into a table, instead of typing it all in cell by cell.</p>
-<p>Often, tables are created from files that contain comma-separated values. Such files are called CSV files.</p>
-<p>Below, we use the Table method <code>read_table</code> to read a CSV file that contains some of the data used by Minard in his graphic about Napoleon's Russian campaign. The data are placed in a table named <code>minard</code>.</p></div></div>
+<p>Let us work again with the data from Minard's map of Napoleon's invasion of Russia.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">minard</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">'minard.csv'</span><span class="p">)</span>
@@ -213,7 +122,7 @@
 </table></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We will use this small table to demonstrate some useful Table methods. We will then use those same methods, and develop other methods, on much larger tables of data.</p></div></div>
+<p>We will use this small table to demonstrate some useful Table methods and some new ways of using the methods we've already seen. We will then use those same methods, and develop other methods, on much larger tables of data.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="The-Size-of-the-Table">The Size of the Table<a class="anchor-link" href="#The-Size-of-the-Table">¶</a></h3><p>The method <code>num_columns</code> gives the number of columns in the table, and <code>num_rows</code> the number of rows.</p></div></div>
@@ -231,7 +140,7 @@
 <pre>8</pre></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Column-Labels">Column Labels<a class="anchor-link" href="#Column-Labels">¶</a></h3><p>The method <code>labels</code> can be used to list the labels of all the columns. With <code>minard</code> we don't gain much by this, but it can be very useful for tables that are so large that not all columns are visible on the screen.</p></div></div>
+<h3 id="Column-Labels">Column Labels<a class="anchor-link" href="#Column-Labels">¶</a></h3><p><code>labels</code> can be used to list the labels of all the columns. With <code>minard</code> we don't gain much by this, but it can be very useful for tables that are so large that not all columns are visible on the screen.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">labels</span>
@@ -240,7 +149,10 @@
 <pre>('Longitude', 'Latitude', 'City', 'Direction', 'Survivors')</pre></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can change column labels using the <code>relabeled</code> method. This creates a new table and leaves <code>minard</code> unchanged.</p></div></div>
+<p>Notice that there are no parentheses after <code>labels</code>.  That's because <code>labels</code> isn't actually a method; rather it's something called a <em>field</em>.  A field is anything that's accessed using dot syntax that isn't a method.  A field is a value like a number, string, or array; it doesn't need to be called using parentheses.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can change column labels using the <code>relabeled</code> method. This creates a new table with a different label for the <code>'City'</code> column:</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">minard</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">'City'</span><span class="p">,</span> <span class="s1">'City Name'</span><span class="p">)</span>
@@ -288,7 +200,7 @@
 </table></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>However, this method does not change the original table.</p></div></div>
+<p>However, calling this method does not change the original table.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">minard</span>
@@ -383,6 +295,9 @@
         </tr>
     </tbody>
 </table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Using this pattern in your code can lead to confusion.  Some people prefer never to reassign existing names in this way.  If you do, it is best to do all of your reassigning in the same cell, before you go on to use the table for analysis.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Accessing-the-Data-in-a-Column">Accessing the Data in a Column<a class="anchor-link" href="#Accessing-the-Data-in-a-Column">¶</a></h3><p>We can use a column's label to access the array of data in the column.</p></div></div>
