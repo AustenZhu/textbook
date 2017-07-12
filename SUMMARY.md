@@ -29,7 +29,9 @@
   * [Interlude: Tables](chapters/05/1/interlude-tables.md)
   * [Visualizing Categorical Distributions](chapters/05/2/visualizing-categorical-distributions.md)
   * [Visualizing Numerical Distributions](chapters/05/3/visualizing-numerical-distributions.md)
-* Tables
-  * Sorting Rows
-  * Selecting Rows
+* [Tables](chapters/06/tables.md)
+  * [Sorting Rows](chapters/06/1/sorting-rows.md)
+  * [Selecting Rows](chapters/06/2/selecting-rows.md)
+  * [Example: Population Trends](chapters/06/3/example-trends-in-the-population-of-the-united-states.md)
+  * [Example: Trends in Gender](chapters/06/4/example-gender-ratio-in-the-us-population.md)
 * Principles of Visualization
