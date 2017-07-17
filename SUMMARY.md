@@ -32,6 +32,8 @@
 * [Tables](chapters/06/tables.md)
   * [Sorting Rows](chapters/06/1/sorting-rows.md)
   * [Selecting Rows](chapters/06/2/selecting-rows.md)
-  * [Example: Population Trends](chapters/06/3/example-trends-in-the-population-of-the-united-states.md)
-  * [Example: Trends in Gender](chapters/06/4/example-gender-ratio-in-the-us-population.md)
-* Principles of Visualization
+  * [Visualizing Several Variables](chapters/06/3/visualizing-several-variables.md)
+  * [Example: Population Trends](chapters/06/4/example-trends-in-the-population-of-the-united-states.md)
+  * [Example: Trends in Gender](chapters/06/5/example-gender-ratio-in-the-us-population.md)
+* [Functions and Tables](chapters/07/functions-and-tables.md)
+  * [Applying a Function to a Column](chapters/07/1/applying-a-function-to-a-column.md)
