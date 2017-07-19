@@ -37,3 +37,5 @@
   * [Example: Trends in Gender](chapters/06/5/example-gender-ratio-in-the-us-population.md)
 * [Functions and Tables](chapters/07/functions-and-tables.md)
   * [Applying a Function to a Column](chapters/07/1/applying-a-function-to-a-column.md)
+  * [Classifying by One Variable](chapters/07/2/classifying-by-one-variable.md)
+
