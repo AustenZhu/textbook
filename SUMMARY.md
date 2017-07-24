@@ -38,4 +38,7 @@
 * [Functions and Tables](chapters/07/functions-and-tables.md)
   * [Applying a Function to a Column](chapters/07/1/applying-a-function-to-a-column.md)
   * [Classifying by One Variable](chapters/07/2/classifying-by-one-variable.md)
-
+  * [Example: Bike Sharing in the Bay Area](chapters/07/3/example-bike-sharing-in-the-bay-area.md)
+    * [How Long Do Trips Take?](chapters/07/3/1/how-long-do-trips-take.md)
+    * [The Relationship Between Station Popularity and Trip Duration](chapters/07/3/2/the-relationship-between-station-popularity-and-trip-duration.md)
+    * [Drawing Maps](chapters/07/3/3/drawing-maps.md)
