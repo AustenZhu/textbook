@@ -1,0 +1,203 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://data8r.datahub.berkeley.edu/user-redirect/interact?account=data-8r&repo=textbook&path=notebooks/trip.csv&path=notebooks/The_Relationship_Between_Station_Popularity_and_Trip_Duration.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is an hypothesis about bike trips:</p>
+<blockquote><p>"There is a negative association between urban density and duration of bike trips.  Stations in dense urban areas with lots of commuters are very highly-traveled, and commuters tend to take very short trips.  Stations in less-urban areas have fewer trips (since these areas are less populated), but a larger proportion of these are longer excursions.  Therefore, there is a negative <em>non-causal</em> association between station popularity and average trip duration."</p>
+</blockquote>
+<p>How might we use data to test that hypothesis?</p>
+<p>A scatter plot of the stations, showing trip count against average duration, would be a fine place to start.  To do that, we'll need a table that looks something like this, but filled in:</p>
+<table>
+<thead><tr>
+<th>Start Station</th>
+<th>Average trip duration</th>
+<th>Number of trips</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>We can begin by using <code>group</code> to identify the most highly used Start Station:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">starts</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Start Station'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">starts</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Start Station"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/The_Relationship_Between_Station_Popularity_and_Trip_Duration_2_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The largest number of trips started at the Caltrain Station on Townsend and 4th in San Francisco. Many trips also start at the Ferry Building, which is the first BART station for passengers from the East Bay. People take the train into the city, and then use a shared bike to get to their next destination.</p>
+<p>We can again use <code>group</code> to compute the average (mean) duration of trips from each station:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">duration_by_station</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'Start Station'</span><span class="p">,</span> <span class="s1">'Duration'</span><span class="p">)</span>\
+                           <span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Start Station'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>\
+                           <span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s2">"Duration mean"</span><span class="p">)</span>\
+                           <span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s2">"Duration mean"</span><span class="p">,</span> <span class="s2">"Average trip duration"</span><span class="p">)</span>
+<span class="n">duration_by_station</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Start Station</th> <th>Average trip duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2nd at Folsom                                </td> <td>543.396              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Temporary Transbay Terminal (Howard at Beale)</td> <td>612.622              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Townsend at 7th                              </td> <td>626.133              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>San Francisco Caltrain 2 (330 Townsend)      </td> <td>660.838              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2nd at South Park                            </td> <td>691.807              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Howard at 2nd                                </td> <td>697.077              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2nd at Townsend                              </td> <td>719.057              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Beale at Market                              </td> <td>736.002              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Broadway St at Battery St                    </td> <td>787.533              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Embarcadero at Folsom                        </td> <td>788.385              </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (60 rows omitted)</p></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">duration_by_station</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s2">"Start Station"</span><span class="p">,</span> <span class="s2">"Average trip duration"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/The_Relationship_Between_Station_Popularity_and_Trip_Duration_5_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Putting-the-data-together">Putting the data together<a class="anchor-link" href="#Putting-the-data-together">¶</a></h3><p>Now we will need to put both the trip count and average trip duration in the same table.  Later, you may learn about a method called <code>join</code> that can perform tasks like this.  However, we can do it with <code>apply</code> by following these steps:</p>
+<ol>
+<li>Write a function that takes a single station name and returns the trip count for that station.  It will use <code>where</code> to look up the trip count in the <code>starts</code> table we previously computed.</li>
+<li><code>apply</code> this function to the "Start Station" column in <code>duration_by_station</code>.</li>
+<li>Add the resulting array of trip counts to <code>duration_by_station</code> as a new column.</li>
+</ol></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step one:</span>
+<span class="k">def</span> <span class="nf">find_trip_count</span><span class="p">(</span><span class="n">station_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">starts</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">"Start Station"</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">station_name</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Step two:</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">duration_by_station</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">find_trip_count</span><span class="p">,</span> <span class="s2">"Start Station"</span><span class="p">)</span>
+
+<span class="c1"># Step three:</span>
+<span class="n">durations_and_counts</span> <span class="o">=</span> <span class="n">duration_by_station</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s2">"Number of trips"</span><span class="p">,</span> <span class="n">counts</span><span class="p">)</span>
+<span class="n">durations_and_counts</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Start Station</th> <th>Average trip duration</th> <th>Number of trips</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2nd at Folsom                                </td> <td>543.396              </td> <td>7999           </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Temporary Transbay Terminal (Howard at Beale)</td> <td>612.622              </td> <td>14436          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Townsend at 7th                              </td> <td>626.133              </td> <td>13752          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>San Francisco Caltrain 2 (330 Townsend)      </td> <td>660.838              </td> <td>21758          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2nd at South Park                            </td> <td>691.807              </td> <td>9469           </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Howard at 2nd                                </td> <td>697.077              </td> <td>6660           </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2nd at Townsend                              </td> <td>719.057              </td> <td>14026          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Beale at Market                              </td> <td>736.002              </td> <td>8359           </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Broadway St at Battery St                    </td> <td>787.533              </td> <td>7676           </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Embarcadero at Folsom                        </td> <td>788.385              </td> <td>7596           </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (60 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can use <code>scatter</code>.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">durations_and_counts</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s2">"Number of trips"</span><span class="p">,</span> <span class="s2">"Average trip duration"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/The_Relationship_Between_Station_Popularity_and_Trip_Duration_9_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For stations with a very small number of trips, the average trip duration is sometimes quite high.  Otherwise, the graph is somewhat flat, with perhaps a slight downward trend.</p>
+<p>This establishes the second part of our hypothesis: there is a negative association between station popularity (number of trips) and average trip duration.  To gather evidence for the first part of our hypothesis -- that there is a negative assocation between urban density and average trip duration -- we need to verify that the stations with high average trip durations are near urban areas.</p>
+<p>We could use the optional <code>labels</code> argument to label the points in the plot.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">durations_and_counts</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s2">"Number of trips"</span><span class="p">,</span> <span class="s2">"Average trip duration"</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="s2">"Start Station"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/The_Relationship_Between_Station_Popularity_and_Trip_Duration_11_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Unfortunately, even if you happen to know the Bay Area well, there are too many points to get an overall picture of where the low-trip stations tend to be.</p></div></div></div>
