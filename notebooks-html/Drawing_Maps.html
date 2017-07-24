@@ -1,0 +1,3862 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://data8r.datahub.berkeley.edu/user-redirect/interact?account=data-8r&repo=textbook&path=notebooks/trip.csv&path=notebooks/station.csv&path=notebooks/Drawing_Maps.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The new table <code>stations</code> contains geographical information about each bike station, including latitude, longitude, and a "landmark" which is the name of the city where the station is located.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stations</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="s1">'station.csv'</span><span class="p">)</span>
+<span class="n">stations</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>station_id</th> <th>name</th> <th>lat</th> <th>long</th> <th>dockcount</th> <th>landmark</th> <th>installation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2         </td> <td>San Jose Diridon Caltrain Station</td> <td>37.3297</td> <td>-121.902</td> <td>27       </td> <td>San Jose</td> <td>8/6/2013    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3         </td> <td>San Jose Civic Center            </td> <td>37.3307</td> <td>-121.889</td> <td>15       </td> <td>San Jose</td> <td>8/5/2013    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4         </td> <td>Santa Clara at Almaden           </td> <td>37.334 </td> <td>-121.895</td> <td>11       </td> <td>San Jose</td> <td>8/6/2013    </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (67 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can draw a map of where the stations are located, using <code>Marker.map_table</code>. The function operates on a table, whose columns are (in order) latitude, longitude, and an optional identifier for each point.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Marker</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">stations</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe ;="" border:="" none"="" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+   &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css&quot; /&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js&quot;&gt;&lt;/script&gt;
+
+   &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;&gt;
+   &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css&quot;&gt;
+   &lt;script src=&quot;https://rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css&quot;&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css&quot;&gt;
+
+   
+   
+   
+   
+
+   &lt;style&gt;
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+      }
+
+   &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+   &lt;div class=&quot;folium-map&quot; id=&quot;folium_1d632fa1c32d4aa3a5e451971d8dc54a&quot; style=&quot;width: 960px; height: 500px&quot;&gt;&lt;/div&gt;
+
+   &lt;script&gt;
+
+      
+
+      var base_tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 17,
+          minZoom: 8.0,
+          attribution: 'Map data (c) &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors'
+      });
+
+      var baseLayer = {
+        &quot;Base Layer&quot;: base_tile
+      };
+
+      /*
+      addition of the wms layers
+      */
+
+      
+
+      /*
+      addition of the tile layers
+      */
+      
+
+      /*
+      list of layers to be added
+      */
+      var layer_list = {
+      
+      };
+
+      /*
+      Bounding box.
+      */
+      var southWest = L.latLng(-90, -180),
+          northEast = L.latLng(90, 180),
+          bounds = L.latLngBounds(southWest, northEast);
+
+      /*
+      Creates the map and adds the selected layers
+      */
+      var map = L.map('folium_1d632fa1c32d4aa3a5e451971d8dc54a', {
+                                       center:[37.567251, -122.1481515],
+                                       zoom: 10.0,
+                                       maxBounds: bounds,
+                                       layers: [base_tile]
+                                     });
+
+      L.control.layers(baseLayer, layer_list).addTo(map);
+
+      //cluster group
+      var clusteredmarkers = L.markerClusterGroup();
+      //section for adding clustered markers
+      
+      //add the clustered markers to the group anyway
+      map.addLayer(clusteredmarkers);
+
+      
+      var marker_1_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_1 = L.marker([37.329732, 
+							-121.901782],
+							{'icon':marker_1_icon}
+							);
+      marker_1.bindPopup(&quot;San Jose Diridon Caltrain Station&quot;);
+      marker_1._popup.options.maxWidth = 300;
+      map.addLayer(marker_1)
+      
+      var marker_2_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_2 = L.marker([37.330698, 
+							-121.888979],
+							{'icon':marker_2_icon}
+							);
+      marker_2.bindPopup(&quot;San Jose Civic Center&quot;);
+      marker_2._popup.options.maxWidth = 300;
+      map.addLayer(marker_2)
+      
+      var marker_3_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_3 = L.marker([37.333988, 
+							-121.894902],
+							{'icon':marker_3_icon}
+							);
+      marker_3.bindPopup(&quot;Santa Clara at Almaden&quot;);
+      marker_3._popup.options.maxWidth = 300;
+      map.addLayer(marker_3)
+      
+      var marker_4_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_4 = L.marker([37.331415, 
+							-121.8932],
+							{'icon':marker_4_icon}
+							);
+      marker_4.bindPopup(&quot;Adobe on Almaden&quot;);
+      marker_4._popup.options.maxWidth = 300;
+      map.addLayer(marker_4)
+      
+      var marker_5_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_5 = L.marker([37.336721, 
+							-121.894074],
+							{'icon':marker_5_icon}
+							);
+      marker_5.bindPopup(&quot;San Pedro Square&quot;);
+      marker_5._popup.options.maxWidth = 300;
+      map.addLayer(marker_5)
+      
+      var marker_6_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_6 = L.marker([37.333798, 
+							-121.886943],
+							{'icon':marker_6_icon}
+							);
+      marker_6.bindPopup(&quot;Paseo de San Antonio&quot;);
+      marker_6._popup.options.maxWidth = 300;
+      map.addLayer(marker_6)
+      
+      var marker_7_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_7 = L.marker([37.330165, 
+							-121.885831],
+							{'icon':marker_7_icon}
+							);
+      marker_7.bindPopup(&quot;San Salvador at 1st&quot;);
+      marker_7._popup.options.maxWidth = 300;
+      map.addLayer(marker_7)
+      
+      var marker_8_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_8 = L.marker([37.348742, 
+							-121.894715],
+							{'icon':marker_8_icon}
+							);
+      marker_8.bindPopup(&quot;Japantown&quot;);
+      marker_8._popup.options.maxWidth = 300;
+      map.addLayer(marker_8)
+      
+      var marker_9_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_9 = L.marker([37.337391, 
+							-121.886995],
+							{'icon':marker_9_icon}
+							);
+      marker_9.bindPopup(&quot;San Jose City Hall&quot;);
+      marker_9._popup.options.maxWidth = 300;
+      map.addLayer(marker_9)
+      
+      var marker_10_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_10 = L.marker([37.335885, 
+							-121.88566],
+							{'icon':marker_10_icon}
+							);
+      marker_10.bindPopup(&quot;MLK Library&quot;);
+      marker_10._popup.options.maxWidth = 300;
+      map.addLayer(marker_10)
+      
+      var marker_11_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_11 = L.marker([37.332808, 
+							-121.883891],
+							{'icon':marker_11_icon}
+							);
+      marker_11.bindPopup(&quot;SJSU 4th at San Carlos&quot;);
+      marker_11._popup.options.maxWidth = 300;
+      map.addLayer(marker_11)
+      
+      var marker_12_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_12 = L.marker([37.339301, 
+							-121.889937],
+							{'icon':marker_12_icon}
+							);
+      marker_12.bindPopup(&quot;St James Park&quot;);
+      marker_12._popup.options.maxWidth = 300;
+      map.addLayer(marker_12)
+      
+      var marker_13_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_13 = L.marker([37.332692, 
+							-121.900084],
+							{'icon':marker_13_icon}
+							);
+      marker_13.bindPopup(&quot;Arena Green / SAP Center&quot;);
+      marker_13._popup.options.maxWidth = 300;
+      map.addLayer(marker_13)
+      
+      var marker_14_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_14 = L.marker([37.333955, 
+							-121.877349],
+							{'icon':marker_14_icon}
+							);
+      marker_14.bindPopup(&quot;SJSU - San Salvador at 9th&quot;);
+      marker_14._popup.options.maxWidth = 300;
+      map.addLayer(marker_14)
+      
+      var marker_15_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_15 = L.marker([37.481758, 
+							-122.226904],
+							{'icon':marker_15_icon}
+							);
+      marker_15.bindPopup(&quot;Franklin at Maple&quot;);
+      marker_15._popup.options.maxWidth = 300;
+      map.addLayer(marker_15)
+      
+      var marker_16_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_16 = L.marker([37.486078, 
+							-122.232089],
+							{'icon':marker_16_icon}
+							);
+      marker_16.bindPopup(&quot;Redwood City Caltrain Station&quot;);
+      marker_16._popup.options.maxWidth = 300;
+      map.addLayer(marker_16)
+      
+      var marker_17_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_17 = L.marker([37.487616, 
+							-122.229951],
+							{'icon':marker_17_icon}
+							);
+      marker_17.bindPopup(&quot;San Mateo County Center&quot;);
+      marker_17._popup.options.maxWidth = 300;
+      map.addLayer(marker_17)
+      
+      var marker_18_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_18 = L.marker([37.484219, 
+							-122.227424],
+							{'icon':marker_18_icon}
+							);
+      marker_18.bindPopup(&quot;Redwood City Public Library&quot;);
+      marker_18._popup.options.maxWidth = 300;
+      map.addLayer(marker_18)
+      
+      var marker_19_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_19 = L.marker([37.48537, 
+							-122.203288],
+							{'icon':marker_19_icon}
+							);
+      marker_19.bindPopup(&quot;Stanford in Redwood City&quot;);
+      marker_19._popup.options.maxWidth = 300;
+      map.addLayer(marker_19)
+      
+      var marker_20_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_20 = L.marker([37.487682, 
+							-122.223492],
+							{'icon':marker_20_icon}
+							);
+      marker_20.bindPopup(&quot;Redwood City Medical Center&quot;);
+      marker_20._popup.options.maxWidth = 300;
+      map.addLayer(marker_20)
+      
+      var marker_21_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_21 = L.marker([37.389218, 
+							-122.081896],
+							{'icon':marker_21_icon}
+							);
+      marker_21.bindPopup(&quot;Mountain View City Hall&quot;);
+      marker_21._popup.options.maxWidth = 300;
+      map.addLayer(marker_21)
+      
+      var marker_22_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_22 = L.marker([37.394358, 
+							-122.076713],
+							{'icon':marker_22_icon}
+							);
+      marker_22.bindPopup(&quot;Mountain View Caltrain Station&quot;);
+      marker_22._popup.options.maxWidth = 300;
+      map.addLayer(marker_22)
+      
+      var marker_23_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_23 = L.marker([37.40694, 
+							-122.106758],
+							{'icon':marker_23_icon}
+							);
+      marker_23.bindPopup(&quot;San Antonio Caltrain Station&quot;);
+      marker_23._popup.options.maxWidth = 300;
+      map.addLayer(marker_23)
+      
+      var marker_24_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_24 = L.marker([37.390277, 
+							-122.066553],
+							{'icon':marker_24_icon}
+							);
+      marker_24.bindPopup(&quot;Evelyn Park and Ride&quot;);
+      marker_24._popup.options.maxWidth = 300;
+      map.addLayer(marker_24)
+      
+      var marker_25_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_25 = L.marker([37.400443, 
+							-122.108338],
+							{'icon':marker_25_icon}
+							);
+      marker_25.bindPopup(&quot;San Antonio Shopping Center&quot;);
+      marker_25._popup.options.maxWidth = 300;
+      map.addLayer(marker_25)
+      
+      var marker_26_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_26 = L.marker([37.385956, 
+							-122.083678],
+							{'icon':marker_26_icon}
+							);
+      marker_26.bindPopup(&quot;Castro Street and El Camino Real&quot;);
+      marker_26._popup.options.maxWidth = 300;
+      map.addLayer(marker_26)
+      
+      var marker_27_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_27 = L.marker([37.400241, 
+							-122.099076],
+							{'icon':marker_27_icon}
+							);
+      marker_27.bindPopup(&quot;Rengstorff Avenue / California Street&quot;);
+      marker_27._popup.options.maxWidth = 300;
+      map.addLayer(marker_27)
+      
+      var marker_28_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_28 = L.marker([37.443988, 
+							-122.164759],
+							{'icon':marker_28_icon}
+							);
+      marker_28.bindPopup(&quot;Palo Alto Caltrain Station&quot;);
+      marker_28._popup.options.maxWidth = 300;
+      map.addLayer(marker_28)
+      
+      var marker_29_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_29 = L.marker([37.444521, 
+							-122.163093],
+							{'icon':marker_29_icon}
+							);
+      marker_29.bindPopup(&quot;University and Emerson&quot;);
+      marker_29._popup.options.maxWidth = 300;
+      map.addLayer(marker_29)
+      
+      var marker_30_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_30 = L.marker([37.429082, 
+							-122.142805],
+							{'icon':marker_30_icon}
+							);
+      marker_30.bindPopup(&quot;California Ave Caltrain Station&quot;);
+      marker_30._popup.options.maxWidth = 300;
+      map.addLayer(marker_30)
+      
+      var marker_31_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_31 = L.marker([37.448598, 
+							-122.159504],
+							{'icon':marker_31_icon}
+							);
+      marker_31.bindPopup(&quot;Cowper at University&quot;);
+      marker_31._popup.options.maxWidth = 300;
+      map.addLayer(marker_31)
+      
+      var marker_32_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_32 = L.marker([37.4256839, 
+							-122.1377775],
+							{'icon':marker_32_icon}
+							);
+      marker_32.bindPopup(&quot;Park at Olive&quot;);
+      marker_32._popup.options.maxWidth = 300;
+      map.addLayer(marker_32)
+      
+      var marker_33_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_33 = L.marker([37.795001, 
+							-122.39997],
+							{'icon':marker_33_icon}
+							);
+      marker_33.bindPopup(&quot;Clay at Battery&quot;);
+      marker_33._popup.options.maxWidth = 300;
+      map.addLayer(marker_33)
+      
+      var marker_34_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_34 = L.marker([37.79728, 
+							-122.398436],
+							{'icon':marker_34_icon}
+							);
+      marker_34.bindPopup(&quot;Davis at Jackson&quot;);
+      marker_34._popup.options.maxWidth = 300;
+      map.addLayer(marker_34)
+      
+      var marker_35_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_35 = L.marker([37.794231, 
+							-122.402923],
+							{'icon':marker_35_icon}
+							);
+      marker_35.bindPopup(&quot;Commercial at Montgomery&quot;);
+      marker_35._popup.options.maxWidth = 300;
+      map.addLayer(marker_35)
+      
+      var marker_36_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_36 = L.marker([37.795425, 
+							-122.404767],
+							{'icon':marker_36_icon}
+							);
+      marker_36.bindPopup(&quot;Washington at Kearney&quot;);
+      marker_36._popup.options.maxWidth = 300;
+      map.addLayer(marker_36)
+      
+      var marker_37_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_37 = L.marker([37.788975, 
+							-122.403452],
+							{'icon':marker_37_icon}
+							);
+      marker_37.bindPopup(&quot;Post at Kearney&quot;);
+      marker_37._popup.options.maxWidth = 300;
+      map.addLayer(marker_37)
+      
+      var marker_38_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_38 = L.marker([37.799953, 
+							-122.398525],
+							{'icon':marker_38_icon}
+							);
+      marker_38.bindPopup(&quot;Embarcadero at Vallejo&quot;);
+      marker_38._popup.options.maxWidth = 300;
+      map.addLayer(marker_38)
+      
+      var marker_39_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_39 = L.marker([37.790302, 
+							-122.390637],
+							{'icon':marker_39_icon}
+							);
+      marker_39.bindPopup(&quot;Spear at Folsom&quot;);
+      marker_39._popup.options.maxWidth = 300;
+      map.addLayer(marker_39)
+      
+      var marker_40_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_40 = L.marker([37.795392, 
+							-122.394203],
+							{'icon':marker_40_icon}
+							);
+      marker_40.bindPopup(&quot;Harry Bridges Plaza (Ferry Building)&quot;);
+      marker_40._popup.options.maxWidth = 300;
+      map.addLayer(marker_40)
+      
+      var marker_41_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_41 = L.marker([37.791464, 
+							-122.391034],
+							{'icon':marker_41_icon}
+							);
+      marker_41.bindPopup(&quot;Embarcadero at Folsom&quot;);
+      marker_41._popup.options.maxWidth = 300;
+      map.addLayer(marker_41)
+      
+      var marker_42_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_42 = L.marker([37.783871, 
+							-122.408433],
+							{'icon':marker_42_icon}
+							);
+      marker_42.bindPopup(&quot;Powell Street BART&quot;);
+      marker_42._popup.options.maxWidth = 300;
+      map.addLayer(marker_42)
+      
+      var marker_43_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_43 = L.marker([37.787152, 
+							-122.388013],
+							{'icon':marker_43_icon}
+							);
+      marker_43.bindPopup(&quot;Embarcadero at Bryant&quot;);
+      marker_43._popup.options.maxWidth = 300;
+      map.addLayer(marker_43)
+      
+      var marker_44_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_44 = L.marker([37.789756, 
+							-122.394643],
+							{'icon':marker_44_icon}
+							);
+      marker_44.bindPopup(&quot;Temporary Transbay Terminal (Howard at Beale)&quot;);
+      marker_44._popup.options.maxWidth = 300;
+      map.addLayer(marker_44)
+      
+      var marker_45_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_45 = L.marker([37.792251, 
+							-122.397086],
+							{'icon':marker_45_icon}
+							);
+      marker_45.bindPopup(&quot;Beale at Market&quot;);
+      marker_45._popup.options.maxWidth = 300;
+      map.addLayer(marker_45)
+      
+      var marker_46_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_46 = L.marker([37.781752, 
+							-122.405127],
+							{'icon':marker_46_icon}
+							);
+      marker_46.bindPopup(&quot;5th at Howard&quot;);
+      marker_46._popup.options.maxWidth = 300;
+      map.addLayer(marker_46)
+      
+      var marker_47_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_47 = L.marker([37.77865, 
+							-122.418235],
+							{'icon':marker_47_icon}
+							);
+      marker_47.bindPopup(&quot;San Francisco City Hall&quot;);
+      marker_47._popup.options.maxWidth = 300;
+      map.addLayer(marker_47)
+      
+      var marker_48_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_48 = L.marker([37.781332, 
+							-122.418603],
+							{'icon':marker_48_icon}
+							);
+      marker_48.bindPopup(&quot;Golden Gate at Polk&quot;);
+      marker_48._popup.options.maxWidth = 300;
+      map.addLayer(marker_48)
+      
+      var marker_49_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_49 = L.marker([37.80477, 
+							-122.403234],
+							{'icon':marker_49_icon}
+							);
+      marker_49.bindPopup(&quot;Embarcadero at Sansome&quot;);
+      marker_49._popup.options.maxWidth = 300;
+      map.addLayer(marker_49)
+      
+      var marker_50_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_50 = L.marker([37.780526, 
+							-122.390288],
+							{'icon':marker_50_icon}
+							);
+      marker_50.bindPopup(&quot;2nd at Townsend&quot;);
+      marker_50._popup.options.maxWidth = 300;
+      map.addLayer(marker_50)
+      
+      var marker_51_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_51 = L.marker([37.785299, 
+							-122.396236],
+							{'icon':marker_51_icon}
+							);
+      marker_51.bindPopup(&quot;2nd at Folsom&quot;);
+      marker_51._popup.options.maxWidth = 300;
+      map.addLayer(marker_51)
+      
+      var marker_52_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_52 = L.marker([37.786978, 
+							-122.398108],
+							{'icon':marker_52_icon}
+							);
+      marker_52.bindPopup(&quot;Howard at 2nd&quot;);
+      marker_52._popup.options.maxWidth = 300;
+      map.addLayer(marker_52)
+      
+      var marker_53_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_53 = L.marker([37.782259, 
+							-122.392738],
+							{'icon':marker_53_icon}
+							);
+      marker_53.bindPopup(&quot;2nd at South Park&quot;);
+      marker_53._popup.options.maxWidth = 300;
+      map.addLayer(marker_53)
+      
+      var marker_54_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_54 = L.marker([37.771058, 
+							-122.402717],
+							{'icon':marker_54_icon}
+							);
+      marker_54.bindPopup(&quot;Townsend at 7th&quot;);
+      marker_54._popup.options.maxWidth = 300;
+      map.addLayer(marker_54)
+      
+      var marker_55_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_55 = L.marker([37.774814, 
+							-122.418954],
+							{'icon':marker_55_icon}
+							);
+      marker_55.bindPopup(&quot;South Van Ness at Market&quot;);
+      marker_55._popup.options.maxWidth = 300;
+      map.addLayer(marker_55)
+      
+      var marker_56_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_56 = L.marker([37.776619, 
+							-122.417385],
+							{'icon':marker_56_icon}
+							);
+      marker_56.bindPopup(&quot;Market at 10th&quot;);
+      marker_56._popup.options.maxWidth = 300;
+      map.addLayer(marker_56)
+      
+      var marker_57_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_57 = L.marker([37.784878, 
+							-122.401014],
+							{'icon':marker_57_icon}
+							);
+      marker_57.bindPopup(&quot;Yerba Buena Center of the Arts (3rd @ Howard)&quot;);
+      marker_57._popup.options.maxWidth = 300;
+      map.addLayer(marker_57)
+      
+      var marker_58_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_58 = L.marker([37.7766, 
+							-122.39547],
+							{'icon':marker_58_icon}
+							);
+      marker_58.bindPopup(&quot;San Francisco Caltrain 2 (330 Townsend)&quot;);
+      marker_58._popup.options.maxWidth = 300;
+      map.addLayer(marker_58)
+      
+      var marker_59_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_59 = L.marker([37.776617, 
+							-122.39526],
+							{'icon':marker_59_icon}
+							);
+      marker_59.bindPopup(&quot;San Francisco Caltrain (Townsend at 4th)&quot;);
+      marker_59._popup.options.maxWidth = 300;
+      map.addLayer(marker_59)
+      
+      var marker_60_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_60 = L.marker([37.788446, 
+							-122.408499],
+							{'icon':marker_60_icon}
+							);
+      marker_60.bindPopup(&quot;Powell at Post (Union Square)&quot;);
+      marker_60._popup.options.maxWidth = 300;
+      map.addLayer(marker_60)
+      
+      var marker_61_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_61 = L.marker([37.781039, 
+							-122.411748],
+							{'icon':marker_61_icon}
+							);
+      marker_61.bindPopup(&quot;Civic Center BART (7th at Market)&quot;);
+      marker_61._popup.options.maxWidth = 300;
+      map.addLayer(marker_61)
+      
+      var marker_62_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_62 = L.marker([37.798522, 
+							-122.407245],
+							{'icon':marker_62_icon}
+							);
+      marker_62.bindPopup(&quot;Grant Avenue at Columbus Avenue&quot;);
+      marker_62._popup.options.maxWidth = 300;
+      map.addLayer(marker_62)
+      
+      var marker_63_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_63 = L.marker([37.794139, 
+							-122.394434],
+							{'icon':marker_63_icon}
+							);
+      marker_63.bindPopup(&quot;Steuart at Market&quot;);
+      marker_63._popup.options.maxWidth = 300;
+      map.addLayer(marker_63)
+      
+      var marker_64_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_64 = L.marker([37.7913, 
+							-122.399051],
+							{'icon':marker_64_icon}
+							);
+      marker_64.bindPopup(&quot;Mechanics Plaza (Market at Battery)&quot;);
+      marker_64._popup.options.maxWidth = 300;
+      map.addLayer(marker_64)
+      
+      var marker_65_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_65 = L.marker([37.786305, 
+							-122.404966],
+							{'icon':marker_65_icon}
+							);
+      marker_65.bindPopup(&quot;Market at 4th&quot;);
+      marker_65._popup.options.maxWidth = 300;
+      map.addLayer(marker_65)
+      
+      var marker_66_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_66 = L.marker([37.789625, 
+							-122.400811],
+							{'icon':marker_66_icon}
+							);
+      marker_66.bindPopup(&quot;Market at Sansome&quot;);
+      marker_66._popup.options.maxWidth = 300;
+      map.addLayer(marker_66)
+      
+      var marker_67_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_67 = L.marker([37.352601, 
+							-121.905733],
+							{'icon':marker_67_icon}
+							);
+      marker_67.bindPopup(&quot;Santa Clara County Civic Center&quot;);
+      marker_67._popup.options.maxWidth = 300;
+      map.addLayer(marker_67)
+      
+      var marker_68_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_68 = L.marker([37.798541, 
+							-122.400862],
+							{'icon':marker_68_icon}
+							);
+      marker_68.bindPopup(&quot;Broadway St at Battery St&quot;);
+      marker_68._popup.options.maxWidth = 300;
+      map.addLayer(marker_68)
+      
+      var marker_69_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_69 = L.marker([37.491269, 
+							-122.236234],
+							{'icon':marker_69_icon}
+							);
+      marker_69.bindPopup(&quot;Mezes Park&quot;);
+      marker_69._popup.options.maxWidth = 300;
+      map.addLayer(marker_69)
+      
+      var marker_70_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_70 = L.marker([37.342725, 
+							-121.895617],
+							{'icon':marker_70_icon}
+							);
+      marker_70.bindPopup(&quot;Ryland Park&quot;);
+      marker_70._popup.options.maxWidth = 300;
+      map.addLayer(marker_70)
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+   &lt;/script&gt;
+
+&lt;/body&gt;" style="width: 960px; height: 500px"></iframe></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The map is created using <a href="http://www.openstreetmap.org/#map=5/51.500/-0.100">OpenStreetMap</a>, which is an open online mapping system that you can use just as you would use Google Maps or any other online map. Zoom in to San Francisco to see how the stations are distributed. Click on a marker to see which station it is.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can also represent points on a map by colored circles. Here is such a map of the San Francisco bike stations.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sf</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'landmark'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s1">'San Francisco'</span><span class="p">))</span>
+<span class="n">sf_map_data</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">)</span>
+<span class="n">Circle</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">sf_map_data</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe ;="" border:="" none"="" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+   &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css&quot; /&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js&quot;&gt;&lt;/script&gt;
+
+   &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;&gt;
+   &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css&quot;&gt;
+   &lt;script src=&quot;https://rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css&quot;&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css&quot;&gt;
+
+   
+   
+   
+   
+
+   &lt;style&gt;
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+      }
+
+   &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+   &lt;div class=&quot;folium-map&quot; id=&quot;folium_a1acf0bb4df1492882368702f52e0e9a&quot; style=&quot;width: 960px; height: 500px&quot;&gt;&lt;/div&gt;
+
+   &lt;script&gt;
+
+      
+
+      var base_tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 17,
+          minZoom: 10.0,
+          attribution: 'Map data (c) &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors'
+      });
+
+      var baseLayer = {
+        &quot;Base Layer&quot;: base_tile
+      };
+
+      /*
+      addition of the wms layers
+      */
+
+      
+
+      /*
+      addition of the tile layers
+      */
+      
+
+      /*
+      list of layers to be added
+      */
+      var layer_list = {
+      
+      };
+
+      /*
+      Bounding box.
+      */
+      var southWest = L.latLng(-90, -180),
+          northEast = L.latLng(90, 180),
+          bounds = L.latLngBounds(southWest, northEast);
+
+      /*
+      Creates the map and adds the selected layers
+      */
+      var map = L.map('folium_a1acf0bb4df1492882368702f52e0e9a', {
+                                       center:[37.787914, -122.4034835],
+                                       zoom: 12.0,
+                                       maxBounds: bounds,
+                                       layers: [base_tile]
+                                     });
+
+      L.control.layers(baseLayer, layer_list).addTo(map);
+
+      //cluster group
+      var clusteredmarkers = L.markerClusterGroup();
+      //section for adding clustered markers
+      
+      //add the clustered markers to the group anyway
+      map.addLayer(clusteredmarkers);
+
+      
+
+      
+      var circle_1 = L.circle([37.795001, -122.39997], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_1.bindPopup(&quot;Clay at Battery&quot;);
+      circle_1._popup.options.maxWidth = 300;
+      map.addLayer(circle_1)
+      
+      var circle_2 = L.circle([37.79728, -122.398436], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_2.bindPopup(&quot;Davis at Jackson&quot;);
+      circle_2._popup.options.maxWidth = 300;
+      map.addLayer(circle_2)
+      
+      var circle_3 = L.circle([37.794231, -122.402923], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_3.bindPopup(&quot;Commercial at Montgomery&quot;);
+      circle_3._popup.options.maxWidth = 300;
+      map.addLayer(circle_3)
+      
+      var circle_4 = L.circle([37.795425, -122.404767], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_4.bindPopup(&quot;Washington at Kearney&quot;);
+      circle_4._popup.options.maxWidth = 300;
+      map.addLayer(circle_4)
+      
+      var circle_5 = L.circle([37.788975, -122.403452], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_5.bindPopup(&quot;Post at Kearney&quot;);
+      circle_5._popup.options.maxWidth = 300;
+      map.addLayer(circle_5)
+      
+      var circle_6 = L.circle([37.799953, -122.398525], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_6.bindPopup(&quot;Embarcadero at Vallejo&quot;);
+      circle_6._popup.options.maxWidth = 300;
+      map.addLayer(circle_6)
+      
+      var circle_7 = L.circle([37.790302, -122.390637], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_7.bindPopup(&quot;Spear at Folsom&quot;);
+      circle_7._popup.options.maxWidth = 300;
+      map.addLayer(circle_7)
+      
+      var circle_8 = L.circle([37.795392, -122.394203], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_8.bindPopup(&quot;Harry Bridges Plaza (Ferry Building)&quot;);
+      circle_8._popup.options.maxWidth = 300;
+      map.addLayer(circle_8)
+      
+      var circle_9 = L.circle([37.791464, -122.391034], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_9.bindPopup(&quot;Embarcadero at Folsom&quot;);
+      circle_9._popup.options.maxWidth = 300;
+      map.addLayer(circle_9)
+      
+      var circle_10 = L.circle([37.783871, -122.408433], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_10.bindPopup(&quot;Powell Street BART&quot;);
+      circle_10._popup.options.maxWidth = 300;
+      map.addLayer(circle_10)
+      
+      var circle_11 = L.circle([37.787152, -122.388013], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_11.bindPopup(&quot;Embarcadero at Bryant&quot;);
+      circle_11._popup.options.maxWidth = 300;
+      map.addLayer(circle_11)
+      
+      var circle_12 = L.circle([37.789756, -122.394643], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_12.bindPopup(&quot;Temporary Transbay Terminal (Howard at Beale)&quot;);
+      circle_12._popup.options.maxWidth = 300;
+      map.addLayer(circle_12)
+      
+      var circle_13 = L.circle([37.792251, -122.397086], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_13.bindPopup(&quot;Beale at Market&quot;);
+      circle_13._popup.options.maxWidth = 300;
+      map.addLayer(circle_13)
+      
+      var circle_14 = L.circle([37.781752, -122.405127], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_14.bindPopup(&quot;5th at Howard&quot;);
+      circle_14._popup.options.maxWidth = 300;
+      map.addLayer(circle_14)
+      
+      var circle_15 = L.circle([37.77865, -122.418235], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_15.bindPopup(&quot;San Francisco City Hall&quot;);
+      circle_15._popup.options.maxWidth = 300;
+      map.addLayer(circle_15)
+      
+      var circle_16 = L.circle([37.781332, -122.418603], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_16.bindPopup(&quot;Golden Gate at Polk&quot;);
+      circle_16._popup.options.maxWidth = 300;
+      map.addLayer(circle_16)
+      
+      var circle_17 = L.circle([37.80477, -122.403234], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_17.bindPopup(&quot;Embarcadero at Sansome&quot;);
+      circle_17._popup.options.maxWidth = 300;
+      map.addLayer(circle_17)
+      
+      var circle_18 = L.circle([37.780526, -122.390288], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_18.bindPopup(&quot;2nd at Townsend&quot;);
+      circle_18._popup.options.maxWidth = 300;
+      map.addLayer(circle_18)
+      
+      var circle_19 = L.circle([37.785299, -122.396236], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_19.bindPopup(&quot;2nd at Folsom&quot;);
+      circle_19._popup.options.maxWidth = 300;
+      map.addLayer(circle_19)
+      
+      var circle_20 = L.circle([37.786978, -122.398108], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_20.bindPopup(&quot;Howard at 2nd&quot;);
+      circle_20._popup.options.maxWidth = 300;
+      map.addLayer(circle_20)
+      
+      var circle_21 = L.circle([37.782259, -122.392738], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_21.bindPopup(&quot;2nd at South Park&quot;);
+      circle_21._popup.options.maxWidth = 300;
+      map.addLayer(circle_21)
+      
+      var circle_22 = L.circle([37.771058, -122.402717], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_22.bindPopup(&quot;Townsend at 7th&quot;);
+      circle_22._popup.options.maxWidth = 300;
+      map.addLayer(circle_22)
+      
+      var circle_23 = L.circle([37.774814, -122.418954], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_23.bindPopup(&quot;South Van Ness at Market&quot;);
+      circle_23._popup.options.maxWidth = 300;
+      map.addLayer(circle_23)
+      
+      var circle_24 = L.circle([37.776619, -122.417385], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_24.bindPopup(&quot;Market at 10th&quot;);
+      circle_24._popup.options.maxWidth = 300;
+      map.addLayer(circle_24)
+      
+      var circle_25 = L.circle([37.784878, -122.401014], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_25.bindPopup(&quot;Yerba Buena Center of the Arts (3rd @ Howard)&quot;);
+      circle_25._popup.options.maxWidth = 300;
+      map.addLayer(circle_25)
+      
+      var circle_26 = L.circle([37.7766, -122.39547], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_26.bindPopup(&quot;San Francisco Caltrain 2 (330 Townsend)&quot;);
+      circle_26._popup.options.maxWidth = 300;
+      map.addLayer(circle_26)
+      
+      var circle_27 = L.circle([37.776617, -122.39526], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_27.bindPopup(&quot;San Francisco Caltrain (Townsend at 4th)&quot;);
+      circle_27._popup.options.maxWidth = 300;
+      map.addLayer(circle_27)
+      
+      var circle_28 = L.circle([37.788446, -122.408499], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_28.bindPopup(&quot;Powell at Post (Union Square)&quot;);
+      circle_28._popup.options.maxWidth = 300;
+      map.addLayer(circle_28)
+      
+      var circle_29 = L.circle([37.781039, -122.411748], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_29.bindPopup(&quot;Civic Center BART (7th at Market)&quot;);
+      circle_29._popup.options.maxWidth = 300;
+      map.addLayer(circle_29)
+      
+      var circle_30 = L.circle([37.798522, -122.407245], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_30.bindPopup(&quot;Grant Avenue at Columbus Avenue&quot;);
+      circle_30._popup.options.maxWidth = 300;
+      map.addLayer(circle_30)
+      
+      var circle_31 = L.circle([37.794139, -122.394434], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_31.bindPopup(&quot;Steuart at Market&quot;);
+      circle_31._popup.options.maxWidth = 300;
+      map.addLayer(circle_31)
+      
+      var circle_32 = L.circle([37.7913, -122.399051], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_32.bindPopup(&quot;Mechanics Plaza (Market at Battery)&quot;);
+      circle_32._popup.options.maxWidth = 300;
+      map.addLayer(circle_32)
+      
+      var circle_33 = L.circle([37.786305, -122.404966], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_33.bindPopup(&quot;Market at 4th&quot;);
+      circle_33._popup.options.maxWidth = 300;
+      map.addLayer(circle_33)
+      
+      var circle_34 = L.circle([37.789625, -122.400811], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_34.bindPopup(&quot;Market at Sansome&quot;);
+      circle_34._popup.options.maxWidth = 300;
+      map.addLayer(circle_34)
+      
+      var circle_35 = L.circle([37.798541, -122.400862], 200, {
+                            color: 'None',
+                            fillColor: 'green',
+                            fillOpacity: 0.6
+                            });
+      circle_35.bindPopup(&quot;Broadway St at Battery St&quot;);
+      circle_35._popup.options.maxWidth = 300;
+      map.addLayer(circle_35)
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+   &lt;/script&gt;
+
+&lt;/body&gt;" style="width: 960px; height: 500px"></iframe></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="More-Informative-Maps">More Informative Maps<a class="anchor-link" href="#More-Informative-Maps">¶</a></h3><p>The bike stations are located in five different cities in the Bay Area. As a simple starting example, let us distinguish the points by using a different color for each city.  We will again use <code>apply</code> to assign each city a color by looking up its color in a table.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cities</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'landmark'</span><span class="p">)</span><span class="o">.</span><span class="n">relabeled</span><span class="p">(</span><span class="s1">'landmark'</span><span class="p">,</span> <span class="s1">'city'</span><span class="p">)</span>
+<span class="n">cities</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>city</th> <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Mountain View</td> <td>7    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Palo Alto    </td> <td>5    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Redwood City </td> <td>7    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>San Francisco</td> <td>35   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>San Jose     </td> <td>16   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="n">cities</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'color'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">,</span> <span class="s1">'orange'</span><span class="p">,</span> <span class="s1">'purple'</span><span class="p">))</span>
+<span class="n">colors</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>city</th> <th>count</th> <th>color</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Mountain View</td> <td>7    </td> <td>blue  </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Palo Alto    </td> <td>5    </td> <td>red   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Redwood City </td> <td>7    </td> <td>green </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>San Francisco</td> <td>35   </td> <td>orange</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>San Jose     </td> <td>16   </td> <td>purple</td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can write a function to look up the color of a station by its city, using the <code>colors</code> table.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">find_color</span><span class="p">(</span><span class="n">city_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">colors</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">"city"</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">city_name</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"color"</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">with_colors</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s2">"color"</span><span class="p">,</span> <span class="n">stations</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">find_color</span><span class="p">,</span> <span class="s2">"landmark"</span><span class="p">))</span>
+<span class="n">with_colors</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>station_id</th> <th>name</th> <th>lat</th> <th>long</th> <th>dockcount</th> <th>landmark</th> <th>installation</th> <th>color</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2         </td> <td>San Jose Diridon Caltrain Station</td> <td>37.3297</td> <td>-121.902</td> <td>27       </td> <td>San Jose</td> <td>8/6/2013    </td> <td>purple</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3         </td> <td>San Jose Civic Center            </td> <td>37.3307</td> <td>-121.889</td> <td>15       </td> <td>San Jose</td> <td>8/5/2013    </td> <td>purple</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4         </td> <td>Santa Clara at Almaden           </td> <td>37.334 </td> <td>-121.895</td> <td>11       </td> <td>San Jose</td> <td>8/6/2013    </td> <td>purple</td>
+        </tr>
+    </tbody>
+</table>
+<p>... (67 rows omitted)</p></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Marker</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">with_colors</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'color'</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe ;="" border:="" none"="" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+   &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css&quot; /&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js&quot;&gt;&lt;/script&gt;
+
+   &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;&gt;
+   &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css&quot;&gt;
+   &lt;script src=&quot;https://rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css&quot;&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css&quot;&gt;
+
+   
+   
+   
+   
+
+   &lt;style&gt;
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+      }
+
+   &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+   &lt;div class=&quot;folium-map&quot; id=&quot;folium_4d225defbe8d4c07a1f3848f2d296efd&quot; style=&quot;width: 960px; height: 500px&quot;&gt;&lt;/div&gt;
+
+   &lt;script&gt;
+
+      
+
+      var base_tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 17,
+          minZoom: 8.0,
+          attribution: 'Map data (c) &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors'
+      });
+
+      var baseLayer = {
+        &quot;Base Layer&quot;: base_tile
+      };
+
+      /*
+      addition of the wms layers
+      */
+
+      
+
+      /*
+      addition of the tile layers
+      */
+      
+
+      /*
+      list of layers to be added
+      */
+      var layer_list = {
+      
+      };
+
+      /*
+      Bounding box.
+      */
+      var southWest = L.latLng(-90, -180),
+          northEast = L.latLng(90, 180),
+          bounds = L.latLngBounds(southWest, northEast);
+
+      /*
+      Creates the map and adds the selected layers
+      */
+      var map = L.map('folium_4d225defbe8d4c07a1f3848f2d296efd', {
+                                       center:[37.567251, -122.1481515],
+                                       zoom: 10.0,
+                                       maxBounds: bounds,
+                                       layers: [base_tile]
+                                     });
+
+      L.control.layers(baseLayer, layer_list).addTo(map);
+
+      //cluster group
+      var clusteredmarkers = L.markerClusterGroup();
+      //section for adding clustered markers
+      
+      //add the clustered markers to the group anyway
+      map.addLayer(clusteredmarkers);
+
+      
+      var marker_1_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_1 = L.marker([37.329732, 
+							-121.901782],
+							{'icon':marker_1_icon}
+							);
+      marker_1.bindPopup(&quot;San Jose Diridon Caltrain Station&quot;);
+      marker_1._popup.options.maxWidth = 300;
+      map.addLayer(marker_1)
+      
+      var marker_2_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_2 = L.marker([37.330698, 
+							-121.888979],
+							{'icon':marker_2_icon}
+							);
+      marker_2.bindPopup(&quot;San Jose Civic Center&quot;);
+      marker_2._popup.options.maxWidth = 300;
+      map.addLayer(marker_2)
+      
+      var marker_3_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_3 = L.marker([37.333988, 
+							-121.894902],
+							{'icon':marker_3_icon}
+							);
+      marker_3.bindPopup(&quot;Santa Clara at Almaden&quot;);
+      marker_3._popup.options.maxWidth = 300;
+      map.addLayer(marker_3)
+      
+      var marker_4_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_4 = L.marker([37.331415, 
+							-121.8932],
+							{'icon':marker_4_icon}
+							);
+      marker_4.bindPopup(&quot;Adobe on Almaden&quot;);
+      marker_4._popup.options.maxWidth = 300;
+      map.addLayer(marker_4)
+      
+      var marker_5_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_5 = L.marker([37.336721, 
+							-121.894074],
+							{'icon':marker_5_icon}
+							);
+      marker_5.bindPopup(&quot;San Pedro Square&quot;);
+      marker_5._popup.options.maxWidth = 300;
+      map.addLayer(marker_5)
+      
+      var marker_6_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_6 = L.marker([37.333798, 
+							-121.886943],
+							{'icon':marker_6_icon}
+							);
+      marker_6.bindPopup(&quot;Paseo de San Antonio&quot;);
+      marker_6._popup.options.maxWidth = 300;
+      map.addLayer(marker_6)
+      
+      var marker_7_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_7 = L.marker([37.330165, 
+							-121.885831],
+							{'icon':marker_7_icon}
+							);
+      marker_7.bindPopup(&quot;San Salvador at 1st&quot;);
+      marker_7._popup.options.maxWidth = 300;
+      map.addLayer(marker_7)
+      
+      var marker_8_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_8 = L.marker([37.348742, 
+							-121.894715],
+							{'icon':marker_8_icon}
+							);
+      marker_8.bindPopup(&quot;Japantown&quot;);
+      marker_8._popup.options.maxWidth = 300;
+      map.addLayer(marker_8)
+      
+      var marker_9_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_9 = L.marker([37.337391, 
+							-121.886995],
+							{'icon':marker_9_icon}
+							);
+      marker_9.bindPopup(&quot;San Jose City Hall&quot;);
+      marker_9._popup.options.maxWidth = 300;
+      map.addLayer(marker_9)
+      
+      var marker_10_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_10 = L.marker([37.335885, 
+							-121.88566],
+							{'icon':marker_10_icon}
+							);
+      marker_10.bindPopup(&quot;MLK Library&quot;);
+      marker_10._popup.options.maxWidth = 300;
+      map.addLayer(marker_10)
+      
+      var marker_11_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_11 = L.marker([37.332808, 
+							-121.883891],
+							{'icon':marker_11_icon}
+							);
+      marker_11.bindPopup(&quot;SJSU 4th at San Carlos&quot;);
+      marker_11._popup.options.maxWidth = 300;
+      map.addLayer(marker_11)
+      
+      var marker_12_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_12 = L.marker([37.339301, 
+							-121.889937],
+							{'icon':marker_12_icon}
+							);
+      marker_12.bindPopup(&quot;St James Park&quot;);
+      marker_12._popup.options.maxWidth = 300;
+      map.addLayer(marker_12)
+      
+      var marker_13_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_13 = L.marker([37.332692, 
+							-121.900084],
+							{'icon':marker_13_icon}
+							);
+      marker_13.bindPopup(&quot;Arena Green / SAP Center&quot;);
+      marker_13._popup.options.maxWidth = 300;
+      map.addLayer(marker_13)
+      
+      var marker_14_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_14 = L.marker([37.333955, 
+							-121.877349],
+							{'icon':marker_14_icon}
+							);
+      marker_14.bindPopup(&quot;SJSU - San Salvador at 9th&quot;);
+      marker_14._popup.options.maxWidth = 300;
+      map.addLayer(marker_14)
+      
+      var marker_15_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'green',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_15 = L.marker([37.481758, 
+							-122.226904],
+							{'icon':marker_15_icon}
+							);
+      marker_15.bindPopup(&quot;Franklin at Maple&quot;);
+      marker_15._popup.options.maxWidth = 300;
+      map.addLayer(marker_15)
+      
+      var marker_16_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'green',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_16 = L.marker([37.486078, 
+							-122.232089],
+							{'icon':marker_16_icon}
+							);
+      marker_16.bindPopup(&quot;Redwood City Caltrain Station&quot;);
+      marker_16._popup.options.maxWidth = 300;
+      map.addLayer(marker_16)
+      
+      var marker_17_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'green',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_17 = L.marker([37.487616, 
+							-122.229951],
+							{'icon':marker_17_icon}
+							);
+      marker_17.bindPopup(&quot;San Mateo County Center&quot;);
+      marker_17._popup.options.maxWidth = 300;
+      map.addLayer(marker_17)
+      
+      var marker_18_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'green',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_18 = L.marker([37.484219, 
+							-122.227424],
+							{'icon':marker_18_icon}
+							);
+      marker_18.bindPopup(&quot;Redwood City Public Library&quot;);
+      marker_18._popup.options.maxWidth = 300;
+      map.addLayer(marker_18)
+      
+      var marker_19_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'green',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_19 = L.marker([37.48537, 
+							-122.203288],
+							{'icon':marker_19_icon}
+							);
+      marker_19.bindPopup(&quot;Stanford in Redwood City&quot;);
+      marker_19._popup.options.maxWidth = 300;
+      map.addLayer(marker_19)
+      
+      var marker_20_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'green',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_20 = L.marker([37.487682, 
+							-122.223492],
+							{'icon':marker_20_icon}
+							);
+      marker_20.bindPopup(&quot;Redwood City Medical Center&quot;);
+      marker_20._popup.options.maxWidth = 300;
+      map.addLayer(marker_20)
+      
+      var marker_21_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_21 = L.marker([37.389218, 
+							-122.081896],
+							{'icon':marker_21_icon}
+							);
+      marker_21.bindPopup(&quot;Mountain View City Hall&quot;);
+      marker_21._popup.options.maxWidth = 300;
+      map.addLayer(marker_21)
+      
+      var marker_22_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_22 = L.marker([37.394358, 
+							-122.076713],
+							{'icon':marker_22_icon}
+							);
+      marker_22.bindPopup(&quot;Mountain View Caltrain Station&quot;);
+      marker_22._popup.options.maxWidth = 300;
+      map.addLayer(marker_22)
+      
+      var marker_23_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_23 = L.marker([37.40694, 
+							-122.106758],
+							{'icon':marker_23_icon}
+							);
+      marker_23.bindPopup(&quot;San Antonio Caltrain Station&quot;);
+      marker_23._popup.options.maxWidth = 300;
+      map.addLayer(marker_23)
+      
+      var marker_24_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_24 = L.marker([37.390277, 
+							-122.066553],
+							{'icon':marker_24_icon}
+							);
+      marker_24.bindPopup(&quot;Evelyn Park and Ride&quot;);
+      marker_24._popup.options.maxWidth = 300;
+      map.addLayer(marker_24)
+      
+      var marker_25_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_25 = L.marker([37.400443, 
+							-122.108338],
+							{'icon':marker_25_icon}
+							);
+      marker_25.bindPopup(&quot;San Antonio Shopping Center&quot;);
+      marker_25._popup.options.maxWidth = 300;
+      map.addLayer(marker_25)
+      
+      var marker_26_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_26 = L.marker([37.385956, 
+							-122.083678],
+							{'icon':marker_26_icon}
+							);
+      marker_26.bindPopup(&quot;Castro Street and El Camino Real&quot;);
+      marker_26._popup.options.maxWidth = 300;
+      map.addLayer(marker_26)
+      
+      var marker_27_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'blue',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_27 = L.marker([37.400241, 
+							-122.099076],
+							{'icon':marker_27_icon}
+							);
+      marker_27.bindPopup(&quot;Rengstorff Avenue / California Street&quot;);
+      marker_27._popup.options.maxWidth = 300;
+      map.addLayer(marker_27)
+      
+      var marker_28_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'red',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_28 = L.marker([37.443988, 
+							-122.164759],
+							{'icon':marker_28_icon}
+							);
+      marker_28.bindPopup(&quot;Palo Alto Caltrain Station&quot;);
+      marker_28._popup.options.maxWidth = 300;
+      map.addLayer(marker_28)
+      
+      var marker_29_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'red',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_29 = L.marker([37.444521, 
+							-122.163093],
+							{'icon':marker_29_icon}
+							);
+      marker_29.bindPopup(&quot;University and Emerson&quot;);
+      marker_29._popup.options.maxWidth = 300;
+      map.addLayer(marker_29)
+      
+      var marker_30_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'red',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_30 = L.marker([37.429082, 
+							-122.142805],
+							{'icon':marker_30_icon}
+							);
+      marker_30.bindPopup(&quot;California Ave Caltrain Station&quot;);
+      marker_30._popup.options.maxWidth = 300;
+      map.addLayer(marker_30)
+      
+      var marker_31_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'red',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_31 = L.marker([37.448598, 
+							-122.159504],
+							{'icon':marker_31_icon}
+							);
+      marker_31.bindPopup(&quot;Cowper at University&quot;);
+      marker_31._popup.options.maxWidth = 300;
+      map.addLayer(marker_31)
+      
+      var marker_32_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'red',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_32 = L.marker([37.4256839, 
+							-122.1377775],
+							{'icon':marker_32_icon}
+							);
+      marker_32.bindPopup(&quot;Park at Olive&quot;);
+      marker_32._popup.options.maxWidth = 300;
+      map.addLayer(marker_32)
+      
+      var marker_33_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_33 = L.marker([37.795001, 
+							-122.39997],
+							{'icon':marker_33_icon}
+							);
+      marker_33.bindPopup(&quot;Clay at Battery&quot;);
+      marker_33._popup.options.maxWidth = 300;
+      map.addLayer(marker_33)
+      
+      var marker_34_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_34 = L.marker([37.79728, 
+							-122.398436],
+							{'icon':marker_34_icon}
+							);
+      marker_34.bindPopup(&quot;Davis at Jackson&quot;);
+      marker_34._popup.options.maxWidth = 300;
+      map.addLayer(marker_34)
+      
+      var marker_35_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_35 = L.marker([37.794231, 
+							-122.402923],
+							{'icon':marker_35_icon}
+							);
+      marker_35.bindPopup(&quot;Commercial at Montgomery&quot;);
+      marker_35._popup.options.maxWidth = 300;
+      map.addLayer(marker_35)
+      
+      var marker_36_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_36 = L.marker([37.795425, 
+							-122.404767],
+							{'icon':marker_36_icon}
+							);
+      marker_36.bindPopup(&quot;Washington at Kearney&quot;);
+      marker_36._popup.options.maxWidth = 300;
+      map.addLayer(marker_36)
+      
+      var marker_37_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_37 = L.marker([37.788975, 
+							-122.403452],
+							{'icon':marker_37_icon}
+							);
+      marker_37.bindPopup(&quot;Post at Kearney&quot;);
+      marker_37._popup.options.maxWidth = 300;
+      map.addLayer(marker_37)
+      
+      var marker_38_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_38 = L.marker([37.799953, 
+							-122.398525],
+							{'icon':marker_38_icon}
+							);
+      marker_38.bindPopup(&quot;Embarcadero at Vallejo&quot;);
+      marker_38._popup.options.maxWidth = 300;
+      map.addLayer(marker_38)
+      
+      var marker_39_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_39 = L.marker([37.790302, 
+							-122.390637],
+							{'icon':marker_39_icon}
+							);
+      marker_39.bindPopup(&quot;Spear at Folsom&quot;);
+      marker_39._popup.options.maxWidth = 300;
+      map.addLayer(marker_39)
+      
+      var marker_40_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_40 = L.marker([37.795392, 
+							-122.394203],
+							{'icon':marker_40_icon}
+							);
+      marker_40.bindPopup(&quot;Harry Bridges Plaza (Ferry Building)&quot;);
+      marker_40._popup.options.maxWidth = 300;
+      map.addLayer(marker_40)
+      
+      var marker_41_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_41 = L.marker([37.791464, 
+							-122.391034],
+							{'icon':marker_41_icon}
+							);
+      marker_41.bindPopup(&quot;Embarcadero at Folsom&quot;);
+      marker_41._popup.options.maxWidth = 300;
+      map.addLayer(marker_41)
+      
+      var marker_42_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_42 = L.marker([37.783871, 
+							-122.408433],
+							{'icon':marker_42_icon}
+							);
+      marker_42.bindPopup(&quot;Powell Street BART&quot;);
+      marker_42._popup.options.maxWidth = 300;
+      map.addLayer(marker_42)
+      
+      var marker_43_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_43 = L.marker([37.787152, 
+							-122.388013],
+							{'icon':marker_43_icon}
+							);
+      marker_43.bindPopup(&quot;Embarcadero at Bryant&quot;);
+      marker_43._popup.options.maxWidth = 300;
+      map.addLayer(marker_43)
+      
+      var marker_44_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_44 = L.marker([37.789756, 
+							-122.394643],
+							{'icon':marker_44_icon}
+							);
+      marker_44.bindPopup(&quot;Temporary Transbay Terminal (Howard at Beale)&quot;);
+      marker_44._popup.options.maxWidth = 300;
+      map.addLayer(marker_44)
+      
+      var marker_45_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_45 = L.marker([37.792251, 
+							-122.397086],
+							{'icon':marker_45_icon}
+							);
+      marker_45.bindPopup(&quot;Beale at Market&quot;);
+      marker_45._popup.options.maxWidth = 300;
+      map.addLayer(marker_45)
+      
+      var marker_46_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_46 = L.marker([37.781752, 
+							-122.405127],
+							{'icon':marker_46_icon}
+							);
+      marker_46.bindPopup(&quot;5th at Howard&quot;);
+      marker_46._popup.options.maxWidth = 300;
+      map.addLayer(marker_46)
+      
+      var marker_47_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_47 = L.marker([37.77865, 
+							-122.418235],
+							{'icon':marker_47_icon}
+							);
+      marker_47.bindPopup(&quot;San Francisco City Hall&quot;);
+      marker_47._popup.options.maxWidth = 300;
+      map.addLayer(marker_47)
+      
+      var marker_48_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_48 = L.marker([37.781332, 
+							-122.418603],
+							{'icon':marker_48_icon}
+							);
+      marker_48.bindPopup(&quot;Golden Gate at Polk&quot;);
+      marker_48._popup.options.maxWidth = 300;
+      map.addLayer(marker_48)
+      
+      var marker_49_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_49 = L.marker([37.80477, 
+							-122.403234],
+							{'icon':marker_49_icon}
+							);
+      marker_49.bindPopup(&quot;Embarcadero at Sansome&quot;);
+      marker_49._popup.options.maxWidth = 300;
+      map.addLayer(marker_49)
+      
+      var marker_50_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_50 = L.marker([37.780526, 
+							-122.390288],
+							{'icon':marker_50_icon}
+							);
+      marker_50.bindPopup(&quot;2nd at Townsend&quot;);
+      marker_50._popup.options.maxWidth = 300;
+      map.addLayer(marker_50)
+      
+      var marker_51_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_51 = L.marker([37.785299, 
+							-122.396236],
+							{'icon':marker_51_icon}
+							);
+      marker_51.bindPopup(&quot;2nd at Folsom&quot;);
+      marker_51._popup.options.maxWidth = 300;
+      map.addLayer(marker_51)
+      
+      var marker_52_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_52 = L.marker([37.786978, 
+							-122.398108],
+							{'icon':marker_52_icon}
+							);
+      marker_52.bindPopup(&quot;Howard at 2nd&quot;);
+      marker_52._popup.options.maxWidth = 300;
+      map.addLayer(marker_52)
+      
+      var marker_53_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_53 = L.marker([37.782259, 
+							-122.392738],
+							{'icon':marker_53_icon}
+							);
+      marker_53.bindPopup(&quot;2nd at South Park&quot;);
+      marker_53._popup.options.maxWidth = 300;
+      map.addLayer(marker_53)
+      
+      var marker_54_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_54 = L.marker([37.771058, 
+							-122.402717],
+							{'icon':marker_54_icon}
+							);
+      marker_54.bindPopup(&quot;Townsend at 7th&quot;);
+      marker_54._popup.options.maxWidth = 300;
+      map.addLayer(marker_54)
+      
+      var marker_55_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_55 = L.marker([37.774814, 
+							-122.418954],
+							{'icon':marker_55_icon}
+							);
+      marker_55.bindPopup(&quot;South Van Ness at Market&quot;);
+      marker_55._popup.options.maxWidth = 300;
+      map.addLayer(marker_55)
+      
+      var marker_56_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_56 = L.marker([37.776619, 
+							-122.417385],
+							{'icon':marker_56_icon}
+							);
+      marker_56.bindPopup(&quot;Market at 10th&quot;);
+      marker_56._popup.options.maxWidth = 300;
+      map.addLayer(marker_56)
+      
+      var marker_57_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_57 = L.marker([37.784878, 
+							-122.401014],
+							{'icon':marker_57_icon}
+							);
+      marker_57.bindPopup(&quot;Yerba Buena Center of the Arts (3rd @ Howard)&quot;);
+      marker_57._popup.options.maxWidth = 300;
+      map.addLayer(marker_57)
+      
+      var marker_58_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_58 = L.marker([37.7766, 
+							-122.39547],
+							{'icon':marker_58_icon}
+							);
+      marker_58.bindPopup(&quot;San Francisco Caltrain 2 (330 Townsend)&quot;);
+      marker_58._popup.options.maxWidth = 300;
+      map.addLayer(marker_58)
+      
+      var marker_59_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_59 = L.marker([37.776617, 
+							-122.39526],
+							{'icon':marker_59_icon}
+							);
+      marker_59.bindPopup(&quot;San Francisco Caltrain (Townsend at 4th)&quot;);
+      marker_59._popup.options.maxWidth = 300;
+      map.addLayer(marker_59)
+      
+      var marker_60_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_60 = L.marker([37.788446, 
+							-122.408499],
+							{'icon':marker_60_icon}
+							);
+      marker_60.bindPopup(&quot;Powell at Post (Union Square)&quot;);
+      marker_60._popup.options.maxWidth = 300;
+      map.addLayer(marker_60)
+      
+      var marker_61_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_61 = L.marker([37.781039, 
+							-122.411748],
+							{'icon':marker_61_icon}
+							);
+      marker_61.bindPopup(&quot;Civic Center BART (7th at Market)&quot;);
+      marker_61._popup.options.maxWidth = 300;
+      map.addLayer(marker_61)
+      
+      var marker_62_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_62 = L.marker([37.798522, 
+							-122.407245],
+							{'icon':marker_62_icon}
+							);
+      marker_62.bindPopup(&quot;Grant Avenue at Columbus Avenue&quot;);
+      marker_62._popup.options.maxWidth = 300;
+      map.addLayer(marker_62)
+      
+      var marker_63_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_63 = L.marker([37.794139, 
+							-122.394434],
+							{'icon':marker_63_icon}
+							);
+      marker_63.bindPopup(&quot;Steuart at Market&quot;);
+      marker_63._popup.options.maxWidth = 300;
+      map.addLayer(marker_63)
+      
+      var marker_64_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_64 = L.marker([37.7913, 
+							-122.399051],
+							{'icon':marker_64_icon}
+							);
+      marker_64.bindPopup(&quot;Mechanics Plaza (Market at Battery)&quot;);
+      marker_64._popup.options.maxWidth = 300;
+      map.addLayer(marker_64)
+      
+      var marker_65_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_65 = L.marker([37.786305, 
+							-122.404966],
+							{'icon':marker_65_icon}
+							);
+      marker_65.bindPopup(&quot;Market at 4th&quot;);
+      marker_65._popup.options.maxWidth = 300;
+      map.addLayer(marker_65)
+      
+      var marker_66_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_66 = L.marker([37.789625, 
+							-122.400811],
+							{'icon':marker_66_icon}
+							);
+      marker_66.bindPopup(&quot;Market at Sansome&quot;);
+      marker_66._popup.options.maxWidth = 300;
+      map.addLayer(marker_66)
+      
+      var marker_67_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_67 = L.marker([37.352601, 
+							-121.905733],
+							{'icon':marker_67_icon}
+							);
+      marker_67.bindPopup(&quot;Santa Clara County Civic Center&quot;);
+      marker_67._popup.options.maxWidth = 300;
+      map.addLayer(marker_67)
+      
+      var marker_68_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'orange',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_68 = L.marker([37.798541, 
+							-122.400862],
+							{'icon':marker_68_icon}
+							);
+      marker_68.bindPopup(&quot;Broadway St at Battery St&quot;);
+      marker_68._popup.options.maxWidth = 300;
+      map.addLayer(marker_68)
+      
+      var marker_69_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'green',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_69 = L.marker([37.491269, 
+							-122.236234],
+							{'icon':marker_69_icon}
+							);
+      marker_69.bindPopup(&quot;Mezes Park&quot;);
+      marker_69._popup.options.maxWidth = 300;
+      map.addLayer(marker_69)
+      
+      var marker_70_icon = L.AwesomeMarkers.icon({ icon: 'info-sign',markerColor: 'purple',prefix: 'glyphicon',extraClasses: 'fa-rotate-0'});
+      var marker_70 = L.marker([37.342725, 
+							-121.895617],
+							{'icon':marker_70_icon}
+							);
+      marker_70.bindPopup(&quot;Ryland Park&quot;);
+      marker_70._popup.options.maxWidth = 300;
+      map.addLayer(marker_70)
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+   &lt;/script&gt;
+
+&lt;/body&gt;" style="width: 960px; height: 500px"></iframe></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now the markers have five different colors for the five different cities.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Where-do-most-of-the-rentals-originate?">Where do most of the rentals originate?<a class="anchor-link" href="#Where-do-most-of-the-rentals-originate?">¶</a></h3><p>To see where most of the bike rentals originate, let's identify the start stations:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">starts</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">'Start Station'</span><span class="p">)</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">starts</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Start Station</th> <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>San Francisco Caltrain (Townsend at 4th)</td> <td>26304</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>San Francisco Caltrain 2 (330 Townsend) </td> <td>21758</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Harry Bridges Plaza (Ferry Building)    </td> <td>17255</td>
+        </tr>
+    </tbody>
+</table>
+<p>... (67 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can include this information in <code>stations</code>, again by using <code>apply</code>.  We previously defined the function <code>find_trip_count</code>, which is reproduced below:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">starts</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Start Station"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">find_trip_count</span><span class="p">(</span><span class="n">station_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">starts</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">"Start Station"</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">station_name</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some of the stations in the <code>stations</code> dataset are not present in the <code>trips</code> dataset.  We must filter them out before applying <code>find_trip_count</code> to the remainder.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stations_with_trip_data</span> <span class="o">=</span> <span class="n">stations</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">contained_in</span><span class="p">(</span><span class="n">starts</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"Start Station"</span><span class="p">)))</span>
+<span class="n">count_by_station</span> <span class="o">=</span> <span class="n">stations_with_trip_data</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
+    <span class="s2">"Number of trips"</span><span class="p">,</span>
+    <span class="n">stations_with_trip_data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">find_trip_count</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">))</span>
+<span class="n">count_by_station</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>station_id</th> <th>name</th> <th>lat</th> <th>long</th> <th>dockcount</th> <th>landmark</th> <th>installation</th> <th>Number of trips</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2         </td> <td>San Jose Diridon Caltrain Station</td> <td>37.3297</td> <td>-121.902</td> <td>27       </td> <td>San Jose</td> <td>8/6/2013    </td> <td>4968           </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3         </td> <td>San Jose Civic Center            </td> <td>37.3307</td> <td>-121.889</td> <td>15       </td> <td>San Jose</td> <td>8/5/2013    </td> <td>774            </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4         </td> <td>Santa Clara at Almaden           </td> <td>37.334 </td> <td>-121.895</td> <td>11       </td> <td>San Jose</td> <td>8/6/2013    </td> <td>1958           </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5         </td> <td>Adobe on Almaden                 </td> <td>37.3314</td> <td>-121.893</td> <td>19       </td> <td>San Jose</td> <td>8/5/2013    </td> <td>562            </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>6         </td> <td>San Pedro Square                 </td> <td>37.3367</td> <td>-121.894</td> <td>15       </td> <td>San Jose</td> <td>8/7/2013    </td> <td>1418           </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>7         </td> <td>Paseo de San Antonio             </td> <td>37.3338</td> <td>-121.887</td> <td>15       </td> <td>San Jose</td> <td>8/7/2013    </td> <td>856            </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>8         </td> <td>San Salvador at 1st              </td> <td>37.3302</td> <td>-121.886</td> <td>15       </td> <td>San Jose</td> <td>8/5/2013    </td> <td>495            </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>9         </td> <td>Japantown                        </td> <td>37.3487</td> <td>-121.895</td> <td>15       </td> <td>San Jose</td> <td>8/5/2013    </td> <td>885            </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>10        </td> <td>San Jose City Hall               </td> <td>37.3374</td> <td>-121.887</td> <td>15       </td> <td>San Jose</td> <td>8/6/2013    </td> <td>832            </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>11        </td> <td>MLK Library                      </td> <td>37.3359</td> <td>-121.886</td> <td>19       </td> <td>San Jose</td> <td>8/6/2013    </td> <td>1099           </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (58 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we extract just the data needed for drawing our map, adding a color and an area to each station. The area is 1000 times the count of the number of rentals starting at each station, where the constant 1000 was chosen so that the circles would appear at an appropriate scale on the map.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">starts_map_data</span> <span class="o">=</span> <span class="n">count_by_station</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+    <span class="s1">'color'</span><span class="p">,</span> <span class="s1">'blue'</span><span class="p">,</span>
+    <span class="s1">'area'</span><span class="p">,</span> <span class="n">count_by_station</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Number of trips'</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>
+<span class="p">)</span>
+<span class="n">starts_map_data</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Circle</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">starts_map_data</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>lat</th> <th>long</th> <th>name</th> <th>color</th> <th>area</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>37.3297</td> <td>-121.902</td> <td>San Jose Diridon Caltrain Station</td> <td>blue </td> <td>4968000</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>37.3307</td> <td>-121.889</td> <td>San Jose Civic Center            </td> <td>blue </td> <td>774000 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>37.334 </td> <td>-121.895</td> <td>Santa Clara at Almaden           </td> <td>blue </td> <td>1958000</td>
+        </tr>
+    </tbody>
+</table>
+<p>... (65 rows omitted)</p></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe ;="" border:="" none"="" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+   &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css&quot; /&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js&quot;&gt;&lt;/script&gt;
+
+   &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;&gt;
+   &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css&quot;&gt;
+   &lt;script src=&quot;https://rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css&quot;&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css&quot;&gt;
+
+   
+   
+   
+   
+
+   &lt;style&gt;
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+      }
+
+   &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+   &lt;div class=&quot;folium-map&quot; id=&quot;folium_583536b626b94da185a2478a2036735c&quot; style=&quot;width: 960px; height: 500px&quot;&gt;&lt;/div&gt;
+
+   &lt;script&gt;
+
+      
+
+      var base_tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 17,
+          minZoom: 8.0,
+          attribution: 'Map data (c) &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors'
+      });
+
+      var baseLayer = {
+        &quot;Base Layer&quot;: base_tile
+      };
+
+      /*
+      addition of the wms layers
+      */
+
+      
+
+      /*
+      addition of the tile layers
+      */
+      
+
+      /*
+      list of layers to be added
+      */
+      var layer_list = {
+      
+      };
+
+      /*
+      Bounding box.
+      */
+      var southWest = L.latLng(-90, -180),
+          northEast = L.latLng(90, 180),
+          bounds = L.latLngBounds(southWest, northEast);
+
+      /*
+      Creates the map and adds the selected layers
+      */
+      var map = L.map('folium_583536b626b94da185a2478a2036735c', {
+                                       center:[37.567251, -122.1481515],
+                                       zoom: 10.0,
+                                       maxBounds: bounds,
+                                       layers: [base_tile]
+                                     });
+
+      L.control.layers(baseLayer, layer_list).addTo(map);
+
+      //cluster group
+      var clusteredmarkers = L.markerClusterGroup();
+      //section for adding clustered markers
+      
+      //add the clustered markers to the group anyway
+      map.addLayer(clusteredmarkers);
+
+      
+
+      
+      var circle_1 = L.circle([37.329732, -121.901782], 709.481247346, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_1.bindPopup(&quot;San Jose Diridon Caltrain Station&quot;);
+      circle_1._popup.options.maxWidth = 300;
+      map.addLayer(circle_1)
+      
+      var circle_2 = L.circle([37.330698, -121.888979], 280.040347342, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_2.bindPopup(&quot;San Jose Civic Center&quot;);
+      circle_2._popup.options.maxWidth = 300;
+      map.addLayer(circle_2)
+      
+      var circle_3 = L.circle([37.333988, -121.894902], 445.406418422, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_3.bindPopup(&quot;Santa Clara at Almaden&quot;);
+      circle_3._popup.options.maxWidth = 300;
+      map.addLayer(circle_3)
+      
+      var circle_4 = L.circle([37.331415, -121.8932], 238.626287753, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_4.bindPopup(&quot;Adobe on Almaden&quot;);
+      circle_4._popup.options.maxWidth = 300;
+      map.addLayer(circle_4)
+      
+      var circle_5 = L.circle([37.336721, -121.894074], 379.042792314, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_5.bindPopup(&quot;San Pedro Square&quot;);
+      circle_5._popup.options.maxWidth = 300;
+      map.addLayer(circle_5)
+      
+      var circle_6 = L.circle([37.333798, -121.886943], 294.501159926, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_6.bindPopup(&quot;Paseo de San Antonio&quot;);
+      circle_6._popup.options.maxWidth = 300;
+      map.addLayer(circle_6)
+      
+      var circle_7 = L.circle([37.330165, -121.885831], 223.950856, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_7.bindPopup(&quot;San Salvador at 1st&quot;);
+      circle_7._popup.options.maxWidth = 300;
+      map.addLayer(circle_7)
+      
+      var circle_8 = L.circle([37.348742, -121.894715], 299.448238471, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_8.bindPopup(&quot;Japantown&quot;);
+      circle_8._popup.options.maxWidth = 300;
+      map.addLayer(circle_8)
+      
+      var circle_9 = L.circle([37.337391, -121.886995], 290.343287834, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_9.bindPopup(&quot;San Jose City Hall&quot;);
+      circle_9._popup.options.maxWidth = 300;
+      map.addLayer(circle_9)
+      
+      var circle_10 = L.circle([37.335885, -121.88566], 333.694442302, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_10.bindPopup(&quot;MLK Library&quot;);
+      circle_10._popup.options.maxWidth = 300;
+      map.addLayer(circle_10)
+      
+      var circle_11 = L.circle([37.332808, -121.883891], 219.379949471, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_11.bindPopup(&quot;SJSU 4th at San Carlos&quot;);
+      circle_11._popup.options.maxWidth = 300;
+      map.addLayer(circle_11)
+      
+      var circle_12 = L.circle([37.339301, -121.889937], 291.562125585, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_12.bindPopup(&quot;St James Park&quot;);
+      circle_12._popup.options.maxWidth = 300;
+      map.addLayer(circle_12)
+      
+      var circle_13 = L.circle([37.332692, -121.900084], 256.036727476, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_13.bindPopup(&quot;Arena Green / SAP Center&quot;);
+      circle_13._popup.options.maxWidth = 300;
+      map.addLayer(circle_13)
+      
+      var circle_14 = L.circle([37.333955, -121.877349], 223.724528649, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_14.bindPopup(&quot;SJSU - San Salvador at 9th&quot;);
+      circle_14._popup.options.maxWidth = 300;
+      map.addLayer(circle_14)
+      
+      var circle_15 = L.circle([37.481758, -122.226904], 90.5925817881, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_15.bindPopup(&quot;Franklin at Maple&quot;);
+      circle_15._popup.options.maxWidth = 300;
+      map.addLayer(circle_15)
+      
+      var circle_16 = L.circle([37.486078, -122.232089], 301.13528415, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_16.bindPopup(&quot;Redwood City Caltrain Station&quot;);
+      circle_16._popup.options.maxWidth = 300;
+      map.addLayer(circle_16)
+      
+      var circle_17 = L.circle([37.487616, -122.229951], 113.436283096, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_17.bindPopup(&quot;San Mateo County Center&quot;);
+      circle_17._popup.options.maxWidth = 300;
+      map.addLayer(circle_17)
+      
+      var circle_18 = L.circle([37.484219, -122.227424], 109.343036677, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_18.bindPopup(&quot;Redwood City Public Library&quot;);
+      circle_18._popup.options.maxWidth = 300;
+      map.addLayer(circle_18)
+      
+      var circle_19 = L.circle([37.48537, -122.203288], 210.180960289, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_19.bindPopup(&quot;Stanford in Redwood City&quot;);
+      circle_19._popup.options.maxWidth = 300;
+      map.addLayer(circle_19)
+      
+      var circle_20 = L.circle([37.487682, -122.223492], 123.280888812, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_20.bindPopup(&quot;Redwood City Medical Center&quot;);
+      circle_20._popup.options.maxWidth = 300;
+      map.addLayer(circle_20)
+      
+      var circle_21 = L.circle([37.389218, -122.081896], 400.488993239, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_21.bindPopup(&quot;Mountain View City Hall&quot;);
+      circle_21._popup.options.maxWidth = 300;
+      map.addLayer(circle_21)
+      
+      var circle_22 = L.circle([37.394358, -122.076713], 602.270568299, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_22.bindPopup(&quot;Mountain View Caltrain Station&quot;);
+      circle_22._popup.options.maxWidth = 300;
+      map.addLayer(circle_22)
+      
+      var circle_23 = L.circle([37.40694, -122.106758], 327.410769972, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_23.bindPopup(&quot;San Antonio Caltrain Station&quot;);
+      circle_23._popup.options.maxWidth = 300;
+      map.addLayer(circle_23)
+      
+      var circle_24 = L.circle([37.390277, -122.066553], 314.789004894, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_24.bindPopup(&quot;Evelyn Park and Ride&quot;);
+      circle_24._popup.options.maxWidth = 300;
+      map.addLayer(circle_24)
+      
+      var circle_25 = L.circle([37.400443, -122.108338], 329.108409667, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_25.bindPopup(&quot;San Antonio Shopping Center&quot;);
+      circle_25._popup.options.maxWidth = 300;
+      map.addLayer(circle_25)
+      
+      var circle_26 = L.circle([37.385956, -122.083678], 353.022741307, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_26.bindPopup(&quot;Castro Street and El Camino Real&quot;);
+      circle_26._popup.options.maxWidth = 300;
+      map.addLayer(circle_26)
+      
+      var circle_27 = L.circle([37.400241, -122.099076], 225.304045691, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_27.bindPopup(&quot;Rengstorff Avenue / California Street&quot;);
+      circle_27._popup.options.maxWidth = 300;
+      map.addLayer(circle_27)
+      
+      var circle_28 = L.circle([37.443988, -122.164759], 336.265432278, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_28.bindPopup(&quot;Palo Alto Caltrain Station&quot;);
+      circle_28._popup.options.maxWidth = 300;
+      map.addLayer(circle_28)
+      
+      var circle_29 = L.circle([37.444521, -122.163093], 247.586986943, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_29.bindPopup(&quot;University and Emerson&quot;);
+      circle_29._popup.options.maxWidth = 300;
+      map.addLayer(circle_29)
+      
+      var circle_30 = L.circle([37.429082, -122.142805], 201.316848418, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_30.bindPopup(&quot;California Ave Caltrain Station&quot;);
+      circle_30._popup.options.maxWidth = 300;
+      map.addLayer(circle_30)
+      
+      var circle_31 = L.circle([37.448598, -122.159504], 241.580218102, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_31.bindPopup(&quot;Cowper at University&quot;);
+      circle_31._popup.options.maxWidth = 300;
+      map.addLayer(circle_31)
+      
+      var circle_32 = L.circle([37.4256839, -122.1377775], 195.183926207, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_32.bindPopup(&quot;Park at Olive&quot;);
+      circle_32._popup.options.maxWidth = 300;
+      map.addLayer(circle_32)
+      
+      var circle_33 = L.circle([37.795001, -122.39997], 714.603922154, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_33.bindPopup(&quot;Clay at Battery&quot;);
+      circle_33._popup.options.maxWidth = 300;
+      map.addLayer(circle_33)
+      
+      var circle_34 = L.circle([37.79728, -122.398436], 718.421957817, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_34.bindPopup(&quot;Davis at Jackson&quot;);
+      circle_34._popup.options.maxWidth = 300;
+      map.addLayer(circle_34)
+      
+      var circle_35 = L.circle([37.794231, -122.402923], 780.605917493, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_35.bindPopup(&quot;Commercial at Montgomery&quot;);
+      circle_35._popup.options.maxWidth = 300;
+      map.addLayer(circle_35)
+      
+      var circle_36 = L.circle([37.799953, -122.398525], 714.391210757, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_36.bindPopup(&quot;Embarcadero at Vallejo&quot;);
+      circle_36._popup.options.maxWidth = 300;
+      map.addLayer(circle_36)
+      
+      var circle_37 = L.circle([37.790302, -122.390637], 751.508002368, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_37.bindPopup(&quot;Spear at Folsom&quot;);
+      circle_37._popup.options.maxWidth = 300;
+      map.addLayer(circle_37)
+      
+      var circle_38 = L.circle([37.795392, -122.394203], 1322.23183434, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_38.bindPopup(&quot;Harry Bridges Plaza (Ferry Building)&quot;);
+      circle_38._popup.options.maxWidth = 300;
+      map.addLayer(circle_38)
+      
+      var circle_39 = L.circle([37.791464, -122.391034], 877.28884123, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_39.bindPopup(&quot;Embarcadero at Folsom&quot;);
+      circle_39._popup.options.maxWidth = 300;
+      map.addLayer(circle_39)
+      
+      var circle_40 = L.circle([37.783871, -122.408433], 991.11496579, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_40.bindPopup(&quot;Powell Street BART&quot;);
+      circle_40._popup.options.maxWidth = 300;
+      map.addLayer(circle_40)
+      
+      var circle_41 = L.circle([37.787152, -122.388013], 870.739006359, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_41.bindPopup(&quot;Embarcadero at Bryant&quot;);
+      circle_41._popup.options.maxWidth = 300;
+      map.addLayer(circle_41)
+      
+      var circle_42 = L.circle([37.789756, -122.394643], 1209.41002438, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_42.bindPopup(&quot;Temporary Transbay Terminal (Howard at Beale)&quot;);
+      circle_42._popup.options.maxWidth = 300;
+      map.addLayer(circle_42)
+      
+      var circle_43 = L.circle([37.792251, -122.397086], 920.295481933, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_43.bindPopup(&quot;Beale at Market&quot;);
+      circle_43._popup.options.maxWidth = 300;
+      map.addLayer(circle_43)
+      
+      var circle_44 = L.circle([37.781752, -122.405127], 883.732812288, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_44.bindPopup(&quot;5th at Howard&quot;);
+      circle_44._popup.options.maxWidth = 300;
+      map.addLayer(circle_44)
+      
+      var circle_45 = L.circle([37.77865, -122.418235], 455.972662376, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_45.bindPopup(&quot;San Francisco City Hall&quot;);
+      circle_45._popup.options.maxWidth = 300;
+      map.addLayer(circle_45)
+      
+      var circle_46 = L.circle([37.781332, -122.418603], 607.796870311, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_46.bindPopup(&quot;Golden Gate at Polk&quot;);
+      circle_46._popup.options.maxWidth = 300;
+      map.addLayer(circle_46)
+      
+      var circle_47 = L.circle([37.80477, -122.403234], 1197.708361, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_47.bindPopup(&quot;Embarcadero at Sansome&quot;);
+      circle_47._popup.options.maxWidth = 300;
+      map.addLayer(circle_47)
+      
+      var circle_48 = L.circle([37.780526, -122.390288], 1192.11195857, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_48.bindPopup(&quot;2nd at Townsend&quot;);
+      circle_48._popup.options.maxWidth = 300;
+      map.addLayer(circle_48)
+      
+      var circle_49 = L.circle([37.785299, -122.396236], 900.260044629, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_49.bindPopup(&quot;2nd at Folsom&quot;);
+      circle_49._popup.options.maxWidth = 300;
+      map.addLayer(circle_49)
+      
+      var circle_50 = L.circle([37.786978, -122.398108], 821.461553, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_50.bindPopup(&quot;Howard at 2nd&quot;);
+      circle_50._popup.options.maxWidth = 300;
+      map.addLayer(circle_50)
+      
+      var circle_51 = L.circle([37.782259, -122.392738], 979.494914693, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_51.bindPopup(&quot;2nd at South Park&quot;);
+      circle_51._popup.options.maxWidth = 300;
+      map.addLayer(circle_51)
+      
+      var circle_52 = L.circle([37.771058, -122.402717], 1180.41048684, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_52.bindPopup(&quot;Townsend at 7th&quot;);
+      circle_52._popup.options.maxWidth = 300;
+      map.addLayer(circle_52)
+      
+      var circle_53 = L.circle([37.774814, -122.418954], 771.597871357, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_53.bindPopup(&quot;South Van Ness at Market&quot;);
+      circle_53._popup.options.maxWidth = 300;
+      map.addLayer(circle_53)
+      
+      var circle_54 = L.circle([37.776619, -122.417385], 1097.36150269, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_54.bindPopup(&quot;Market at 10th&quot;);
+      circle_54._popup.options.maxWidth = 300;
+      map.addLayer(circle_54)
+      
+      var circle_55 = L.circle([37.784878, -122.401014], 748.062094519, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_55.bindPopup(&quot;Yerba Buena Center of the Arts (3rd @ Howard)&quot;);
+      circle_55._popup.options.maxWidth = 300;
+      map.addLayer(circle_55)
+      
+      var circle_56 = L.circle([37.7766, -122.39547], 1484.77146851, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_56.bindPopup(&quot;San Francisco Caltrain 2 (330 Townsend)&quot;);
+      circle_56._popup.options.maxWidth = 300;
+      map.addLayer(circle_56)
+      
+      var circle_57 = L.circle([37.776617, -122.39526], 1632.52945288, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_57.bindPopup(&quot;San Francisco Caltrain (Townsend at 4th)&quot;);
+      circle_57._popup.options.maxWidth = 300;
+      map.addLayer(circle_57)
+      
+      var circle_58 = L.circle([37.788446, -122.408499], 806.838648617, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_58.bindPopup(&quot;Powell at Post (Union Square)&quot;);
+      circle_58._popup.options.maxWidth = 300;
+      map.addLayer(circle_58)
+      
+      var circle_59 = L.circle([37.781039, -122.411748], 886.708737447, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_59.bindPopup(&quot;Civic Center BART (7th at Market)&quot;);
+      circle_59._popup.options.maxWidth = 300;
+      map.addLayer(circle_59)
+      
+      var circle_60 = L.circle([37.798522, -122.407245], 919.083624066, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_60.bindPopup(&quot;Grant Avenue at Columbus Avenue&quot;);
+      circle_60._popup.options.maxWidth = 300;
+      map.addLayer(circle_60)
+      
+      var circle_61 = L.circle([37.794139, -122.394434], 1177.61752726, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_61.bindPopup(&quot;Steuart at Market&quot;);
+      circle_61._popup.options.maxWidth = 300;
+      map.addLayer(circle_61)
+      
+      var circle_62 = L.circle([37.7913, -122.399051], 788.16253204, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_62.bindPopup(&quot;Mechanics Plaza (Market at Battery)&quot;);
+      circle_62._popup.options.maxWidth = 300;
+      map.addLayer(circle_62)
+      
+      var circle_63 = L.circle([37.786305, -122.404966], 1001.2351327, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_63.bindPopup(&quot;Market at 4th&quot;);
+      circle_63._popup.options.maxWidth = 300;
+      map.addLayer(circle_63)
+      
+      var circle_64 = L.circle([37.789625, -122.400811], 1076.19814635, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_64.bindPopup(&quot;Market at Sansome&quot;);
+      circle_64._popup.options.maxWidth = 300;
+      map.addLayer(circle_64)
+      
+      var circle_65 = L.circle([37.352601, -121.905733], 232.6059158, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_65.bindPopup(&quot;Santa Clara County Civic Center&quot;);
+      circle_65._popup.options.maxWidth = 300;
+      map.addLayer(circle_65)
+      
+      var circle_66 = L.circle([37.798541, -122.400862], 881.896482382, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_66.bindPopup(&quot;Broadway St at Battery St&quot;);
+      circle_66._popup.options.maxWidth = 300;
+      map.addLayer(circle_66)
+      
+      var circle_67 = L.circle([37.491269, -122.236234], 146.560877905, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_67.bindPopup(&quot;Mezes Park&quot;);
+      circle_67._popup.options.maxWidth = 300;
+      map.addLayer(circle_67)
+      
+      var circle_68 = L.circle([37.342725, -121.895617], 336.867519478, {
+                            color: 'None',
+                            fillColor: 'blue',
+                            fillOpacity: 0.6
+                            });
+      circle_68.bindPopup(&quot;Ryland Park&quot;);
+      circle_68._popup.options.maxWidth = 300;
+      map.addLayer(circle_68)
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+   &lt;/script&gt;
+
+&lt;/body&gt;" style="width: 960px; height: 500px"></iframe></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That huge blob in San Francisco shows that the eastern section of the city is the unrivaled capital of bike rentals in the Bay Area.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Trip-duration">Trip duration<a class="anchor-link" href="#Trip-duration">¶</a></h3><p>Recall the first part of our hypothesis: "There is a negative association between urban density and duration of bike trips."  The map, plus a bit of background knowledge about the Bay Area, gives us a rough picture of urban density.  San Francisco to the north and San Jose to the south are large, relatively dense cities.  In between, the South Bay and Peninsula are relatively less dense.  If we can display average trip duration on this map, we can use this knowledge about density to check our hypothesis.</p>
+<p>We will start by adding the average trip duration to our <code>count_by_station</code> table, just as we did above.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">durations</span> <span class="o">=</span> <span class="n">trips</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Start Station"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">find_average_duration</span><span class="p">(</span><span class="n">station_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">durations</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">"Start Station"</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="n">station_name</span><span class="p">))</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"Duration mean"</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">with_duration</span> <span class="o">=</span> <span class="n">count_by_station</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
+    <span class="s2">"Average trip duration"</span><span class="p">,</span>
+    <span class="n">count_by_station</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">find_average_duration</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">))</span>
+<span class="n">with_duration</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>station_id</th> <th>name</th> <th>lat</th> <th>long</th> <th>dockcount</th> <th>landmark</th> <th>installation</th> <th>Number of trips</th> <th>Average trip duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2         </td> <td>San Jose Diridon Caltrain Station</td> <td>37.3297</td> <td>-121.902</td> <td>27       </td> <td>San Jose</td> <td>8/6/2013    </td> <td>4968           </td> <td>884.375              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3         </td> <td>San Jose Civic Center            </td> <td>37.3307</td> <td>-121.889</td> <td>15       </td> <td>San Jose</td> <td>8/5/2013    </td> <td>774            </td> <td>5458.04              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4         </td> <td>Santa Clara at Almaden           </td> <td>37.334 </td> <td>-121.895</td> <td>11       </td> <td>San Jose</td> <td>8/6/2013    </td> <td>1958           </td> <td>850.924              </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (65 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we will create a column of colors.  Bright red will show locations with long trips, and dark red or black will show locations with shorter trips.</p>
+<p>Unfortunately, the <code>map_table</code> function requires us to specify colors in a particular format, and converting to that format involves some rather technical details about color encodings.  We have written a function called <code>duration_to_color</code> to convert average trip duration numbers to <code>map_table</code>'s color format.  Don't worry about the implementation (the body of the function); the docstring describes what the function does.  We simply <code>apply</code> the <code>duration_to_color</code> function to our "Average trip duration" column to produce colors.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">duration_to_color</span><span class="p">(</span><span class="n">average_duration</span><span class="p">):</span>
+    <span class="sd">"""Converts an average trip duration to a string describing a color.</span>
+<span class="sd">    </span>
+<span class="sd">    Longer durations will be closer to bright red, and shorter durations</span>
+<span class="sd">    will be closer to black.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">      average_duration (float): The average trip duration for one</span>
+<span class="sd">        station.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">      (string): A string describing a color based on the given average</span>
+<span class="sd">        trip duration.  The string is in 6-digit hexidecimal format,</span>
+<span class="sd">        which is a common way to describe colors."""</span>
+    <span class="n">max_duration_color</span> <span class="o">=</span> <span class="mi">255</span>
+    <span class="n">color_bits</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">rescaled_duration</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">max_duration_color</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">256</span> <span class="o">*</span> <span class="n">average_duration</span> <span class="o">/</span> <span class="mi">5000</span><span class="p">))</span>
+    <span class="n">red_amount</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">color_bits</span><span class="p">)</span> <span class="o">*</span> <span class="n">rescaled_duration</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">'#</span><span class="si">{:06X}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">red_amount</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">color</span>
+
+<span class="n">duration_map_data</span> <span class="o">=</span> <span class="n">with_duration</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">'lat'</span><span class="p">,</span> <span class="s1">'long'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">)</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+    <span class="s1">'color'</span><span class="p">,</span> <span class="n">with_duration</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">duration_to_color</span><span class="p">,</span> <span class="s1">'Average trip duration'</span><span class="p">),</span>
+    <span class="s1">'area'</span><span class="p">,</span> <span class="n">with_duration</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Number of trips'</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4000</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">duration_map_data</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">Circle</span><span class="o">.</span><span class="n">map_table</span><span class="p">(</span><span class="n">duration_map_data</span><span class="p">,</span> <span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>lat</th> <th>long</th> <th>name</th> <th>color</th> <th>area</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>37.3297</td> <td>-121.902</td> <td>San Jose Diridon Caltrain Station</td> <td>#2D0000</td> <td>19872000</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>37.3307</td> <td>-121.889</td> <td>San Jose Civic Center            </td> <td>#FF0000</td> <td>3096000 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>37.334 </td> <td>-121.895</td> <td>Santa Clara at Almaden           </td> <td>#2B0000</td> <td>7832000 </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (65 rows omitted)</p></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<iframe ;="" border:="" none"="" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+   &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css&quot; /&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js&quot;&gt;&lt;/script&gt;
+
+   &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css&quot;&gt;
+   &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link href=&quot;https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css&quot;&gt;
+   &lt;script src=&quot;https://rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js&quot;&gt;&lt;/script&gt;
+
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css&quot;&gt;
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css&quot;&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js&quot;&gt;&lt;/script&gt;
+   &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js&quot;&gt;&lt;/script&gt;
+
+   &lt;link rel=&quot;stylesheet&quot; href=&quot;https://birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css&quot;&gt;
+
+   
+   
+   
+   
+
+   &lt;style&gt;
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+      }
+
+   &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+   &lt;div class=&quot;folium-map&quot; id=&quot;folium_a03dfbf564304409ac3b03438d397f80&quot; style=&quot;width: 960px; height: 500px&quot;&gt;&lt;/div&gt;
+
+   &lt;script&gt;
+
+      
+
+      var base_tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 17,
+          minZoom: 8.0,
+          attribution: 'Map data (c) &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors'
+      });
+
+      var baseLayer = {
+        &quot;Base Layer&quot;: base_tile
+      };
+
+      /*
+      addition of the wms layers
+      */
+
+      
+
+      /*
+      addition of the tile layers
+      */
+      
+
+      /*
+      list of layers to be added
+      */
+      var layer_list = {
+      
+      };
+
+      /*
+      Bounding box.
+      */
+      var southWest = L.latLng(-90, -180),
+          northEast = L.latLng(90, 180),
+          bounds = L.latLngBounds(southWest, northEast);
+
+      /*
+      Creates the map and adds the selected layers
+      */
+      var map = L.map('folium_a03dfbf564304409ac3b03438d397f80', {
+                                       center:[37.567251, -122.1481515],
+                                       zoom: 10.0,
+                                       maxBounds: bounds,
+                                       layers: [base_tile]
+                                     });
+
+      L.control.layers(baseLayer, layer_list).addTo(map);
+
+      //cluster group
+      var clusteredmarkers = L.markerClusterGroup();
+      //section for adding clustered markers
+      
+      //add the clustered markers to the group anyway
+      map.addLayer(clusteredmarkers);
+
+      
+
+      
+      var circle_1 = L.circle([37.329732, -121.901782], 1418.96249469, {
+                            color: 'None',
+                            fillColor: '#2D0000',
+                            fillOpacity: 1
+                            });
+      circle_1.bindPopup(&quot;San Jose Diridon Caltrain Station&quot;);
+      circle_1._popup.options.maxWidth = 300;
+      map.addLayer(circle_1)
+      
+      var circle_2 = L.circle([37.330698, -121.888979], 560.080694683, {
+                            color: 'None',
+                            fillColor: '#FF0000',
+                            fillOpacity: 1
+                            });
+      circle_2.bindPopup(&quot;San Jose Civic Center&quot;);
+      circle_2._popup.options.maxWidth = 300;
+      map.addLayer(circle_2)
+      
+      var circle_3 = L.circle([37.333988, -121.894902], 890.812836844, {
+                            color: 'None',
+                            fillColor: '#2B0000',
+                            fillOpacity: 1
+                            });
+      circle_3.bindPopup(&quot;Santa Clara at Almaden&quot;);
+      circle_3._popup.options.maxWidth = 300;
+      map.addLayer(circle_3)
+      
+      var circle_4 = L.circle([37.331415, -121.8932], 477.252575507, {
+                            color: 'None',
+                            fillColor: '#540000',
+                            fillOpacity: 1
+                            });
+      circle_4.bindPopup(&quot;Adobe on Almaden&quot;);
+      circle_4._popup.options.maxWidth = 300;
+      map.addLayer(circle_4)
+      
+      var circle_5 = L.circle([37.336721, -121.894074], 758.085584627, {
+                            color: 'None',
+                            fillColor: '#560000',
+                            fillOpacity: 1
+                            });
+      circle_5.bindPopup(&quot;San Pedro Square&quot;);
+      circle_5._popup.options.maxWidth = 300;
+      map.addLayer(circle_5)
+      
+      var circle_6 = L.circle([37.333798, -121.886943], 589.002319852, {
+                            color: 'None',
+                            fillColor: '#4D0000',
+                            fillOpacity: 1
+                            });
+      circle_6.bindPopup(&quot;Paseo de San Antonio&quot;);
+      circle_6._popup.options.maxWidth = 300;
+      map.addLayer(circle_6)
+      
+      var circle_7 = L.circle([37.330165, -121.885831], 447.901711999, {
+                            color: 'None',
+                            fillColor: '#5C0000',
+                            fillOpacity: 1
+                            });
+      circle_7.bindPopup(&quot;San Salvador at 1st&quot;);
+      circle_7._popup.options.maxWidth = 300;
+      map.addLayer(circle_7)
+      
+      var circle_8 = L.circle([37.348742, -121.894715], 598.896476942, {
+                            color: 'None',
+                            fillColor: '#790000',
+                            fillOpacity: 1
+                            });
+      circle_8.bindPopup(&quot;Japantown&quot;);
+      circle_8._popup.options.maxWidth = 300;
+      map.addLayer(circle_8)
+      
+      var circle_9 = L.circle([37.337391, -121.886995], 580.686575669, {
+                            color: 'None',
+                            fillColor: '#340000',
+                            fillOpacity: 1
+                            });
+      circle_9.bindPopup(&quot;San Jose City Hall&quot;);
+      circle_9._popup.options.maxWidth = 300;
+      map.addLayer(circle_9)
+      
+      var circle_10 = L.circle([37.335885, -121.88566], 667.388884603, {
+                            color: 'None',
+                            fillColor: '#370000',
+                            fillOpacity: 1
+                            });
+      circle_10.bindPopup(&quot;MLK Library&quot;);
+      circle_10._popup.options.maxWidth = 300;
+      map.addLayer(circle_10)
+      
+      var circle_11 = L.circle([37.332808, -121.883891], 438.759898943, {
+                            color: 'None',
+                            fillColor: '#640000',
+                            fillOpacity: 1
+                            });
+      circle_11.bindPopup(&quot;SJSU 4th at San Carlos&quot;);
+      circle_11._popup.options.maxWidth = 300;
+      map.addLayer(circle_11)
+      
+      var circle_12 = L.circle([37.339301, -121.889937], 583.124251171, {
+                            color: 'None',
+                            fillColor: '#290000',
+                            fillOpacity: 1
+                            });
+      circle_12.bindPopup(&quot;St James Park&quot;);
+      circle_12._popup.options.maxWidth = 300;
+      map.addLayer(circle_12)
+      
+      var circle_13 = L.circle([37.332692, -121.900084], 512.073454952, {
+                            color: 'None',
+                            fillColor: '#530000',
+                            fillOpacity: 1
+                            });
+      circle_13.bindPopup(&quot;Arena Green / SAP Center&quot;);
+      circle_13._popup.options.maxWidth = 300;
+      map.addLayer(circle_13)
+      
+      var circle_14 = L.circle([37.333955, -121.877349], 447.449057298, {
+                            color: 'None',
+                            fillColor: '#530000',
+                            fillOpacity: 1
+                            });
+      circle_14.bindPopup(&quot;SJSU - San Salvador at 9th&quot;);
+      circle_14._popup.options.maxWidth = 300;
+      map.addLayer(circle_14)
+      
+      var circle_15 = L.circle([37.481758, -122.226904], 181.185163576, {
+                            color: 'None',
+                            fillColor: '#660000',
+                            fillOpacity: 1
+                            });
+      circle_15.bindPopup(&quot;Franklin at Maple&quot;);
+      circle_15._popup.options.maxWidth = 300;
+      map.addLayer(circle_15)
+      
+      var circle_16 = L.circle([37.486078, -122.232089], 602.270568299, {
+                            color: 'None',
+                            fillColor: '#6E0000',
+                            fillOpacity: 1
+                            });
+      circle_16.bindPopup(&quot;Redwood City Caltrain Station&quot;);
+      circle_16._popup.options.maxWidth = 300;
+      map.addLayer(circle_16)
+      
+      var circle_17 = L.circle([37.487616, -122.229951], 226.872566191, {
+                            color: 'None',
+                            fillColor: '#AF0000',
+                            fillOpacity: 1
+                            });
+      circle_17.bindPopup(&quot;San Mateo County Center&quot;);
+      circle_17._popup.options.maxWidth = 300;
+      map.addLayer(circle_17)
+      
+      var circle_18 = L.circle([37.484219, -122.227424], 218.686073354, {
+                            color: 'None',
+                            fillColor: '#670000',
+                            fillOpacity: 1
+                            });
+      circle_18.bindPopup(&quot;Redwood City Public Library&quot;);
+      circle_18._popup.options.maxWidth = 300;
+      map.addLayer(circle_18)
+      
+      var circle_19 = L.circle([37.48537, -122.203288], 420.361920578, {
+                            color: 'None',
+                            fillColor: '#3C0000',
+                            fillOpacity: 1
+                            });
+      circle_19.bindPopup(&quot;Stanford in Redwood City&quot;);
+      circle_19._popup.options.maxWidth = 300;
+      map.addLayer(circle_19)
+      
+      var circle_20 = L.circle([37.487682, -122.223492], 246.561777625, {
+                            color: 'None',
+                            fillColor: '#FF0000',
+                            fillOpacity: 1
+                            });
+      circle_20.bindPopup(&quot;Redwood City Medical Center&quot;);
+      circle_20._popup.options.maxWidth = 300;
+      map.addLayer(circle_20)
+      
+      var circle_21 = L.circle([37.389218, -122.081896], 800.977986479, {
+                            color: 'None',
+                            fillColor: '#330000',
+                            fillOpacity: 1
+                            });
+      circle_21.bindPopup(&quot;Mountain View City Hall&quot;);
+      circle_21._popup.options.maxWidth = 300;
+      map.addLayer(circle_21)
+      
+      var circle_22 = L.circle([37.394358, -122.076713], 1204.5411366, {
+                            color: 'None',
+                            fillColor: '#400000',
+                            fillOpacity: 1
+                            });
+      circle_22.bindPopup(&quot;Mountain View Caltrain Station&quot;);
+      circle_22._popup.options.maxWidth = 300;
+      map.addLayer(circle_22)
+      
+      var circle_23 = L.circle([37.40694, -122.106758], 654.821539944, {
+                            color: 'None',
+                            fillColor: '#4A0000',
+                            fillOpacity: 1
+                            });
+      circle_23.bindPopup(&quot;San Antonio Caltrain Station&quot;);
+      circle_23._popup.options.maxWidth = 300;
+      map.addLayer(circle_23)
+      
+      var circle_24 = L.circle([37.390277, -122.066553], 629.578009788, {
+                            color: 'None',
+                            fillColor: '#2B0000',
+                            fillOpacity: 1
+                            });
+      circle_24.bindPopup(&quot;Evelyn Park and Ride&quot;);
+      circle_24._popup.options.maxWidth = 300;
+      map.addLayer(circle_24)
+      
+      var circle_25 = L.circle([37.400443, -122.108338], 658.216819334, {
+                            color: 'None',
+                            fillColor: '#8C0000',
+                            fillOpacity: 1
+                            });
+      circle_25.bindPopup(&quot;San Antonio Shopping Center&quot;);
+      circle_25._popup.options.maxWidth = 300;
+      map.addLayer(circle_25)
+      
+      var circle_26 = L.circle([37.385956, -122.083678], 706.045482614, {
+                            color: 'None',
+                            fillColor: '#550000',
+                            fillOpacity: 1
+                            });
+      circle_26.bindPopup(&quot;Castro Street and El Camino Real&quot;);
+      circle_26._popup.options.maxWidth = 300;
+      map.addLayer(circle_26)
+      
+      var circle_27 = L.circle([37.400241, -122.099076], 450.608091382, {
+                            color: 'None',
+                            fillColor: '#540000',
+                            fillOpacity: 1
+                            });
+      circle_27.bindPopup(&quot;Rengstorff Avenue / California Street&quot;);
+      circle_27._popup.options.maxWidth = 300;
+      map.addLayer(circle_27)
+      
+      var circle_28 = L.circle([37.443988, -122.164759], 672.530864555, {
+                            color: 'None',
+                            fillColor: '#9A0000',
+                            fillOpacity: 1
+                            });
+      circle_28.bindPopup(&quot;Palo Alto Caltrain Station&quot;);
+      circle_28._popup.options.maxWidth = 300;
+      map.addLayer(circle_28)
+      
+      var circle_29 = L.circle([37.444521, -122.163093], 495.173973886, {
+                            color: 'None',
+                            fillColor: '#FF0000',
+                            fillOpacity: 1
+                            });
+      circle_29.bindPopup(&quot;University and Emerson&quot;);
+      circle_29._popup.options.maxWidth = 300;
+      map.addLayer(circle_29)
+      
+      var circle_30 = L.circle([37.429082, -122.142805], 402.633696836, {
+                            color: 'None',
+                            fillColor: '#CD0000',
+                            fillOpacity: 1
+                            });
+      circle_30.bindPopup(&quot;California Ave Caltrain Station&quot;);
+      circle_30._popup.options.maxWidth = 300;
+      map.addLayer(circle_30)
+      
+      var circle_31 = L.circle([37.448598, -122.159504], 483.160436203, {
+                            color: 'None',
+                            fillColor: '#7F0000',
+                            fillOpacity: 1
+                            });
+      circle_31.bindPopup(&quot;Cowper at University&quot;);
+      circle_31._popup.options.maxWidth = 300;
+      map.addLayer(circle_31)
+      
+      var circle_32 = L.circle([37.4256839, -122.1377775], 390.367852414, {
+                            color: 'None',
+                            fillColor: '#F80000',
+                            fillOpacity: 1
+                            });
+      circle_32.bindPopup(&quot;Park at Olive&quot;);
+      circle_32._popup.options.maxWidth = 300;
+      map.addLayer(circle_32)
+      
+      var circle_33 = L.circle([37.795001, -122.39997], 1429.20784431, {
+                            color: 'None',
+                            fillColor: '#320000',
+                            fillOpacity: 1
+                            });
+      circle_33.bindPopup(&quot;Clay at Battery&quot;);
+      circle_33._popup.options.maxWidth = 300;
+      map.addLayer(circle_33)
+      
+      var circle_34 = L.circle([37.79728, -122.398436], 1436.84391563, {
+                            color: 'None',
+                            fillColor: '#2B0000',
+                            fillOpacity: 1
+                            });
+      circle_34.bindPopup(&quot;Davis at Jackson&quot;);
+      circle_34._popup.options.maxWidth = 300;
+      map.addLayer(circle_34)
+      
+      var circle_35 = L.circle([37.794231, -122.402923], 1561.21183499, {
+                            color: 'None',
+                            fillColor: '#290000',
+                            fillOpacity: 1
+                            });
+      circle_35.bindPopup(&quot;Commercial at Montgomery&quot;);
+      circle_35._popup.options.maxWidth = 300;
+      map.addLayer(circle_35)
+      
+      var circle_36 = L.circle([37.799953, -122.398525], 1428.78242151, {
+                            color: 'None',
+                            fillColor: '#540000',
+                            fillOpacity: 1
+                            });
+      circle_36.bindPopup(&quot;Embarcadero at Vallejo&quot;);
+      circle_36._popup.options.maxWidth = 300;
+      map.addLayer(circle_36)
+      
+      var circle_37 = L.circle([37.790302, -122.390637], 1503.01600474, {
+                            color: 'None',
+                            fillColor: '#2A0000',
+                            fillOpacity: 1
+                            });
+      circle_37.bindPopup(&quot;Spear at Folsom&quot;);
+      circle_37._popup.options.maxWidth = 300;
+      map.addLayer(circle_37)
+      
+      var circle_38 = L.circle([37.795392, -122.394203], 2644.46366868, {
+                            color: 'None',
+                            fillColor: '#470000',
+                            fillOpacity: 1
+                            });
+      circle_38.bindPopup(&quot;Harry Bridges Plaza (Ferry Building)&quot;);
+      circle_38._popup.options.maxWidth = 300;
+      map.addLayer(circle_38)
+      
+      var circle_39 = L.circle([37.791464, -122.391034], 1754.57768246, {
+                            color: 'None',
+                            fillColor: '#280000',
+                            fillOpacity: 1
+                            });
+      circle_39.bindPopup(&quot;Embarcadero at Folsom&quot;);
+      circle_39._popup.options.maxWidth = 300;
+      map.addLayer(circle_39)
+      
+      var circle_40 = L.circle([37.783871, -122.408433], 1982.22993158, {
+                            color: 'None',
+                            fillColor: '#420000',
+                            fillOpacity: 1
+                            });
+      circle_40.bindPopup(&quot;Powell Street BART&quot;);
+      circle_40._popup.options.maxWidth = 300;
+      map.addLayer(circle_40)
+      
+      var circle_41 = L.circle([37.787152, -122.388013], 1741.47801272, {
+                            color: 'None',
+                            fillColor: '#2D0000',
+                            fillOpacity: 1
+                            });
+      circle_41.bindPopup(&quot;Embarcadero at Bryant&quot;);
+      circle_41._popup.options.maxWidth = 300;
+      map.addLayer(circle_41)
+      
+      var circle_42 = L.circle([37.789756, -122.394643], 2418.82004875, {
+                            color: 'None',
+                            fillColor: '#1F0000',
+                            fillOpacity: 1
+                            });
+      circle_42.bindPopup(&quot;Temporary Transbay Terminal (Howard at Beale)&quot;);
+      circle_42._popup.options.maxWidth = 300;
+      map.addLayer(circle_42)
+      
+      var circle_43 = L.circle([37.792251, -122.397086], 1840.59096387, {
+                            color: 'None',
+                            fillColor: '#250000',
+                            fillOpacity: 1
+                            });
+      circle_43.bindPopup(&quot;Beale at Market&quot;);
+      circle_43._popup.options.maxWidth = 300;
+      map.addLayer(circle_43)
+      
+      var circle_44 = L.circle([37.781752, -122.405127], 1767.46562458, {
+                            color: 'None',
+                            fillColor: '#2C0000',
+                            fillOpacity: 1
+                            });
+      circle_44.bindPopup(&quot;5th at Howard&quot;);
+      circle_44._popup.options.maxWidth = 300;
+      map.addLayer(circle_44)
+      
+      var circle_45 = L.circle([37.77865, -122.418235], 911.945324752, {
+                            color: 'None',
+                            fillColor: '#5B0000',
+                            fillOpacity: 1
+                            });
+      circle_45.bindPopup(&quot;San Francisco City Hall&quot;);
+      circle_45._popup.options.maxWidth = 300;
+      map.addLayer(circle_45)
+      
+      var circle_46 = L.circle([37.781332, -122.418603], 1215.59374062, {
+                            color: 'None',
+                            fillColor: '#3A0000',
+                            fillOpacity: 1
+                            });
+      circle_46.bindPopup(&quot;Golden Gate at Polk&quot;);
+      circle_46._popup.options.maxWidth = 300;
+      map.addLayer(circle_46)
+      
+      var circle_47 = L.circle([37.80477, -122.403234], 2395.416722, {
+                            color: 'None',
+                            fillColor: '#410000',
+                            fillOpacity: 1
+                            });
+      circle_47.bindPopup(&quot;Embarcadero at Sansome&quot;);
+      circle_47._popup.options.maxWidth = 300;
+      map.addLayer(circle_47)
+      
+      var circle_48 = L.circle([37.780526, -122.390288], 2384.22391714, {
+                            color: 'None',
+                            fillColor: '#240000',
+                            fillOpacity: 1
+                            });
+      circle_48.bindPopup(&quot;2nd at Townsend&quot;);
+      circle_48._popup.options.maxWidth = 300;
+      map.addLayer(circle_48)
+      
+      var circle_49 = L.circle([37.785299, -122.396236], 1800.52008926, {
+                            color: 'None',
+                            fillColor: '#1B0000',
+                            fillOpacity: 1
+                            });
+      circle_49.bindPopup(&quot;2nd at Folsom&quot;);
+      circle_49._popup.options.maxWidth = 300;
+      map.addLayer(circle_49)
+      
+      var circle_50 = L.circle([37.786978, -122.398108], 1642.923106, {
+                            color: 'None',
+                            fillColor: '#230000',
+                            fillOpacity: 1
+                            });
+      circle_50.bindPopup(&quot;Howard at 2nd&quot;);
+      circle_50._popup.options.maxWidth = 300;
+      map.addLayer(circle_50)
+      
+      var circle_51 = L.circle([37.782259, -122.392738], 1958.98982939, {
+                            color: 'None',
+                            fillColor: '#230000',
+                            fillOpacity: 1
+                            });
+      circle_51.bindPopup(&quot;2nd at South Park&quot;);
+      circle_51._popup.options.maxWidth = 300;
+      map.addLayer(circle_51)
+      
+      var circle_52 = L.circle([37.771058, -122.402717], 2360.82097369, {
+                            color: 'None',
+                            fillColor: '#200000',
+                            fillOpacity: 1
+                            });
+      circle_52.bindPopup(&quot;Townsend at 7th&quot;);
+      circle_52._popup.options.maxWidth = 300;
+      map.addLayer(circle_52)
+      
+      var circle_53 = L.circle([37.774814, -122.418954], 1543.19574271, {
+                            color: 'None',
+                            fillColor: '#C60000',
+                            fillOpacity: 1
+                            });
+      circle_53.bindPopup(&quot;South Van Ness at Market&quot;);
+      circle_53._popup.options.maxWidth = 300;
+      map.addLayer(circle_53)
+      
+      var circle_54 = L.circle([37.776619, -122.417385], 2194.72300538, {
+                            color: 'None',
+                            fillColor: '#330000',
+                            fillOpacity: 1
+                            });
+      circle_54.bindPopup(&quot;Market at 10th&quot;);
+      circle_54._popup.options.maxWidth = 300;
+      map.addLayer(circle_54)
+      
+      var circle_55 = L.circle([37.784878, -122.401014], 1496.12418904, {
+                            color: 'None',
+                            fillColor: '#2E0000',
+                            fillOpacity: 1
+                            });
+      circle_55.bindPopup(&quot;Yerba Buena Center of the Arts (3rd @ Howard)&quot;);
+      circle_55._popup.options.maxWidth = 300;
+      map.addLayer(circle_55)
+      
+      var circle_56 = L.circle([37.7766, -122.39547], 2969.54293701, {
+                            color: 'None',
+                            fillColor: '#210000',
+                            fillOpacity: 1
+                            });
+      circle_56.bindPopup(&quot;San Francisco Caltrain 2 (330 Townsend)&quot;);
+      circle_56._popup.options.maxWidth = 300;
+      map.addLayer(circle_56)
+      
+      var circle_57 = L.circle([37.776617, -122.39526], 3265.05890576, {
+                            color: 'None',
+                            fillColor: '#2A0000',
+                            fillOpacity: 1
+                            });
+      circle_57.bindPopup(&quot;San Francisco Caltrain (Townsend at 4th)&quot;);
+      circle_57._popup.options.maxWidth = 300;
+      map.addLayer(circle_57)
+      
+      var circle_58 = L.circle([37.788446, -122.408499], 1613.67729723, {
+                            color: 'None',
+                            fillColor: '#430000',
+                            fillOpacity: 1
+                            });
+      circle_58.bindPopup(&quot;Powell at Post (Union Square)&quot;);
+      circle_58._popup.options.maxWidth = 300;
+      map.addLayer(circle_58)
+      
+      var circle_59 = L.circle([37.781039, -122.411748], 1773.41747489, {
+                            color: 'None',
+                            fillColor: '#350000',
+                            fillOpacity: 1
+                            });
+      circle_59.bindPopup(&quot;Civic Center BART (7th at Market)&quot;);
+      circle_59._popup.options.maxWidth = 300;
+      map.addLayer(circle_59)
+      
+      var circle_60 = L.circle([37.798522, -122.407245], 1838.16724813, {
+                            color: 'None',
+                            fillColor: '#3B0000',
+                            fillOpacity: 1
+                            });
+      circle_60.bindPopup(&quot;Grant Avenue at Columbus Avenue&quot;);
+      circle_60._popup.options.maxWidth = 300;
+      map.addLayer(circle_60)
+      
+      var circle_61 = L.circle([37.794139, -122.394434], 2355.23505452, {
+                            color: 'None',
+                            fillColor: '#2A0000',
+                            fillOpacity: 1
+                            });
+      circle_61.bindPopup(&quot;Steuart at Market&quot;);
+      circle_61._popup.options.maxWidth = 300;
+      map.addLayer(circle_61)
+      
+      var circle_62 = L.circle([37.7913, -122.399051], 1576.32506408, {
+                            color: 'None',
+                            fillColor: '#2F0000',
+                            fillOpacity: 1
+                            });
+      circle_62.bindPopup(&quot;Mechanics Plaza (Market at Battery)&quot;);
+      circle_62._popup.options.maxWidth = 300;
+      map.addLayer(circle_62)
+      
+      var circle_63 = L.circle([37.786305, -122.404966], 2002.4702654, {
+                            color: 'None',
+                            fillColor: '#3C0000',
+                            fillOpacity: 1
+                            });
+      circle_63.bindPopup(&quot;Market at 4th&quot;);
+      circle_63._popup.options.maxWidth = 300;
+      map.addLayer(circle_63)
+      
+      var circle_64 = L.circle([37.789625, -122.400811], 2152.39629271, {
+                            color: 'None',
+                            fillColor: '#2E0000',
+                            fillOpacity: 1
+                            });
+      circle_64.bindPopup(&quot;Market at Sansome&quot;);
+      circle_64._popup.options.maxWidth = 300;
+      map.addLayer(circle_64)
+      
+      var circle_65 = L.circle([37.352601, -121.905733], 465.211831599, {
+                            color: 'None',
+                            fillColor: '#4A0000',
+                            fillOpacity: 1
+                            });
+      circle_65.bindPopup(&quot;Santa Clara County Civic Center&quot;);
+      circle_65._popup.options.maxWidth = 300;
+      map.addLayer(circle_65)
+      
+      var circle_66 = L.circle([37.798541, -122.400862], 1763.79296476, {
+                            color: 'None',
+                            fillColor: '#280000',
+                            fillOpacity: 1
+                            });
+      circle_66.bindPopup(&quot;Broadway St at Battery St&quot;);
+      circle_66._popup.options.maxWidth = 300;
+      map.addLayer(circle_66)
+      
+      var circle_67 = L.circle([37.491269, -122.236234], 293.121755809, {
+                            color: 'None',
+                            fillColor: '#740000',
+                            fillOpacity: 1
+                            });
+      circle_67.bindPopup(&quot;Mezes Park&quot;);
+      circle_67._popup.options.maxWidth = 300;
+      map.addLayer(circle_67)
+      
+      var circle_68 = L.circle([37.342725, -121.895617], 673.735038956, {
+                            color: 'None',
+                            fillColor: '#2B0000',
+                            fillOpacity: 1
+                            });
+      circle_68.bindPopup(&quot;Ryland Park&quot;);
+      circle_68._popup.options.maxWidth = 300;
+      map.addLayer(circle_68)
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+   &lt;/script&gt;
+
+&lt;/body&gt;" style="width: 960px; height: 500px"></iframe></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conclusions">Conclusions<a class="anchor-link" href="#Conclusions">¶</a></h3><p>It seems that the locations with long trip durations are mostly in Palo Alto and Redwood City, with one exception in San Jose.  These are the least urban bike stations on the map.  The data are therefore compatible with our hypothesis.</p>
+<p>Until now, we have not proposed a causal mechanism for the association.  Here are a few that are plausible:</p>
+<ul>
+<li>Palo Alto and Redwood City are close to long bike routes in the hills to the southwest.  Perhaps people take long recreational biking trips through the hills.</li>
+<li>Perhaps Stanford students rent bicycles to get around campus for days at a time.</li>
+<li>Perhaps some people who live or work in the long suburban peninsula between San Francisco and San Jose commute for long distances by bicycle.</li>
+</ul>
+<p><strong>Question for thought:</strong> The <code>trips</code> dataset includes the date and time of day for the start and end of each trip.  How might we use this information to test some of the proposals above?</p></div></div></div>
