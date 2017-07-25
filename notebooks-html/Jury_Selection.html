@@ -11,423 +11,350 @@
 </script>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Jury-Selection">Jury Selection<a class="anchor-link" href="#Jury-Selection">¶</a></h3><p>In 2010, the ACLU presented a report on jury selection in Alameda County, California. The report concluded that certain ethnic groups are underrepresented among jury panelists in Alameda County, and suggested some reforms of the process by which eligible jurors are assigned to panels. In this section, we will perform our own analysis of the data and examine some questions that arise as a result.</p></div></div>
+<p>In the early 1960's, in Talladega County in Alabama, a black man called Robert Swain was convicted of raping a white woman and was sentenced to death. He appealed his sentence to the U.S. Supreme Court, citing among other factors the all-white jury. His case was called Swain v. Alabama. In this section, we will perform our own analysis of the data in the case and examine some questions that arise as a result.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Jury-Panels">Jury Panels<a class="anchor-link" href="#Jury-Panels">¶</a></h3><p>A jury panel is a group of people chosen to be prospective jurors; the final trial jury is selected from among them. Jury panels can consist of a few dozen people or several thousand, depending on the trial. By law, a jury panel is supposed to be representative of the community in which the trial is taking place. Section 197 of California's Code of Civil Procedure says, "All persons selected for jury service shall be selected at random, from a source or sources inclusive of a representative cross section of the population of the area served by the court."</p>
-<p>The final jury is selected from the panel by deliberate inclusion or exclusion. The law allows potential jurors to be excused for medical reasons; lawyers on both sides may strike a certain number of potential jurors from the list in what are called "peremptory challenges"; the trial judge might make a selection based on questionnaires filled out by the panel; and so on. But the initial panel is supposed to resemble a random sample of the population of eligible jurors.</p></div></div>
+<h3 id="Jury-Panels">Jury Panels<a class="anchor-link" href="#Jury-Panels">¶</a></h3><p>A jury panel is a group of people chosen to be prospective jurors; the final trial jury is selected from among them. Jury panels can consist of a few dozen people or several thousand, depending on the trial. When Robert Swain was tried, only men aged 21 or older were allowed to serve on juries in Talladega County.  There were around 16,000 eligible jurors in Talladega County, and there were 100 people selected for Swain's jury panel.</p>
+<p>The final jury is selected from the panel by deliberate inclusion or exclusion. The law allows potential jurors to be excused for medical reasons; lawyers on both sides may strike a certain number of potential jurors from the list for virtually any reason in what are called "peremptory challenges"; the trial judge might make a selection based on questionnaires filled out by the panel; and so on. But the initial panel is supposed to resemble a random sample of the population of eligible jurors.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Composition-of-Panels-in-Alameda-County">Composition of Panels in Alameda County<a class="anchor-link" href="#Composition-of-Panels-in-Alameda-County">¶</a></h3><p>The focus of the study by the ACLU of Northern California was the ethnic composition of jury panels in Alameda County. The ACLU compiled data on the ethnic composition of the jury panels in 11 felony trials in Alameda County in the years 2009 and 2010. In those panels, the total number of poeple who reported for jury service was 1453. The ACLU gathered demographic data on all of these prosepctive jurors, and compared those data with the composition of all eligible jurors in the county.</p>
-<p>The data are tabulated below in a table called <code>jury</code>. For each ethnicity, the first value is the proportion of all eligible juror candidates of that ethnicity. The second value is the proportion of people of that ethnicity among those who appeared for the process of selection into the jury.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jury</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">'Ethnicity'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'Asian'</span><span class="p">,</span> <span class="s1">'Black'</span><span class="p">,</span> <span class="s1">'Latino'</span><span class="p">,</span> <span class="s1">'White'</span><span class="p">,</span> <span class="s1">'Other'</span><span class="p">),</span>
-    <span class="s1">'Eligible'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.18</span><span class="p">,</span> <span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.54</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span>
-    <span class="s1">'Panels'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.54</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">jury</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>Ethnicity</th> <th>Eligible</th> <th>Panels</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Asian    </td> <td>0.15    </td> <td>0.26  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Black    </td> <td>0.18    </td> <td>0.08  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Latino   </td> <td>0.12    </td> <td>0.08  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>White    </td> <td>0.54    </td> <td>0.54  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Other    </td> <td>0.01    </td> <td>0.04  </td>
-        </tr>
-    </tbody>
-</table></div>
+<h3 id="Racial-bias-in-jury-selection">Racial bias in jury selection<a class="anchor-link" href="#Racial-bias-in-jury-selection">¶</a></h3><p>Swain argued that jury selection in his original trial had been racially biased.  26% of Talladega's population of 16,000 eligible jurors were black, but there were only 8 black men among the 100 selected for the jury panel. These 8 were all struck by peremptory challenges from the prosecution, so no black man was selected for the trial jury.</p>
+<p>In 1965, the Supreme Court of the United States denied Swain's appeal. In its ruling, the Court wrote "... the overall percentage disparity has been small and reflects no studied attempt to include or exclude a specified number of Negroes."</p>
+<p>If the jury panel was truly a random sample from the eligible population, we can use Python to <em>simulate</em> those random samples and see what would happen.  How often do you think you would find only 8 black men in a sample of 100, from a population in which 26% are black?</p>
+<p>If it turns out that that is an extremely rare event, then we can infer that the jury panel wasn't really a random sample from the eligible population.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Some ethnicities are overrepresented and some are underrepresented on the jury panels in the study. A bar chart is helpful for visualizing the differences.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jury</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Ethnicity'</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Jury_Selection_7_0.png"/></div>
+<h3 id="Simulating-the-eligible-juror-population">Simulating the eligible juror population<a class="anchor-link" href="#Simulating-the-eligible-juror-population">¶</a></h3></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Distance-between-Two-Distributions">Distance between Two Distributions<a class="anchor-link" href="#Distance-between-Two-Distributions">¶</a></h3><p>Visualizations give us a quick sense of the similarities and differences between two distributions. To say something more precise about those differences, we must first quantify the difference between two distributions. This will allow our analyses to be based on more than the assessements that we are able to make by eye.</p>
-<p>To measure the difference between the two distributions, we will compute a quantity called the <em>total variation distance</em> between them.</p>
-<p>To compute the total variation distance, we first take the difference between the two proportions in each category.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Augment the table with a column of differences between proportions</span>
-
-<span class="n">jury_with_diffs</span> <span class="o">=</span> <span class="n">jury</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">'Difference'</span><span class="p">,</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Panels'</span><span class="p">)</span> <span class="o">-</span> <span class="n">jury</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Eligible'</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">jury_with_diffs</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>Ethnicity</th> <th>Eligible</th> <th>Panels</th> <th>Difference</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Asian    </td> <td>0.15    </td> <td>0.26  </td> <td>0.11      </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Black    </td> <td>0.18    </td> <td>0.08  </td> <td>-0.1      </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Latino   </td> <td>0.12    </td> <td>0.08  </td> <td>-0.04     </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>White    </td> <td>0.54    </td> <td>0.54  </td> <td>0         </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Other    </td> <td>0.01    </td> <td>0.04  </td> <td>0.03      </td>
-        </tr>
-    </tbody>
-</table></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Take a look at the column <code>Difference</code> and notice that the sum of its entries is 0: the positive entries add up to 0.14, exactly canceling the total of the negative entries which is -0.14.</p>
-<p>This is numerical evidence of the fact that in the bar chart, the gold bars exceed the blue bars by exactly as much as the blue bars exceed the gold. The proportions in each of the two columns <code>Panels</code> and <code>Eligible</code> add up to 1, and so the give-and-take between their entries must add up to 0.</p>
-<p>To avoid the cancellation, we drop the negative signs and then add all the entries. But this gives us two times the total of the positive entries (equivalently, two times the total of the negative entries, with the sign removed). So we divide the sum by 2.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jury_with_diffs</span> <span class="o">=</span> <span class="n">jury_with_diffs</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span>
-    <span class="s1">'Abs. Difference'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">jury_with_diffs</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Difference'</span><span class="p">))</span>
-<span class="p">)</span>
-
-<span class="n">jury_with_diffs</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>Ethnicity</th> <th>Eligible</th> <th>Panels</th> <th>Difference</th> <th>Abs. Difference</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Asian    </td> <td>0.15    </td> <td>0.26  </td> <td>0.11      </td> <td>0.11           </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Black    </td> <td>0.18    </td> <td>0.08  </td> <td>-0.1      </td> <td>0.1            </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Latino   </td> <td>0.12    </td> <td>0.08  </td> <td>-0.04     </td> <td>0.04           </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>White    </td> <td>0.54    </td> <td>0.54  </td> <td>0         </td> <td>0              </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>Other    </td> <td>0.01    </td> <td>0.04  </td> <td>0.03      </td> <td>0.03           </td>
-        </tr>
-    </tbody>
-</table></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jury_with_diffs</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Abs. Difference'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span>
-</pre></div></div></div>
-<div class="output_text output_subarea output_execute_result">
-<pre>0.14000000000000001</pre></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This quantity 0.14 is the <em>total variation distance</em> (TVD) between the distribution of ethnicities in the eligible juror population and the distribution in the panels.</p>
-<p>We could have obtained the same result by just adding the positive differences. But our method of including all the absolute differences eliminates the need to keep track of which differences are positive and which are not.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Functions-for-Computing-Total-Variation-Distance">Functions for Computing Total Variation Distance<a class="anchor-link" href="#Functions-for-Computing-Total-Variation-Distance">¶</a></h3><p>The function <code>total_variation_distance</code> returns the TVD between distributions in two arrays.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">total_variation_distance</span><span class="p">(</span><span class="n">distribution_1</span><span class="p">,</span> <span class="n">distribution_2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">distribution_1</span> <span class="o">-</span> <span class="n">distribution_2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span>
-</pre></div></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The function <code>table_tvd</code> uses the function <code>total_variation_distance</code> to return the TVD between distributions in two columns of a table.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">table_tvd</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">total_variation_distance</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">label</span><span class="p">),</span> <span class="n">table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
-
-<span class="n">table_tvd</span><span class="p">(</span><span class="n">jury</span><span class="p">,</span> <span class="s1">'Eligible'</span><span class="p">,</span> <span class="s1">'Panels'</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_text output_subarea output_execute_result">
-<pre>0.14000000000000001</pre></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Are-the-panels-representative-of-the-population?">Are the panels representative of the population?<a class="anchor-link" href="#Are-the-panels-representative-of-the-population?">¶</a></h3><p>We will now turn to the numerical value of the total variation distance between the eligible jurors and the panels. How can we interpret the distance of 0.14? To answer this, recall that the panels are supposed to be selected at random. It will therefore be informative to compare the value of 0.14 with the total variation distance between the eligible jurors and a randomly selected panel.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To do this, we will employ our skills at simulation. There were 1453 prosepective jurors in the panels in the study. So let us take a random sample of size 1453 from the population of eligible jurors.</p>
-<p><strong>Technical note.</strong> Random samples of prospective jurors would be selected without replacement. However, when the size of a sample is small relative to the size of the population, sampling without replacement resembles sampling with replacement; the proportions in the population don't change much between draws. The population of eligible jurors in Alameda County is over a million, and compared to that, a sample size of about 1500 is quite small. We will therefore sample with replacement.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Sampling-at-Random-from-the-Eligible-Population">Sampling at Random from the Eligible Population<a class="anchor-link" href="#Sampling-at-Random-from-the-Eligible-Population">¶</a></h3><p>Thus far, we have used <code>np.random.choice</code> to sample at random from elements of an array, and <code>sample</code> to sample rows of a table. But now we have to sample from a distribution: a set of ethnicities along with their proportions.</p>
-<p>For this, we use the function <code>proportions_from_distribution</code>. It has three arguments:</p>
+<p>Let us first create a table to simulate the population of eligible jurors.  It will have 16,000 rows, one for each person.  Since we are interested in whether selected jurors are black or not, we will have a single column called "Race" that identifies each person as "Black" or "Non-black".</p>
+<p>We will make use of two new <code>numpy</code> functions: <code>np.append</code> and <code>np.repeat</code>:</p>
 <ul>
-<li>table name</li>
-<li>label of column containing the proportions from which to sample</li>
-<li>sample size</li>
-</ul>
-<p>The function draws at random with replacement and returns a new table which is the old table augmented with a column labeled <code>Random Sample</code>. The column contains the proportions that appeared in the random sample.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The total size of all the panels was 1453, so let's assign that number to a name and then call <code>proportions_from_distribution</code>.</p></div></div>
+<li><code>np.append</code> takes two arrays as its arguments, and returns a new array that contains the elements of the first array and then the elements of the second.</li>
+<li><code>np.repeat</code> takes a value (like a string or number) as its first argument, and a number of repetitions as its second argument.  It returns an array containing that many copies of the value.</li>
+</ul></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">panel_size</span> <span class="o">=</span> <span class="mi">1453</span>
-</pre></div></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">panels_and_sample</span> <span class="o">=</span> <span class="n">proportions_from_distribution</span><span class="p">(</span><span class="n">jury</span><span class="p">,</span> <span class="s1">'Eligible'</span><span class="p">,</span> <span class="n">panel_size</span><span class="p">)</span>
-<span class="n">panels_and_sample</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Calculating the number of black and non-black people to simulate:</span>
+<span class="n">population</span> <span class="o">=</span> <span class="mi">16000</span>
+<span class="n">proportion_black</span> <span class="o">=</span> <span class="o">.</span><span class="mi">26</span>
+<span class="n">num_black</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">population</span><span class="o">*</span><span class="n">proportion_black</span><span class="p">)</span>
+<span class="n">num_nonblack</span> <span class="o">=</span> <span class="n">population</span> <span class="o">-</span> <span class="n">num_black</span>
+
+<span class="n">black</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">"Black"</span><span class="p">,</span> <span class="n">num_black</span><span class="p">)</span>
+<span class="n">non_black</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">"Non-black"</span><span class="p">,</span> <span class="n">num_nonblack</span><span class="p">)</span>
+<span class="n">black_and_non_black</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">black</span><span class="p">,</span> <span class="n">non_black</span><span class="p">)</span>
+
+<span class="n">eligible</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s2">"Race"</span><span class="p">,</span> <span class="n">black_and_non_black</span><span class="p">)</span>
+<span class="n">eligible</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table border="1" class="dataframe">
     <thead>
         <tr>
-            <th>Ethnicity</th> <th>Eligible</th> <th>Panels</th> <th>Random Sample</th>
+            <th>Race</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Asian    </td> <td>0.15    </td> <td>0.26  </td> <td>0.14797      </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Black    </td> <td>0.18    </td> <td>0.08  </td> <td>0.193393     </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Latino   </td> <td>0.12    </td> <td>0.08  </td> <td>0.116311     </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>White    </td> <td>0.54    </td> <td>0.54  </td> <td>0.532691     </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Other    </td> <td>0.01    </td> <td>0.04  </td> <td>0.00963524   </td>
-        </tr>
-    </tbody>
-</table></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It is clear from the results that the distribution of the random sample is quite close to the distribution of the eligible population, unlike the distribution of the panels.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>As always, it helps to visualize.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">panels_and_sample</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="s1">'Ethnicity'</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Jury_Selection_26_0.png"/></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The grey bars are a lot closer in size to the blue bars than the gold bars are. The random sample resembles the eligible population, but the panels don't.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>We can quantify this observation by calculating the total variation distance between the distribution of the eligible population and the random sample.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">table_tvd</span><span class="p">(</span><span class="n">panels_and_sample</span><span class="p">,</span> <span class="s1">'Eligible'</span><span class="p">,</span> <span class="s1">'Random Sample'</span><span class="p">)</span>
-</pre></div></div></div>
-<div class="output_text output_subarea output_execute_result">
-<pre>0.013392980041293877</pre></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Comparing this to the distance of 0.14 for the panel puts a numerical value on what we saw in the bar chart. The TVD between the eligible population and the panels was 0.14, but the TVD between the eligible population and the random sample is much smaller.</p>
-<p>Of course, the distance between the distributions of the random sample and the eligible jurors depends on the sample. Sampling again might give a different result.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="By-How-Much-Do-Random-Samples-Differ-from-the-Population?">By How Much Do Random Samples Differ from the Population?<a class="anchor-link" href="#By-How-Much-Do-Random-Samples-Differ-from-the-Population?">¶</a></h3><p>The total variation distance between the distributions of the random sample and the eligible jurors is the statistic that we are using to measure the distance between the two distributions. By repeating the process of sampling, we can see how much the statistic varies across different random samples. The code below computes the empirical distribution of the statistic based on a large number of replications of the sampling process.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute empirical distribution of TVDs</span>
-
-<span class="n">panel_size</span> <span class="o">=</span> <span class="mi">1453</span>
-<span class="n">repetitions</span> <span class="o">=</span> <span class="mi">5000</span>
-
-<span class="n">tvds</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">repetitions</span><span class="p">):</span>
-    
-    <span class="n">new_sample</span> <span class="o">=</span> <span class="n">proportions_from_distribution</span><span class="p">(</span><span class="n">jury</span><span class="p">,</span> <span class="s1">'Eligible'</span><span class="p">,</span> <span class="n">panel_size</span><span class="p">)</span>
-    <span class="n">tvds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tvds</span><span class="p">,</span> <span class="n">table_tvd</span><span class="p">(</span><span class="n">new_sample</span><span class="p">,</span> <span class="s1">'Eligible'</span><span class="p">,</span> <span class="s1">'Random Sample'</span><span class="p">))</span>
-
-<span class="n">results</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'TVD'</span><span class="p">,</span> <span class="n">tvds</span><span class="p">)</span>
-<span class="n">results</span>
-</pre></div></div></div>
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table border="1" class="dataframe">
-    <thead>
-        <tr>
-            <th>TVD</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>0.0247075 </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>0.0141569 </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>0.0138403 </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>0.0214384 </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>0.012278  </td>
+            <td>Black</td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>0.017309  </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>0.0219752 </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>0.0192017 </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>0.02351   </td>
-        </tr>
-    </tbody>
-        <tbody><tr>
-            <td>0.00818995</td>
+            <td>Black</td>
         </tr>
     </tbody>
 </table>
-<p>... (4990 rows omitted)</p></div>
+<p>... (15990 rows omitted)</p></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Each row of the column above contains the total variation distance between a random sample of size 1453 (the size of the panels) and the population of eligible jurors.</p>
-<p>The histogram of this column shows that drawing 1453 jurors at random from the pool of eligible candidates results in a distribution that rarely deviates from the eligible jurors' race distribution by more than 0.05.</p></div></div>
+<p>We can use <code>group</code> to verify that we've created the table we wanted.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">))</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Jury_Selection_34_0.png"/></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="How-do-the-panels-compare-with-random-samples?">How do the panels compare with random samples?<a class="anchor-link" href="#How-do-the-panels-compare-with-random-samples?">¶</a></h3><p>The panels in the study, however, were not quite so similar to the eligible population. The total variation distance between the panels and the population was 0.14, which is far out in the tail of the histogram above. It does not look like a typical distance between a random sample and the eligible population.</p>
-<p>So our analysis supports the ACLU's calculation that the panels were not representative of the distribution provided for the eligible jurors. As with most such analyses, however, it does not say <em>why</em> the distributions are different or what the difference might imply.</p>
-<p>The ACLU report discusses several possible reasons for the discrepancies. For example, some minority groups were underrepresented on the records of voter registration and of the Department of Motor Vehicles, the two main sources from which jurors are selected. At the time of the study, the county did not have an effective process for following up on prospective jurors who had been called but had failed to appear. The ACLU listed several other reasons as well. Whatever the reasons, it seems clear that the composition of the jury panels was different from what we would have expected in a random sample from the distribution in the <code>Eligible</code> column.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Questions-about-the-Data">Questions about the Data<a class="anchor-link" href="#Questions-about-the-Data">¶</a></h3><p>We have developed a powerful technique that helps decide whether one distribution looks like a random sample from another. But data science is about more than techniques. In particular, data science always involves a thoughtful examination of how the data were gathered.</p>
-<p><strong>Eligible Jurors.</strong> First, it is important to remember that not everyone is eligible to serve on a jury. On its <a href="http://www.alameda.courts.ca.gov/pages.aspx/jury-duty-overview">website</a>, the Superior Court of Alameda County says, "You may be called to serve if you are 18 years old, a U.S. citizen and a resident of the county or district where summoned. You must be able to understand English, and be physically and mentally capable of serving. In addition, you must not have served as any kind of juror in the past 12 months, nor have been convicted of a felony."</p>
-<p>The Census doesn't maintain records of the populations in all these categories. Thus the ACLU had to obtain the demographics of eligible jurors in some other way. Here is their own description of the process they followed and some flaws that it might contain.</p>
-<p>"For the purpose of determining the demographics of Alameda County’s jury eligible population, we used a declaration that was prepared for the Alameda County trial of People v. Stuart Alexander in 2002. In the declaration, Professor Weeks, a demographer at San Diego State University, estimated the jury eligible population for Alameda County, using the 2000 Census data. To arrive at this estimate, Professor Weeks took into account the number of people who are not eligible for jury services because they do not speak English, are not citizens, are under 18, or have a felony conviction. Thus, his estimate should be an accurate assessment of who is actually eligible for jury service in Alameda County, much more so than simply reviewing the Census report of the race and ethnicity of all people living in Alameda County. It should be noted, however, that the Census data on which Professor Weeks relied is now ten years old and the demographics of the county may have changed by two or three percent in some categories."</p>
-<p>Thus the distribution of ethnicities of eligible jurors used in the analysis is itself an estimate and might be somewhat out of date.</p>
-<p><strong>Panels.</strong> In addition, panels aren't selected from the entire eligible population. The Superior Court of Alameda County says, "The objective of the court is to provide an accurate cross-section of the county's population. The names of jurors are selected at random from everyone who is a registered voter and/or has a driver's license or identification card issued by the Department of Motor Vehicles."</p>
-<p>All of this raises complex questions about how to accurately estimate the ethnic composition of eligible jurors in Alameda County.</p>
-<p>It is not clear exactly how the 1453 panelists were classified into the different ethnic categories (the ACLU report says that "attorneys ... cooperated in collecting jury pool data"). There are serious social, cultural, and political factors that affect who gets classified or self-classifies into each ethnic category. We also don't know whether the definitions of those categories in the panels are the same as those used by Professor Weeks who in turn used Census categories in his estimation process. Thus there are also questions about the correspondence between the two distributions being compared.</p>
-<p>Thus, while we have a clear conclusion about the data in our table – the panels do not look like a random sample from the distribution provided for eligible jurors – questions about the nature of the data prevent us from concluding anything broader.</p></div></div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="U.S.-Supreme-Court,-1965:-Swain-vs.-Alabama">U.S. Supreme Court, 1965: Swain vs. Alabama<a class="anchor-link" href="#U.S.-Supreme-Court,-1965:-Swain-vs.-Alabama">¶</a></h3><p>In the early 1960's, in Talladega County in Alabama, a black man called Robert Swain was convicted of raping a white woman and was sentenced to death. He appealed his sentence, citing among other factors the all-white jury. At the time, only men aged 21 or older were allowed to serve on juries in Talladega County. In the county, 26% of the eligible jurors were black, but there were only 8 black men among the 100 selected for the jury panel in Swain's trial. No black man was selected for the trial jury.</p>
-<p>In 1965, the Supreme Court of the United States denied Swain's appeal. In its ruling, the Court wrote "... the overall percentage disparity has been small and reflects no studied attempt to include or exclude a specified number of Negroes."</p>
-<p>Let's use the methods we have developed to examine the disparity between 8 out of 100 black men in the panel and the distribution of the eligible jurors.</p></div></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">swain_jury</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
-    <span class="s1">'Ethnicity'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="s1">'Black'</span><span class="p">,</span> <span class="s1">'Other'</span><span class="p">),</span>
-    <span class="s1">'Eligible'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.26</span><span class="p">,</span> <span class="mf">0.74</span><span class="p">),</span>
-    <span class="s1">'Panel'</span><span class="p">,</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">swain_jury</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">eligible</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Race"</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table border="1" class="dataframe">
     <thead>
         <tr>
-            <th>Ethnicity</th> <th>Eligible</th> <th>Panel</th>
+            <th>Race</th> <th>count</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Black    </td> <td>0.26    </td> <td>0.08 </td>
+            <td>Black    </td> <td>4160 </td>
         </tr>
     </tbody>
         <tbody><tr>
-            <td>Other    </td> <td>0.74    </td> <td>0.92 </td>
+            <td>Non-black</td> <td>11840</td>
         </tr>
     </tbody>
 </table></div>
 <div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Simulating-random-sampling">Simulating random sampling<a class="anchor-link" href="#Simulating-random-sampling">¶</a></h3><p>Now we will use a new Table method to produce random samples from <code>eligible</code>.  The method <code>sample</code> takes a single argument, a sample size.  It returns a new table with a random selection of rows from the original table, with length equal to the sample size.  We will use the optional argument <code>with_replacement=False</code>, which we will discuss in a later section.</p></div></div>
+<div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">table_tvd</span><span class="p">(</span><span class="n">swain_jury</span><span class="p">,</span> <span class="s1">'Eligible'</span><span class="p">,</span> <span class="s1">'Panel'</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulated_panel</span> <span class="o">=</span> <span class="n">eligible</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">with_replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">simulated_panel</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Race</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Non-black</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Non-black</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Non-black</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Non-black</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Non-black</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Black    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Non-black</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Black    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Black    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Non-black</td>
+        </tr>
+    </tbody>
+</table>
+<p>... (90 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is a simulated sample of 100 people from the eligible population.  We can again use <code>group</code> to check its racial composition:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulated_panel</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Race"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Race</th> <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Black    </td> <td>23   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Non-black</td> <td>77   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The percentage of black people is close to 26%, the population percentage.  Maybe this was an accident, so we can try it again.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">eligible</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">with_replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Race"</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Race</th> <th>count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Black    </td> <td>31   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>Non-black</td> <td>69   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Studying-the-outcomes-of-sampling">Studying the outcomes of sampling<a class="anchor-link" href="#Studying-the-outcomes-of-sampling">¶</a></h3></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So far, it looks like 8 black people is pretty far from an ordinary outcome.  But to really be sure, we should sample more than twice.  Computers are very good at repeating a computation many times, so we will have Python do it thousands of times.  For this, it will be convenient to capture this sampling process in a function.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">count_black_in_sample</span><span class="p">(</span><span class="n">sample_size</span><span class="p">):</span>
+    <span class="sd">"""Simulates a jury panel of size sample_size sampled at random from the eligible population.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">      int: The number of black people in the randomly-sampled jury panel."""</span>
+    <span class="k">return</span> <span class="n">eligible</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_size</span><span class="p">,</span> <span class="n">with_replacement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>\
+                   <span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Race"</span><span class="p">)</span>\
+                   <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">"Race"</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">equal_to</span><span class="p">(</span><span class="s2">"Black"</span><span class="p">))</span>\
+                   <span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s2">"count"</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">count_black_in_sample</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_text output_subarea output_execute_result">
-<pre>0.18000000000000002</pre></div>
+<pre>24</pre></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The total variation distance between the two distributions is 0.18. How does this compare with the TVD between the distributions of the eligible population and a random sample?</p>
-<p>To answer this, we can simulate the TVD computed from a random sample.</p></div></div>
+<p>Now we can define a table to hold our simulation results, and use <code>apply</code> to call this function repeatedly.  To better organize our code, we will encapsulate that whole process in a function.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute empirical distribution of TVDs</span>
-
-<span class="n">panel_size</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">repetitions</span> <span class="o">=</span> <span class="mi">5000</span>
-
-<span class="n">tvds</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">()</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">repetitions</span><span class="p">):</span>
-    
-    <span class="n">new_sample</span> <span class="o">=</span> <span class="n">proportions_from_distribution</span><span class="p">(</span><span class="n">swain_jury</span><span class="p">,</span> <span class="s1">'Eligible'</span><span class="p">,</span> <span class="n">panel_size</span><span class="p">)</span>
-    <span class="n">tvds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tvds</span><span class="p">,</span> <span class="n">table_tvd</span><span class="p">(</span><span class="n">new_sample</span><span class="p">,</span> <span class="s1">'Eligible'</span><span class="p">,</span> <span class="s1">'Random Sample'</span><span class="p">))</span>
-
-<span class="n">results</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'TVD'</span><span class="p">,</span> <span class="n">tvds</span><span class="p">)</span>
-<span class="n">results</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">simulate_jury_pools</span><span class="p">(</span><span class="n">sample_size</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">):</span>
+    <span class="sd">"""Simulates num_simulations randomly-chosen jury panels, each of size sample_size.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">      Table: A table showing the simulation results.  There is one row for each</span>
+<span class="sd">        simulation.  The 'Number black in sample' column records how many black people</span>
+<span class="sd">        were in the simulated jury panel for each simulation."""</span>
+    <span class="n">sample_sizes</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+        <span class="s2">"Simulation #"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_simulations</span><span class="p">),</span>
+        <span class="s2">"Sample size"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">sample_size</span><span class="p">,</span> <span class="n">num_simulations</span><span class="p">))</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">sample_sizes</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span>
+        <span class="s2">"Number black in sample"</span><span class="p">,</span>
+        <span class="n">sample_sizes</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">count_black_in_sample</span><span class="p">,</span> <span class="s2">"Sample size"</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">samples</span>
 </pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="/notebooks-images/Jury_Selection_41_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation_results</span> <span class="o">=</span> <span class="n">simulate_jury_pools</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="n">simulation_results</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Simulation #</th> <th>Sample size</th> <th>Number black in sample</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0           </td> <td>100        </td> <td>26                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1           </td> <td>100        </td> <td>26                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2           </td> <td>100        </td> <td>25                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3           </td> <td>100        </td> <td>29                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4           </td> <td>100        </td> <td>27                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5           </td> <td>100        </td> <td>30                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>6           </td> <td>100        </td> <td>23                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>7           </td> <td>100        </td> <td>17                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>8           </td> <td>100        </td> <td>32                    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>9           </td> <td>100        </td> <td>20                    </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (9990 rows omitted)</p></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The random samples typically have a much smaller TVD than the value of 0.18 that we got for the panel and the eligible jurors.</p>
-<p>In this analysis, the data are not clouded by questions as in our previous analysis – the total numbers of people involved were relatively small, and the counting was done carefully for the Supreme Court case.</p>
-<p>Thus our analysis has a clear conclusion, which is that the panel was not representative of the population. It is hard to accept the Supreme Court's judgment that "the overall percentage disparity has been small."</p></div></div></div>
+<p>Since there are so many simulations, we should use a histogram to display the distribution of the number of black people in the 10,000 simulations.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation_results</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s2">"Number black in sample"</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Jury_Selection_23_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The histogram tells us that, if the jury panels were really randomly sampled from the eligible population, most panels would have between 15 and 40 black people.  There would essentially <em>never</em> be as few as 8 black people, which is what happened in Swain's trial.  Let us draw a line at the number 8 to emphasize that visually.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation_results</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="s2">"Number black in sample"</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"Red"</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="/notebooks-images/Jury_Selection_25_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have seen that histograms can be slightly misleading for displaying very small proportions.  It's a good idea to directly calculate the number of times there were fewer than 10 black jurors in our simulations:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simulation_results</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s2">"Number black in sample"</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">below</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">num_rows</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our analysis has a clear conclusion, which is that the panel was not a random sample from the eligible popoulation. The analysis does not tell how the jury panels were actually selected. But the Supreme Court's judgment that "the overall percentage disparity has been small," which suggests that Swain might have just been a little bit unlucky in the racial composition of his panel, is certainly false.</p></div></div></div>
