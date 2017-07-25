@@ -42,3 +42,5 @@
     * [How Long Do Trips Take?](chapters/07/3/1/how-long-do-trips-take.md)
     * [Do People Take Longer Trips Outside Cities?](chapters/07/3/2/the-relationship-between-station-popularity-and-trip-duration.md)
     * [Drawing Maps](chapters/07/3/3/drawing-maps.md)
+* [Randomness](chapters/08/randomness.md)
+  * [Jury Selection](chapters/08/1/jury-selection.md)
