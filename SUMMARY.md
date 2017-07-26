@@ -44,3 +44,5 @@
     * [Drawing Maps](chapters/07/3/3/drawing-maps.md)
 * [Randomness](chapters/08/randomness.md)
   * [Jury Selection](chapters/08/1/jury-selection.md)
+  * [The Terminology of Testing](chapters/08/2/terminology-of-testing.md)
+  * [Example: The GSI's Defense](chapters/08/3/example-the-gsis-defense.md)
